@@ -206,6 +206,9 @@ def hardware_thread(end_event, hw_queue) -> None:
 
   fan_controller = None
 
+  # dp
+  dp_device_is_clone = params.get_bool("dp_device_is_clone")
+
   while not end_event.is_set():
     sm.update(PANDA_STATES_TIMEOUT)
 
@@ -318,7 +321,8 @@ def hardware_thread(end_event, hw_queue) -> None:
     set_offroad_alert_if_changed("Offroad_TemperatureTooHigh", show_alert, extra_text=extra_text)
 
     # TODO: this should move to TICI.initialize_hardware, but we currently can't import params there
-    if TICI:
+    # dp - only check nvme issue with comma device
+    if TICI and not dp_device_is_clone:
       if not os.path.isfile("/persist/comma/living-in-the-moment"):
         if not Path("/data/media").is_mount():
           set_offroad_alert_if_changed("Offroad_StorageMissing", True)

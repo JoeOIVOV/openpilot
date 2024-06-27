@@ -67,6 +67,8 @@ class Controls:
     self._dp_alka_active = True
     self._dp_lat_lane_change_assist_mode = int(self.params.get("dp_lat_lane_change_assist_mode"))
     self._dp_lat_lane_change_assist_mode_disable_active = False
+    self._dp_device_dm_unavailable = self.params.get_bool("dp_device_dm_unavailable")
+    self._dp_device_dm_unavailable_active = True if self._dp_device_dm_unavailable else False
 
     if CI is None:
       cloudlog.info("controlsd is waiting for CarParams")
@@ -88,6 +90,9 @@ class Controls:
 
     self.sensor_packets = ["accelerometer", "gyroscope"]
     self.camera_packets = ["roadCameraState", "driverCameraState", "wideRoadCameraState"]
+
+    if self._dp_device_dm_unavailable_active:
+      self.camera_packets.remove("driverCameraState")
 
     self.log_sock = messaging.sub_sock('androidLog')
 
@@ -310,7 +315,14 @@ class Controls:
     else:
       if not SIMULATION and not self.rk.lagging:
         if not self.sm.all_alive(self.camera_packets):
-          self.events.add(EventName.cameraMalfunction)
+          if not self._dp_device_dm_unavailable_active and not self.sm.all_alive(['driverCameraState']):
+            self._dp_device_dm_unavailable_active = True
+            self.params.put_bool("dp_device_dm_unavailable", True)
+
+          if self._dp_device_dm_unavailable_active and not self.sm.all_alive(['driverCameraState']):
+            pass
+          else:
+            self.events.add(EventName.cameraMalfunction)
         elif not self.sm.all_freq_ok(self.camera_packets):
           self.events.add(EventName.cameraFrameRate)
     if not REPLAY and self.rk.lagging:

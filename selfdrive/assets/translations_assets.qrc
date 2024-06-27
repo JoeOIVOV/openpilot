@@ -4,6 +4,7 @@
 <file alias="main_de">../ui/translations/main_de.qm</file>
 <file alias="main_fr">../ui/translations/main_fr.qm</file>
 <file alias="main_pt-BR">../ui/translations/main_pt-BR.qm</file>
+<file alias="main_es">../ui/translations/main_es.qm</file>
 <file alias="main_tr">../ui/translations/main_tr.qm</file>
 <file alias="main_ar">../ui/translations/main_ar.qm</file>
 <file alias="main_th">../ui/translations/main_th.qm</file>

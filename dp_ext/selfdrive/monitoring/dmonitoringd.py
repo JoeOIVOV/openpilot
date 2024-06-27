@@ -18,16 +18,16 @@ def dmonitoringd_thread(sm=None, pm=None):
 
   # 10Hz <- dmonitoringmodeld
   while True:
-    dat = messaging.new_message('driverStateV2', valid=True)
+    dat = messaging.new_message('driverStateV2')
     dat.driverStateV2.leftDriverData.faceOrientation = [0., 0., 0.]
     dat.driverStateV2.leftDriverData.faceProb = 1.0
     dat.driverStateV2.rightDriverData.faceOrientation = [0., 0., 0.]
     dat.driverStateV2.rightDriverData.faceProb = 1.0
     pm.send('driverStateV2', dat)
 
+    # dmonitoringd output
     dat = messaging.new_message('driverMonitoringState', valid=True)
     dat.driverMonitoringState = {
-      "events": Events().to_msg(),
       "faceDetected": True,
       "isDistracted": False,
       "awarenessStatus": 1.,

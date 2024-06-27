@@ -136,10 +136,6 @@ class LongitudinalPlanner:
     # Reset current state when not engaged, or user is controlling the speed
     reset_state = long_control_off if self.CP.openpilotLongitudinalControl else not sm['controlsState'].enabled
 
-    # dp
-    if not reset_state:
-      reset_state = self._dynamic_endtoend_controller.has_changed()
-
     # No change cost when user is controlling the speed, or when standstill
     prev_accel_constraint = not (reset_state or sm['carState'].standstill)
 
@@ -199,14 +195,10 @@ class LongitudinalPlanner:
 
     plan_send.valid = sm.all_checks(service_list=['carState', 'controlsState'])
 
-
     longitudinalPlan = plan_send.longitudinalPlan
     longitudinalPlan.modelMonoTime = sm.logMonoTime['modelV2']
     longitudinalPlan.processingDelay = (plan_send.logMonoTime / 1e9) - sm.logMonoTime['modelV2']
     longitudinalPlan.solverExecutionTime = self.mpc.solve_time
-
-    longitudinalPlan.allowBrake = True
-    longitudinalPlan.allowThrottle = True
 
     longitudinalPlan.speeds = self.v_desired_trajectory.tolist()
     longitudinalPlan.accels = self.a_desired_trajectory.tolist()
@@ -223,7 +215,6 @@ class LongitudinalPlanner:
     longitudinalPlan.allowThrottle = True
 
     pm.send('longitudinalPlan', plan_send)
-
 
     # dp - extension
     plan_ext_send = messaging.new_message('longitudinalPlanExt')

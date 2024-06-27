@@ -50,6 +50,9 @@ def dp_onroad_uploads(started, params, CP: car.CarParams) -> bool:
   else:
     return always_run(started, params, CP)
 
+def dpdmonitoringd(started, params, CP: car.CarParams) -> bool:
+  return params.get_bool("dp_device_dm_unavailable") and started
+
 procs = [
   DaemonProcess("manage_athenad", "system.athena.manage_athenad", "AthenadPid"),
 
@@ -94,6 +97,9 @@ procs = [
   NativeProcess("bridge", "cereal/messaging", ["./bridge"], notcar),
   PythonProcess("webrtcd", "system.webrtc.webrtcd", notcar),
   PythonProcess("webjoystick", "tools.bodyteleop.web", notcar),
+
+  #dp
+  PythonProcess("dpdmonitoringd", "dp_ext.selfdrive.monitoring.dmonitoringd", dpdmonitoringd, enabled=not PC),
 ]
 
 managed_processes = {p.name: p for p in procs}

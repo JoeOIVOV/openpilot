@@ -69,6 +69,9 @@ def manager_init() -> None:
     ("dp_lat_lane_change_assist_auto_timer", "1.5"),
     ("dp_lat_road_edge_detection", "0"),
     ("dp_device_disable_logging", "0"),
+    ("dp_toyota_pcm_compensation", "0"),
+    ("dp_device_is_clone", "0"),
+    ("dp_device_dm_unavailable", "0"),
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.now(datetime.UTC).replace(tzinfo=None).isoformat().encode('utf8')))
@@ -152,6 +155,14 @@ def manager_thread() -> None:
   params = Params()
 
   ignore: list[str] = []
+  # dp
+  dp_device_dm_unavailable = params.get_bool("dp_device_dm_unavailable")
+  dp_device_is_clone = params.get_bool("dp_device_is_clone")
+  if dp_device_is_clone or dp_device_dm_unavailable:
+    ignore += ["manage_athenad", "uploader"]
+    if dp_device_dm_unavailable:
+      ignore += ["dmonitoringd", "dmonitoringmodeld"]
+
   if params.get("DongleId", encoding='utf8') in (None, UNREGISTERED_DONGLE_ID):
     ignore += ["manage_athenad", "uploader"]
   if os.getenv("NOBOARD") is not None:

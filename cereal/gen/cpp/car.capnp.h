@@ -142,6 +142,7 @@ enum class EventName_baa8c5d505f727de: uint16_t {
   LOCATIOND_PERMANENT_ERROR,
   PARAMSD_PERMANENT_ERROR,
   ACTUATORS_API_UNAVAILABLE,
+  ESP_ACTIVE,
 };
 CAPNP_DECLARE_ENUM(EventName, baa8c5d505f727de);
 CAPNP_DECLARE_SCHEMA(9da4fa09e052903c);
@@ -966,6 +967,8 @@ public:
 
   inline float getCumLagMs() const;
 
+  inline bool getEspActive() const;
+
 private:
   ::capnp::_::StructReader _reader;
   template <typename, ::capnp::Kind>
@@ -1172,6 +1175,9 @@ public:
 
   inline float getCumLagMs();
   inline void setCumLagMs(float value);
+
+  inline bool getEspActive();
+  inline void setEspActive(bool value);
 
 private:
   ::capnp::_::StructBuilder _builder;
@@ -4941,6 +4947,20 @@ inline float CarState::Builder::getCumLagMs() {
 inline void CarState::Builder::setCumLagMs(float value) {
   _builder.setDataField<float>(
       ::capnp::bounded<17>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool CarState::Reader::getEspActive() const {
+  return _reader.getDataField<bool>(
+      ::capnp::bounded<364>() * ::capnp::ELEMENTS);
+}
+
+inline bool CarState::Builder::getEspActive() {
+  return _builder.getDataField<bool>(
+      ::capnp::bounded<364>() * ::capnp::ELEMENTS);
+}
+inline void CarState::Builder::setEspActive(bool value) {
+  _builder.setDataField<bool>(
+      ::capnp::bounded<364>() * ::capnp::ELEMENTS, value);
 }
 
 inline float CarState::WheelSpeeds::Reader::getFl() const {
