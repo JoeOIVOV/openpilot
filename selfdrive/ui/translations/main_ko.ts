@@ -114,6 +114,380 @@
     </message>
 </context>
 <context>
+    <name>DPCtrlPanel</name>
+    <message>
+        <source>Ctrl - Lateral</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable ALKA (Always-on LKA)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot lateral Control will be always on when ACC MAIN is ON.
+Reboot required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lane Change Assist Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OP - Original behavior
+Disable - Temporary disable steering control.
+Hold - Keep the steering control with no assist.
+Auto - Change lane automatically.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Road Edge Detection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will block lane change if road edge is detected.
+Reboot required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lane Change Assist When Above</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When speed above the set value, openpilot will enable lane change assist.
+1 km/h = 0.62 mph.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> km/h</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Any</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Perform Auto Lane Change After</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> secs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Immediately</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl - Longitudinal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Slow Down on Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will reduce vehicle speed on curve road using algorithm found in taco2 branch.
+See https://github.com/commaai/openpilot/commit/7b97ddb3aacb222bfaf0b978c49cb5b756903ef7 for more information.
+Reboot required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Dynamic End-to-End Longitudinal Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will dynamically change between End-to-End or ACC mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On-Screen Personality Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will display an on-screen personality button.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Alt. Driving Personality When Below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When speed below the set value, openpilot will change &quot;Driving Personality&quot; to defined mode.
+1 km/h = 0.62 mph.
+Once activate, the lead vehicle indicator will display an &quot;A&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OFF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aggressive</source>
+        <translation type="unfinished">공격적</translation>
+    </message>
+    <message>
+        <source>Standard</source>
+        <translation type="unfinished">표준</translation>
+    </message>
+    <message>
+        <source>Relaxed</source>
+        <translation type="unfinished">편안한</translation>
+    </message>
+    <message>
+        <source>Alt. Driving Personality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Flight Panel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will show information such as pitch angle, altitude, compass on the driving screen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Tesla-style Rainbow Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot driving path will be replaced with rainbow path and color will change based on the speed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device</source>
+        <translation type="unfinished">장치</translation>
+    </message>
+    <message>
+        <source>Disable Logging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will not record any device or driving data.
+This will reduce power consumption and heat.
+Reboot required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable On-Road Upload</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will not upload driving log/videos to comma connect when driving. 
+Reboot required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Std.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MAIN+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OP+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MAIN-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OP-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Std. - Stock behavior.
+MAIN+ - ACC MAIN on = display ON, otherwise OFF.
+OP+ - OP enabled = display ON, otherwise OFF.
+MAIN- - ACC MAIN on = display OFF, otherwise ON.
+OP- - OP enabled = display OFF, otherwise ON.
+Reboot required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Navigation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Free Map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will display map panel without the need of prime or Mapbox key.
+Internet required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Free Routing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will perform route calculation without the need of prime or Mapbox key.
+This will connect to dragonpilot.org.
+Internet required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Road/Place Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will add road/place name to the map.
+Internet required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Traffic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will add traffic status to the map.
+This does not work in China.
+Internet required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toyota / Lexus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Stop and Go (SnG) Hack</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will stop sending standstill signal when the car is fully stopped.
+ONLY WORK ON SOME VEHICLES.
+Reboot Required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Enhanced BSM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will use diagnose CAN messages to receive unfiltered BSM signals, allowing detection of more objects.
+Tested on Prius TSS2 and RAV4 TSS1.
+ONLY WORK ON SOME VEHICLES.
+Reboot Required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Door Auto Locking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will attempt to lock the doors when drive above 10 km/h (6.2 mph).
+Reboot Required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Door Auto Unlocking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will attempt to unlock the doors when shift to gear P.
+Reboot Required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Zorro-Steering-Sensor (ZSS) Support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will use sensor outputs from ZSS for more accurate steering control.
+DO NOT ENABLE unless you have ZSS installed.
+Reboot Required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Longitudinal PCM compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, it will optimizes Toyota longitudinal control by improving response, eliminating dead zones, and enhancing overall driving smoothness and accuracy.
+See https://github.com/commaai/openpilot/pull/30697 for more information.
+Credits to cydia2020 https://github.com/cydia2020.
+Reboot Required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Automatic Brake Hold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will activate vehicle brake hold after 3 secs at standstill while openpilot is not engaging.
+(ONLY WORKS ON TSS2, USE AT YOUR OWN RISK!!).
+Credit to AlexandreSato: https://github.com/AlexandreSato/ 
+Reboot Required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VAG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SnG for A0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Known supported vehicles: POLO_MK6, TCROSS_MK1, TROC_MK1, SKODA_KAMIQ_MK1, SKODA_SCALA_MK1, TRANSPORTER_T61.
+Reboot required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyundai / Kia / Genesis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Low Speed Turn Enhancement (CAN-FD)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will use steering parameters found in &apos;Taco Bell&apos; for better low speed turns.
+Tested on Kia EV6 Only, may not work on other vehicles.
+Reboot required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset dragonpilot settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RESET</source>
+        <translation type="unfinished">초기화</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to reset all dp settings?
+This will also reboot your device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DeclinePage</name>
     <message>
         <source>You must accept the Terms and Conditions in order to use openpilot.</source>
@@ -538,6 +912,34 @@
         <source>now</source>
         <translation>now</translation>
     </message>
+    <message>
+        <source>Vehicle Model:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[AUTO SELECT]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Debug Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error displaying tmux output.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aggressive</source>
+        <translation type="unfinished">공격적</translation>
+    </message>
+    <message>
+        <source>Standard</source>
+        <translation type="unfinished">표준</translation>
+    </message>
+    <message>
+        <source>Relaxed</source>
+        <translation type="unfinished">편안한</translation>
+    </message>
 </context>
 <context>
     <name>Reset</name>
@@ -578,6 +980,17 @@ This may take up to a minute.</source>
     <message>
         <source>System reset triggered. Press confirm to erase all content and settings. Press cancel to resume boot.</source>
         <translation>시스템 재설정이 시작되었습니다. 모든 콘텐츠와 설정을 지우려면 확인을 누르시고 부팅을 재개하려면 취소를 누르세요.</translation>
+    </message>
+</context>
+<context>
+    <name>RouteSettingsWidget</name>
+    <message>
+        <source>Avoid Toll Road</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avoid Highway</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -869,6 +1282,26 @@ This may take up to a minute.</source>
     <message>
         <source>never</source>
         <translation>업데이트 안함</translation>
+    </message>
+    <message>
+        <source>Onroad/Offroad Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go Offroad</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to switch driving mode?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CONFIRM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go Onroad</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

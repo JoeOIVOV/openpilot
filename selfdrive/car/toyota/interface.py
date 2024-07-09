@@ -151,7 +151,7 @@ class CarInterface(CarInterfaceBase):
       if candidate in TSS2_CAR:
         ret.stopAccel = -1.2
       else:
-        ret.stopAccel = -2.5
+        ret.stopAccel = -2.0
 
     if candidate in TSS2_CAR:
       tune.kpV = [0.0]

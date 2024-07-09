@@ -114,6 +114,429 @@
     </message>
 </context>
 <context>
+    <name>DPCtrlPanel</name>
+    <message>
+        <source>Ctrl - Lateral</source>
+        <translation>控制 - 方向盤</translation>
+    </message>
+    <message>
+        <source>Enable ALKA (Always-on LKA)</source>
+        <translation>啟用 ALKA（全時車道保持）</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot lateral Control will be always on when ACC MAIN is ON.
+Reboot required.</source>
+        <translation>啟用後，當 ACC 主開關開啟時，Openpilot的方向盤控制將會一直開啟。
+需要重新啟動裝置。</translation>
+    </message>
+    <message>
+        <source>Disable</source>
+        <translation>停用</translation>
+    </message>
+    <message>
+        <source>Hold</source>
+        <translation>保持</translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation>自動</translation>
+    </message>
+    <message>
+        <source>Lane Change Assist Mode</source>
+        <translation>車道變換輔助模式</translation>
+    </message>
+    <message>
+        <source>Road Edge Detection</source>
+        <translation>道路邊緣偵測</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will block lane change if road edge is detected.
+Reboot required.</source>
+        <translation>啟用後，如果偵測到道路邊緣，Openpilot 將會阻止車道變換。
+需要重新啟動裝置。</translation>
+    </message>
+    <message>
+        <source>Lane Change Assist When Above</source>
+        <translation>車道變換輔助啟動於</translation>
+    </message>
+    <message>
+        <source>When speed above the set value, openpilot will enable lane change assist.
+1 km/h = 0.62 mph.</source>
+        <translation>當速度超過設定值時，Openpilot 將啟用車道變換輔助。
+1 km/h = 0.62 mph。</translation>
+    </message>
+    <message>
+        <source>Any</source>
+        <translation>任何</translation>
+    </message>
+    <message>
+        <source>Perform Auto Lane Change After</source>
+        <translation>自動車道變更於</translation>
+    </message>
+    <message>
+        <source> secs</source>
+        <translation> 秒後</translation>
+    </message>
+    <message>
+        <source>Immediately</source>
+        <translation>立即</translation>
+    </message>
+    <message>
+        <source>Ctrl - Longitudinal</source>
+        <translation>控制 - 油門/剎車</translation>
+    </message>
+    <message>
+        <source>Enable Slow Down on Curve</source>
+        <translation>啟用彎道減速</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will reduce vehicle speed on curve road using algorithm found in taco2 branch.
+See https://github.com/commaai/openpilot/commit/7b97ddb3aacb222bfaf0b978c49cb5b756903ef7 for more information.
+Reboot required.</source>
+        <translation>啟用後，Openpilot將使用在 taco2 分支中找到的算法，在彎道上減少車輛速度。
+詳細信息請查看https://github.com/commaai/openpilot/commit/7b97ddb3aacb222bfaf0b978c49cb5b756903ef7。
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>Enable Dynamic End-to-End Longitudinal Control</source>
+        <translation>啟用動態端到端縱向控制</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will dynamically change between End-to-End or ACC mode.
+Your vehicle must support openpilot longitudinal control.</source>
+        <translation type="obsolete">啟用後，Openpilot 將動態切換端到端或 ACC 模式。</translation>
+    </message>
+    <message>
+        <source>On-Screen Personality Button</source>
+        <translation>顯示駕駛風格按鈕</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will display an on-screen personality button.</source>
+        <translation>啟用後，ppenpilot 將在行車畫面上顯示駕駛風格按鈕。</translation>
+    </message>
+    <message>
+        <source>Use Alt. Driving Personality When Below</source>
+        <translation>使用代替駕駛風格當速度低於</translation>
+    </message>
+    <message>
+        <source>When speed below the set value, openpilot will change &quot;Driving Personality&quot; to defined mode.
+1 km/h = 0.62 mph.
+Once activate, the lead vehicle indicator will display an &quot;A&quot;</source>
+        <translation>當速度低於設定值時，openpilot將會切換到指定的「駕駛風格」。
+1 km/h = 0.62 mph。
+一旦啟用，前車指示將顯示一個「A」。</translation>
+    </message>
+    <message>
+        <source>OFF</source>
+        <translation>關閉</translation>
+    </message>
+    <message>
+        <source>Aggressive</source>
+        <translation>積極</translation>
+    </message>
+    <message>
+        <source>Standard</source>
+        <translation>標準</translation>
+    </message>
+    <message>
+        <source>Relaxed</source>
+        <translation>舒適</translation>
+    </message>
+    <message>
+        <source>Alt. Driving Personality</source>
+        <translation>代替駕駛風格</translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation>界面風格</translation>
+    </message>
+    <message>
+        <source>Display Flight Panel</source>
+        <translation>顯示飛行面板</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will show information such as pitch angle, altitude, compass on the driving screen.</source>
+        <translation>啟用後，openpilot 將在駕駛畫面上顯示俯仰角、海拔、指南針等資訊。</translation>
+    </message>
+    <message>
+        <source>Display Tesla-style Rainbow Path</source>
+        <translation>顯示特斯拉風格的彩虹路徑</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot driving path will be replaced with rainbow path and color will change based on the speed.</source>
+        <translation>啟用後，openpilot 的駕駛路徑將會被彩虹路徑取代，顏色會根據速度變化。</translation>
+    </message>
+    <message>
+        <source>Device</source>
+        <translation>裝置</translation>
+    </message>
+    <message>
+        <source>Disable Logging</source>
+        <translation>停用日誌記錄</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will not record any device or driving data.
+This will reduce power consumption and heat.
+Reboot required.</source>
+        <translation>啟用後，openpilot 將不會記錄任何裝置或駕駛數據。
+這將降低功耗和熱量。
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>Disable On-Road Upload</source>
+        <translation>行駛時停止記錄上傳</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will not upload driving log/videos to comma connect when driving. 
+Reboot required.</source>
+        <translation>啟用後，openpilot 在行駛時不會將駕駛日誌或影片上傳至 comma connect。
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>Std.</source>
+        <translation>Std.</translation>
+    </message>
+    <message>
+        <source>MAIN+</source>
+        <translation>MAIN+</translation>
+    </message>
+    <message>
+        <source>OP+</source>
+        <translation>OP+</translation>
+    </message>
+    <message>
+        <source>MAIN-</source>
+        <translation>MAIN-</translation>
+    </message>
+    <message>
+        <source>OP-</source>
+        <translation>OP-</translation>
+    </message>
+    <message>
+        <source>Display Mode</source>
+        <translation>顯示模式</translation>
+    </message>
+    <message>
+        <source>Std. - Stock behavior.
+MAIN+ - ACC MAIN on = display ON, otherwise OFF.
+OP+ - OP enabled = display ON, otherwise OFF.
+MAIN- - ACC MAIN on = display OFF, otherwise ON.
+OP- - OP enabled = display OFF, otherwise ON.
+Reboot required.</source>
+        <translation>Std. - 標準行為。
+MAIN+ - ACC 主開關開啟 = 顯示開啟，否則關閉。
+OP+ - openpilot 啟用 = 顯示開啟，否則關閉。
+MAIN- - ACC 主開關開啟 = 顯示關閉，否則開啟。
+OP- - openpilot 啟用 = 顯示關閉，否則開啟。
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>Navigation</source>
+        <translation>導航</translation>
+    </message>
+    <message>
+        <source>Display Free Map</source>
+        <translation>顯示免費地圖</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will display map panel without the need of prime or Mapbox key.
+Internet required.</source>
+        <translation>啟用後，openpilot 將顯示地圖面板，無需使用 prime 或 Mapbox 金鑰。
+需要網路。</translation>
+    </message>
+    <message>
+        <source>Use Free Routing</source>
+        <translation>使用免費導航服務</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will perform route calculation without the need of prime or Mapbox key.
+This will connect to dragonpilot.org.
+Internet required.</source>
+        <translation>啟用後，openpilot 將執行路線計算，無需 prime 或 Mapbox  金鑰。
+這將連接到 dragonpilot.org。
+需要網路。</translation>
+    </message>
+    <message>
+        <source>Display Road/Place Name</source>
+        <translation>顯示路名/地名</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will add road/place name to the map.
+Internet required.</source>
+        <translation>啟用後，openpilot 會將道路/地點名稱加入地圖。
+需要網路。</translation>
+    </message>
+    <message>
+        <source>Display Traffic</source>
+        <translation>顯示交通狀態</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will add traffic status to the map.
+This does not work in China.
+Internet required.</source>
+        <translation>啟用後，openpilot 會將交通狀態加入地圖。
+這在中國無法使用。
+需要網路。</translation>
+    </message>
+    <message>
+        <source>Toyota / Lexus</source>
+        <translation>Toyota / Lexus</translation>
+    </message>
+    <message>
+        <source>Enable Enhanced BSM</source>
+        <translation>啟用增強盲點輔助</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will use diagnose CAN messages to receive unfiltered BSM signals, allowing detection of more objects.
+Tested on Prius TSS2 and RAV4 TSS1.
+ONLY WORK ON SOME VEHICLES.
+Reboot Required.</source>
+        <translation>啟用後，openpilot 將使用診斷 CAN 訊息來接收未經過濾的 BSM 信號，以便偵測更多物件。
+在 Prius TSS2 和 RAV4 TSS1 上進行過測試。
+僅在部分車輛上適用。
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>Enable Door Auto Locking</source>
+        <translation>啟用車門自動上鎖</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will attempt to lock the doors when drive above 10 km/h (6.2 mph).
+Reboot Required.</source>
+        <translation>啟用後，當行駛速度超過10 km/h（6.2 mph）時，openpilot 將嘗試上鎖車門。
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>Enable Door Auto Unlocking</source>
+        <translation>啟用車門自動解鎖</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will attempt to unlock the doors when shift to gear P.
+Reboot Required.</source>
+        <translation>啟用後，當換到 P 檔時，openpilot 將嘗試解鎖車門。
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>Enable Zorro-Steering-Sensor (ZSS) Support</source>
+        <translation>啟用 Zorro-Steering-Sensor（ZSS）支援</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will use sensor outputs from ZSS for more accurate steering control.
+DO NOT ENABLE unless you have ZSS installed.
+Reboot Required.</source>
+        <translation>啟用後，openpilot 將使用來自 ZSS 的感測器輸出，以提供更精確的方向控制。
+請勿啟用，除非您已安裝了ZSS。
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>Enable Longitudinal PCM compensation</source>
+        <translation>啟用縱向動力補償</translation>
+    </message>
+    <message>
+        <source>When enabled, it will optimizes Toyota longitudinal control by improving response, eliminating dead zones, and enhancing overall driving smoothness and accuracy.
+See https://github.com/commaai/openpilot/pull/30697 for more information.
+Credits to cydia2020 https://github.com/cydia2020.
+Reboot Required.</source>
+        <translation>啟用後，將優化 Toyota 的縱向控制，改善響應速度，提升整體行駛平順度和準確性。
+詳細信息請參見 https://github.com/commaai/openpilot/pull/30697。
+感謝 cydia2020（https://github.com/cydia2020）的貢獻。
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>VAG</source>
+        <translation>VW / Audi</translation>
+    </message>
+    <message>
+        <source>SnG for A0</source>
+        <translation>SnG for A0 平台</translation>
+    </message>
+    <message>
+        <source>Known supported vehicles: POLO_MK6, TCROSS_MK1, TROC_MK1, SKODA_KAMIQ_MK1, SKODA_SCALA_MK1, TRANSPORTER_T61.
+Reboot required.</source>
+        <translation>已知支持的車輛包括：POLO MK6、TCROSS MK1、TROC MK1、SKODA KAMIQ MK1、SKODA SCALA MK1、TRANSPORTER T61。
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>Hyundai / Kia / Genesis</source>
+        <translation>Hyundai / Kia / Genesis</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will use steering parameters found in &apos;Taco Bell&apos; for better low speed turns.
+Tested on Kia EV6 Only, may not work on other vehicles.
+Reboot required.</source>
+        <translation>啟用後，openpilot 將使用在「Taco Bell」中找到的方向盤參數，以改善低速轉彎表現。
+僅在Kia EV6上進行過測試，可能不適用於其他車輛。
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>Reset dragonpilot settings</source>
+        <translation>重置 dragonpilot 設置</translation>
+    </message>
+    <message>
+        <source>RESET</source>
+        <translation>重設</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to reset all dp settings?
+This will also reboot your device.</source>
+        <translation>您確定要重置所有 dp 的設定嗎？
+這也會重新啟動您的裝置。</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation type="vanished">重設</translation>
+    </message>
+    <message>
+        <source>Enable Low Speed Turn Enhancement (CAN-FD)</source>
+        <translation>啟用低速轉彎增強（CAN-FD）</translation>
+    </message>
+    <message>
+        <source>OP</source>
+        <translation>OP</translation>
+    </message>
+    <message>
+        <source>OP - Original behavior
+Disable - Temporary disable steering control.
+Hold - Keep the steering control with no assist.
+Auto - Change lane automatically.</source>
+        <translation>OP - 原始行為
+停用 - 暫時停用方向控制。
+保持 - 保持方向控制，但不提供輔助。
+自動 - 自動變換車道。</translation>
+    </message>
+    <message>
+        <source> km/h</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will dynamically change between End-to-End or ACC mode.</source>
+        <translation>啟用後，openpilot 將動態切換端到端或 ACC 模式。</translation>
+    </message>
+    <message>
+        <source>Enable Automatic Brake Hold</source>
+        <translation>啟用自動煞車保持</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will activate vehicle brake hold after 3 secs at standstill while openpilot is not engaging.
+(ONLY WORKS ON TSS2, USE AT YOUR OWN RISK!!).
+Credit to AlexandreSato: https://github.com/AlexandreSato/ 
+Reboot Required.</source>
+        <translation>啟用後，當 openpilot 未啟動且車輛靜止 3 秒後，openpilot 將啟動車輛的煞車保持功能（僅適用於 TSS2，使用風險自負！）。
+感謝 Alexandre Sato 的貢獻：https://github.com/AlexandreSato/
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>Enable Stop and Go (SnG) Hack</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will stop sending standstill signal when the car is fully stopped.
+ONLY WORK ON SOME VEHICLES.
+Reboot Required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DeclinePage</name>
     <message>
         <source>You must accept the Terms and Conditions in order to use openpilot.</source>
@@ -488,7 +911,7 @@
     </message>
     <message>
         <source>Remote snapshots</source>
-        <translation type="unfinished"></translation>
+        <translation>遠端快照</translation>
     </message>
 </context>
 <context>
@@ -538,6 +961,34 @@
         <source>now</source>
         <translation>現在</translation>
     </message>
+    <message>
+        <source>Vehicle Model:</source>
+        <translation>車型選擇：</translation>
+    </message>
+    <message>
+        <source>[AUTO SELECT]</source>
+        <translation>自動偵測</translation>
+    </message>
+    <message>
+        <source>Debug Console</source>
+        <translation>除錯控制台</translation>
+    </message>
+    <message>
+        <source>Error displaying tmux output.</source>
+        <translation>無法顯示 tmux 輸出。</translation>
+    </message>
+    <message>
+        <source>Aggressive</source>
+        <translation>積極</translation>
+    </message>
+    <message>
+        <source>Standard</source>
+        <translation>標準</translation>
+    </message>
+    <message>
+        <source>Relaxed</source>
+        <translation>舒適</translation>
+    </message>
 </context>
 <context>
     <name>Reset</name>
@@ -578,6 +1029,17 @@ This may take up to a minute.</source>
     <message>
         <source>System reset triggered. Press confirm to erase all content and settings. Press cancel to resume boot.</source>
         <translation>系統重設已啟動。按下「確認」以清除所有內容和設定，或按下「取消」以繼續開機。</translation>
+    </message>
+</context>
+<context>
+    <name>RouteSettingsWidget</name>
+    <message>
+        <source>Avoid Toll Road</source>
+        <translation>避開收費道路</translation>
+    </message>
+    <message>
+        <source>Avoid Highway</source>
+        <translation>避開高速公路</translation>
     </message>
 </context>
 <context>
@@ -869,6 +1331,26 @@ This may take up to a minute.</source>
     <message>
         <source>never</source>
         <translation>從未更新</translation>
+    </message>
+    <message>
+        <source>Onroad/Offroad Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go Offroad</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to switch driving mode?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CONFIRM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go Onroad</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

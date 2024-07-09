@@ -296,6 +296,10 @@ CAPNP_DECLARE_SCHEMA(a2e4ea88ac9980f1);
 CAPNP_DECLARE_SCHEMA(ad9d8095c06f7c61);
 CAPNP_DECLARE_SCHEMA(a63a46f0f2889b2d);
 CAPNP_DECLARE_SCHEMA(fd5b914d6b444695);
+CAPNP_DECLARE_SCHEMA(e8f9ba819993a776);
+CAPNP_DECLARE_SCHEMA(ca1e4710874d12b5);
+CAPNP_DECLARE_SCHEMA(996ef0369d7e5625);
+CAPNP_DECLARE_SCHEMA(a0cfcfa4ed19ac5d);
 CAPNP_DECLARE_SCHEMA(c3cbae1fd505ae80);
 CAPNP_DECLARE_SCHEMA(c4713f6b0d36abe9);
 CAPNP_DECLARE_SCHEMA(a444ed2b2187af28);
@@ -1146,6 +1150,69 @@ struct ControlsState::LateralControlState {
 
   struct _capnpPrivate {
     CAPNP_DECLARE_STRUCT_HEADER(fd5b914d6b444695, 24, 6)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct DrivingModelData {
+  DrivingModelData() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+  struct PolyPath;
+  struct LaneLineMeta;
+  struct MetaData;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(e8f9ba819993a776, 2, 4)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct DrivingModelData::PolyPath {
+  PolyPath() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(ca1e4710874d12b5, 0, 3)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct DrivingModelData::LaneLineMeta {
+  LaneLineMeta() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(996ef0369d7e5625, 2, 0)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct DrivingModelData::MetaData {
+  MetaData() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(a0cfcfa4ed19ac5d, 1, 0)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -2496,6 +2563,7 @@ struct Event {
     CUSTOM_RESERVED_RAW_DATA1,
     CUSTOM_RESERVED_RAW_DATA2,
     CAR_OUTPUT,
+    DRIVING_MODEL_DATA,
   };
 
   struct _capnpPrivate {
@@ -8026,6 +8094,412 @@ private:
 class ControlsState::LateralControlState::Pipeline {
 public:
   typedef LateralControlState Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class DrivingModelData::Reader {
+public:
+  typedef DrivingModelData Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline  ::uint32_t getFrameId() const;
+
+  inline  ::uint32_t getFrameIdExtra() const;
+
+  inline bool hasAction() const;
+  inline  ::cereal::ModelDataV2::Action::Reader getAction() const;
+
+  inline bool hasLaneLineMeta() const;
+  inline  ::cereal::DrivingModelData::LaneLineMeta::Reader getLaneLineMeta() const;
+
+  inline bool hasMeta() const;
+  inline  ::cereal::DrivingModelData::MetaData::Reader getMeta() const;
+
+  inline bool hasPath() const;
+  inline  ::cereal::DrivingModelData::PolyPath::Reader getPath() const;
+
+  inline float getFrameDropPerc() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class DrivingModelData::Builder {
+public:
+  typedef DrivingModelData Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline  ::uint32_t getFrameId();
+  inline void setFrameId( ::uint32_t value);
+
+  inline  ::uint32_t getFrameIdExtra();
+  inline void setFrameIdExtra( ::uint32_t value);
+
+  inline bool hasAction();
+  inline  ::cereal::ModelDataV2::Action::Builder getAction();
+  inline void setAction( ::cereal::ModelDataV2::Action::Reader value);
+  inline  ::cereal::ModelDataV2::Action::Builder initAction();
+  inline void adoptAction(::capnp::Orphan< ::cereal::ModelDataV2::Action>&& value);
+  inline ::capnp::Orphan< ::cereal::ModelDataV2::Action> disownAction();
+
+  inline bool hasLaneLineMeta();
+  inline  ::cereal::DrivingModelData::LaneLineMeta::Builder getLaneLineMeta();
+  inline void setLaneLineMeta( ::cereal::DrivingModelData::LaneLineMeta::Reader value);
+  inline  ::cereal::DrivingModelData::LaneLineMeta::Builder initLaneLineMeta();
+  inline void adoptLaneLineMeta(::capnp::Orphan< ::cereal::DrivingModelData::LaneLineMeta>&& value);
+  inline ::capnp::Orphan< ::cereal::DrivingModelData::LaneLineMeta> disownLaneLineMeta();
+
+  inline bool hasMeta();
+  inline  ::cereal::DrivingModelData::MetaData::Builder getMeta();
+  inline void setMeta( ::cereal::DrivingModelData::MetaData::Reader value);
+  inline  ::cereal::DrivingModelData::MetaData::Builder initMeta();
+  inline void adoptMeta(::capnp::Orphan< ::cereal::DrivingModelData::MetaData>&& value);
+  inline ::capnp::Orphan< ::cereal::DrivingModelData::MetaData> disownMeta();
+
+  inline bool hasPath();
+  inline  ::cereal::DrivingModelData::PolyPath::Builder getPath();
+  inline void setPath( ::cereal::DrivingModelData::PolyPath::Reader value);
+  inline  ::cereal::DrivingModelData::PolyPath::Builder initPath();
+  inline void adoptPath(::capnp::Orphan< ::cereal::DrivingModelData::PolyPath>&& value);
+  inline ::capnp::Orphan< ::cereal::DrivingModelData::PolyPath> disownPath();
+
+  inline float getFrameDropPerc();
+  inline void setFrameDropPerc(float value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class DrivingModelData::Pipeline {
+public:
+  typedef DrivingModelData Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+  inline  ::cereal::ModelDataV2::Action::Pipeline getAction();
+  inline  ::cereal::DrivingModelData::LaneLineMeta::Pipeline getLaneLineMeta();
+  inline  ::cereal::DrivingModelData::MetaData::Pipeline getMeta();
+  inline  ::cereal::DrivingModelData::PolyPath::Pipeline getPath();
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class DrivingModelData::PolyPath::Reader {
+public:
+  typedef PolyPath Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasXCoefficients() const;
+  inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader getXCoefficients() const;
+
+  inline bool hasYCoefficients() const;
+  inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader getYCoefficients() const;
+
+  inline bool hasZCoefficients() const;
+  inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader getZCoefficients() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class DrivingModelData::PolyPath::Builder {
+public:
+  typedef PolyPath Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasXCoefficients();
+  inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder getXCoefficients();
+  inline void setXCoefficients( ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader value);
+  inline void setXCoefficients(::kj::ArrayPtr<const float> value);
+  inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder initXCoefficients(unsigned int size);
+  inline void adoptXCoefficients(::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>&& value);
+  inline ::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>> disownXCoefficients();
+
+  inline bool hasYCoefficients();
+  inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder getYCoefficients();
+  inline void setYCoefficients( ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader value);
+  inline void setYCoefficients(::kj::ArrayPtr<const float> value);
+  inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder initYCoefficients(unsigned int size);
+  inline void adoptYCoefficients(::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>&& value);
+  inline ::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>> disownYCoefficients();
+
+  inline bool hasZCoefficients();
+  inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder getZCoefficients();
+  inline void setZCoefficients( ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader value);
+  inline void setZCoefficients(::kj::ArrayPtr<const float> value);
+  inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder initZCoefficients(unsigned int size);
+  inline void adoptZCoefficients(::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>&& value);
+  inline ::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>> disownZCoefficients();
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class DrivingModelData::PolyPath::Pipeline {
+public:
+  typedef PolyPath Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class DrivingModelData::LaneLineMeta::Reader {
+public:
+  typedef LaneLineMeta Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline float getLeftY() const;
+
+  inline float getRightY() const;
+
+  inline float getLeftProb() const;
+
+  inline float getRightProb() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class DrivingModelData::LaneLineMeta::Builder {
+public:
+  typedef LaneLineMeta Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline float getLeftY();
+  inline void setLeftY(float value);
+
+  inline float getRightY();
+  inline void setRightY(float value);
+
+  inline float getLeftProb();
+  inline void setLeftProb(float value);
+
+  inline float getRightProb();
+  inline void setRightProb(float value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class DrivingModelData::LaneLineMeta::Pipeline {
+public:
+  typedef LaneLineMeta Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class DrivingModelData::MetaData::Reader {
+public:
+  typedef MetaData Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline  ::cereal::LaneChangeState getLaneChangeState() const;
+
+  inline  ::cereal::LaneChangeDirection getLaneChangeDirection() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class DrivingModelData::MetaData::Builder {
+public:
+  typedef MetaData Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline  ::cereal::LaneChangeState getLaneChangeState();
+  inline void setLaneChangeState( ::cereal::LaneChangeState value);
+
+  inline  ::cereal::LaneChangeDirection getLaneChangeDirection();
+  inline void setLaneChangeDirection( ::cereal::LaneChangeDirection value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class DrivingModelData::MetaData::Pipeline {
+public:
+  typedef MetaData Pipelines;
 
   inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
   inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
@@ -19286,6 +19760,10 @@ public:
   inline bool hasCarOutput() const;
   inline  ::cereal::CarOutput::Reader getCarOutput() const;
 
+  inline bool isDrivingModelData() const;
+  inline bool hasDrivingModelData() const;
+  inline  ::cereal::DrivingModelData::Reader getDrivingModelData() const;
+
 private:
   ::capnp::_::StructReader _reader;
   template <typename, ::capnp::Kind>
@@ -20328,6 +20806,14 @@ public:
   inline  ::cereal::CarOutput::Builder initCarOutput();
   inline void adoptCarOutput(::capnp::Orphan< ::cereal::CarOutput>&& value);
   inline ::capnp::Orphan< ::cereal::CarOutput> disownCarOutput();
+
+  inline bool isDrivingModelData();
+  inline bool hasDrivingModelData();
+  inline  ::cereal::DrivingModelData::Builder getDrivingModelData();
+  inline void setDrivingModelData( ::cereal::DrivingModelData::Reader value);
+  inline  ::cereal::DrivingModelData::Builder initDrivingModelData();
+  inline void adoptDrivingModelData(::capnp::Orphan< ::cereal::DrivingModelData>&& value);
+  inline ::capnp::Orphan< ::cereal::DrivingModelData> disownDrivingModelData();
 
 private:
   ::capnp::_::StructBuilder _builder;
@@ -29723,6 +30209,402 @@ inline ::capnp::Orphan< ::cereal::ControlsState::LateralCurvatureState> Controls
               "Must check which() before get()ing a union member.");
   return ::capnp::_::PointerHelpers< ::cereal::ControlsState::LateralCurvatureState>::disown(_builder.getPointerField(
       ::capnp::bounded<5>() * ::capnp::POINTERS));
+}
+
+inline  ::uint32_t DrivingModelData::Reader::getFrameId() const {
+  return _reader.getDataField< ::uint32_t>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline  ::uint32_t DrivingModelData::Builder::getFrameId() {
+  return _builder.getDataField< ::uint32_t>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void DrivingModelData::Builder::setFrameId( ::uint32_t value) {
+  _builder.setDataField< ::uint32_t>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
+inline  ::uint32_t DrivingModelData::Reader::getFrameIdExtra() const {
+  return _reader.getDataField< ::uint32_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+
+inline  ::uint32_t DrivingModelData::Builder::getFrameIdExtra() {
+  return _builder.getDataField< ::uint32_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+inline void DrivingModelData::Builder::setFrameIdExtra( ::uint32_t value) {
+  _builder.setDataField< ::uint32_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool DrivingModelData::Reader::hasAction() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool DrivingModelData::Builder::hasAction() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::cereal::ModelDataV2::Action::Reader DrivingModelData::Reader::getAction() const {
+  return ::capnp::_::PointerHelpers< ::cereal::ModelDataV2::Action>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::cereal::ModelDataV2::Action::Builder DrivingModelData::Builder::getAction() {
+  return ::capnp::_::PointerHelpers< ::cereal::ModelDataV2::Action>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::cereal::ModelDataV2::Action::Pipeline DrivingModelData::Pipeline::getAction() {
+  return  ::cereal::ModelDataV2::Action::Pipeline(_typeless.getPointerField(0));
+}
+#endif  // !CAPNP_LITE
+inline void DrivingModelData::Builder::setAction( ::cereal::ModelDataV2::Action::Reader value) {
+  ::capnp::_::PointerHelpers< ::cereal::ModelDataV2::Action>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::cereal::ModelDataV2::Action::Builder DrivingModelData::Builder::initAction() {
+  return ::capnp::_::PointerHelpers< ::cereal::ModelDataV2::Action>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void DrivingModelData::Builder::adoptAction(
+    ::capnp::Orphan< ::cereal::ModelDataV2::Action>&& value) {
+  ::capnp::_::PointerHelpers< ::cereal::ModelDataV2::Action>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::cereal::ModelDataV2::Action> DrivingModelData::Builder::disownAction() {
+  return ::capnp::_::PointerHelpers< ::cereal::ModelDataV2::Action>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool DrivingModelData::Reader::hasLaneLineMeta() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline bool DrivingModelData::Builder::hasLaneLineMeta() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline  ::cereal::DrivingModelData::LaneLineMeta::Reader DrivingModelData::Reader::getLaneLineMeta() const {
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::LaneLineMeta>::get(_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline  ::cereal::DrivingModelData::LaneLineMeta::Builder DrivingModelData::Builder::getLaneLineMeta() {
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::LaneLineMeta>::get(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::cereal::DrivingModelData::LaneLineMeta::Pipeline DrivingModelData::Pipeline::getLaneLineMeta() {
+  return  ::cereal::DrivingModelData::LaneLineMeta::Pipeline(_typeless.getPointerField(1));
+}
+#endif  // !CAPNP_LITE
+inline void DrivingModelData::Builder::setLaneLineMeta( ::cereal::DrivingModelData::LaneLineMeta::Reader value) {
+  ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::LaneLineMeta>::set(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), value);
+}
+inline  ::cereal::DrivingModelData::LaneLineMeta::Builder DrivingModelData::Builder::initLaneLineMeta() {
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::LaneLineMeta>::init(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline void DrivingModelData::Builder::adoptLaneLineMeta(
+    ::capnp::Orphan< ::cereal::DrivingModelData::LaneLineMeta>&& value) {
+  ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::LaneLineMeta>::adopt(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::cereal::DrivingModelData::LaneLineMeta> DrivingModelData::Builder::disownLaneLineMeta() {
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::LaneLineMeta>::disown(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+
+inline bool DrivingModelData::Reader::hasMeta() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS).isNull();
+}
+inline bool DrivingModelData::Builder::hasMeta() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS).isNull();
+}
+inline  ::cereal::DrivingModelData::MetaData::Reader DrivingModelData::Reader::getMeta() const {
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::MetaData>::get(_reader.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+inline  ::cereal::DrivingModelData::MetaData::Builder DrivingModelData::Builder::getMeta() {
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::MetaData>::get(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::cereal::DrivingModelData::MetaData::Pipeline DrivingModelData::Pipeline::getMeta() {
+  return  ::cereal::DrivingModelData::MetaData::Pipeline(_typeless.getPointerField(2));
+}
+#endif  // !CAPNP_LITE
+inline void DrivingModelData::Builder::setMeta( ::cereal::DrivingModelData::MetaData::Reader value) {
+  ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::MetaData>::set(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), value);
+}
+inline  ::cereal::DrivingModelData::MetaData::Builder DrivingModelData::Builder::initMeta() {
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::MetaData>::init(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+inline void DrivingModelData::Builder::adoptMeta(
+    ::capnp::Orphan< ::cereal::DrivingModelData::MetaData>&& value) {
+  ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::MetaData>::adopt(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::cereal::DrivingModelData::MetaData> DrivingModelData::Builder::disownMeta() {
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::MetaData>::disown(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+
+inline bool DrivingModelData::Reader::hasPath() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<3>() * ::capnp::POINTERS).isNull();
+}
+inline bool DrivingModelData::Builder::hasPath() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<3>() * ::capnp::POINTERS).isNull();
+}
+inline  ::cereal::DrivingModelData::PolyPath::Reader DrivingModelData::Reader::getPath() const {
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::PolyPath>::get(_reader.getPointerField(
+      ::capnp::bounded<3>() * ::capnp::POINTERS));
+}
+inline  ::cereal::DrivingModelData::PolyPath::Builder DrivingModelData::Builder::getPath() {
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::PolyPath>::get(_builder.getPointerField(
+      ::capnp::bounded<3>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::cereal::DrivingModelData::PolyPath::Pipeline DrivingModelData::Pipeline::getPath() {
+  return  ::cereal::DrivingModelData::PolyPath::Pipeline(_typeless.getPointerField(3));
+}
+#endif  // !CAPNP_LITE
+inline void DrivingModelData::Builder::setPath( ::cereal::DrivingModelData::PolyPath::Reader value) {
+  ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::PolyPath>::set(_builder.getPointerField(
+      ::capnp::bounded<3>() * ::capnp::POINTERS), value);
+}
+inline  ::cereal::DrivingModelData::PolyPath::Builder DrivingModelData::Builder::initPath() {
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::PolyPath>::init(_builder.getPointerField(
+      ::capnp::bounded<3>() * ::capnp::POINTERS));
+}
+inline void DrivingModelData::Builder::adoptPath(
+    ::capnp::Orphan< ::cereal::DrivingModelData::PolyPath>&& value) {
+  ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::PolyPath>::adopt(_builder.getPointerField(
+      ::capnp::bounded<3>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::cereal::DrivingModelData::PolyPath> DrivingModelData::Builder::disownPath() {
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData::PolyPath>::disown(_builder.getPointerField(
+      ::capnp::bounded<3>() * ::capnp::POINTERS));
+}
+
+inline float DrivingModelData::Reader::getFrameDropPerc() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+
+inline float DrivingModelData::Builder::getFrameDropPerc() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+inline void DrivingModelData::Builder::setFrameDropPerc(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool DrivingModelData::PolyPath::Reader::hasXCoefficients() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool DrivingModelData::PolyPath::Builder::hasXCoefficients() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader DrivingModelData::PolyPath::Reader::getXCoefficients() const {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder DrivingModelData::PolyPath::Builder::getXCoefficients() {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void DrivingModelData::PolyPath::Builder::setXCoefficients( ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline void DrivingModelData::PolyPath::Builder::setXCoefficients(::kj::ArrayPtr<const float> value) {
+  ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder DrivingModelData::PolyPath::Builder::initXCoefficients(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), size);
+}
+inline void DrivingModelData::PolyPath::Builder::adoptXCoefficients(
+    ::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>> DrivingModelData::PolyPath::Builder::disownXCoefficients() {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool DrivingModelData::PolyPath::Reader::hasYCoefficients() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline bool DrivingModelData::PolyPath::Builder::hasYCoefficients() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader DrivingModelData::PolyPath::Reader::getYCoefficients() const {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::get(_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder DrivingModelData::PolyPath::Builder::getYCoefficients() {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::get(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline void DrivingModelData::PolyPath::Builder::setYCoefficients( ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::set(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), value);
+}
+inline void DrivingModelData::PolyPath::Builder::setYCoefficients(::kj::ArrayPtr<const float> value) {
+  ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::set(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder DrivingModelData::PolyPath::Builder::initYCoefficients(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::init(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), size);
+}
+inline void DrivingModelData::PolyPath::Builder::adoptYCoefficients(
+    ::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::adopt(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>> DrivingModelData::PolyPath::Builder::disownYCoefficients() {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::disown(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+
+inline bool DrivingModelData::PolyPath::Reader::hasZCoefficients() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS).isNull();
+}
+inline bool DrivingModelData::PolyPath::Builder::hasZCoefficients() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader DrivingModelData::PolyPath::Reader::getZCoefficients() const {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::get(_reader.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder DrivingModelData::PolyPath::Builder::getZCoefficients() {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::get(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+inline void DrivingModelData::PolyPath::Builder::setZCoefficients( ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::set(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), value);
+}
+inline void DrivingModelData::PolyPath::Builder::setZCoefficients(::kj::ArrayPtr<const float> value) {
+  ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::set(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder DrivingModelData::PolyPath::Builder::initZCoefficients(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::init(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), size);
+}
+inline void DrivingModelData::PolyPath::Builder::adoptZCoefficients(
+    ::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::adopt(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>> DrivingModelData::PolyPath::Builder::disownZCoefficients() {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::disown(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+
+inline float DrivingModelData::LaneLineMeta::Reader::getLeftY() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline float DrivingModelData::LaneLineMeta::Builder::getLeftY() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void DrivingModelData::LaneLineMeta::Builder::setLeftY(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
+inline float DrivingModelData::LaneLineMeta::Reader::getRightY() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+
+inline float DrivingModelData::LaneLineMeta::Builder::getRightY() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+inline void DrivingModelData::LaneLineMeta::Builder::setRightY(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
+}
+
+inline float DrivingModelData::LaneLineMeta::Reader::getLeftProb() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+
+inline float DrivingModelData::LaneLineMeta::Builder::getLeftProb() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+inline void DrivingModelData::LaneLineMeta::Builder::setLeftProb(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS, value);
+}
+
+inline float DrivingModelData::LaneLineMeta::Reader::getRightProb() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS);
+}
+
+inline float DrivingModelData::LaneLineMeta::Builder::getRightProb() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS);
+}
+inline void DrivingModelData::LaneLineMeta::Builder::setRightProb(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS, value);
+}
+
+inline  ::cereal::LaneChangeState DrivingModelData::MetaData::Reader::getLaneChangeState() const {
+  return _reader.getDataField< ::cereal::LaneChangeState>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline  ::cereal::LaneChangeState DrivingModelData::MetaData::Builder::getLaneChangeState() {
+  return _builder.getDataField< ::cereal::LaneChangeState>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void DrivingModelData::MetaData::Builder::setLaneChangeState( ::cereal::LaneChangeState value) {
+  _builder.setDataField< ::cereal::LaneChangeState>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
+inline  ::cereal::LaneChangeDirection DrivingModelData::MetaData::Reader::getLaneChangeDirection() const {
+  return _reader.getDataField< ::cereal::LaneChangeDirection>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+
+inline  ::cereal::LaneChangeDirection DrivingModelData::MetaData::Builder::getLaneChangeDirection() {
+  return _builder.getDataField< ::cereal::LaneChangeDirection>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+inline void DrivingModelData::MetaData::Builder::setLaneChangeDirection( ::cereal::LaneChangeDirection value) {
+  _builder.setDataField< ::cereal::LaneChangeDirection>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
 }
 
 inline bool XYZTData::Reader::hasX() const {
@@ -53371,6 +54253,60 @@ inline ::capnp::Orphan< ::cereal::CarOutput> Event::Builder::disownCarOutput() {
   KJ_IREQUIRE((which() == Event::CAR_OUTPUT),
               "Must check which() before get()ing a union member.");
   return ::capnp::_::PointerHelpers< ::cereal::CarOutput>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool Event::Reader::isDrivingModelData() const {
+  return which() == Event::DRIVING_MODEL_DATA;
+}
+inline bool Event::Builder::isDrivingModelData() {
+  return which() == Event::DRIVING_MODEL_DATA;
+}
+inline bool Event::Reader::hasDrivingModelData() const {
+  if (which() != Event::DRIVING_MODEL_DATA) return false;
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool Event::Builder::hasDrivingModelData() {
+  if (which() != Event::DRIVING_MODEL_DATA) return false;
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::cereal::DrivingModelData::Reader Event::Reader::getDrivingModelData() const {
+  KJ_IREQUIRE((which() == Event::DRIVING_MODEL_DATA),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::cereal::DrivingModelData::Builder Event::Builder::getDrivingModelData() {
+  KJ_IREQUIRE((which() == Event::DRIVING_MODEL_DATA),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void Event::Builder::setDrivingModelData( ::cereal::DrivingModelData::Reader value) {
+  _builder.setDataField<Event::Which>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::DRIVING_MODEL_DATA);
+  ::capnp::_::PointerHelpers< ::cereal::DrivingModelData>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::cereal::DrivingModelData::Builder Event::Builder::initDrivingModelData() {
+  _builder.setDataField<Event::Which>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::DRIVING_MODEL_DATA);
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void Event::Builder::adoptDrivingModelData(
+    ::capnp::Orphan< ::cereal::DrivingModelData>&& value) {
+  _builder.setDataField<Event::Which>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::DRIVING_MODEL_DATA);
+  ::capnp::_::PointerHelpers< ::cereal::DrivingModelData>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::cereal::DrivingModelData> Event::Builder::disownDrivingModelData() {
+  KJ_IREQUIRE((which() == Event::DRIVING_MODEL_DATA),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers< ::cereal::DrivingModelData>::disown(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 

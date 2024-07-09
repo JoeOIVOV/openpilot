@@ -1,5 +1,9 @@
 dragonpilot 0.9.8
 =======================
+* Up to comma.ai openpilot master branch commit 01c2174d5968266b87f1d1fecefce5affaeaa624 (2024-07-02)
+
+dragonpilot [2024.07.01]
+=======================
 * Up to comma.ai openpilot master branch commit 442e9f4ae492901a5698b3188741c97c053026c4 (2024-06-21)
 * DP HIGHLIGHT:
   * Restart from scratch.
