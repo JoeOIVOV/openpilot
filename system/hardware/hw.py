@@ -56,3 +56,10 @@ class Paths:
       return Paths.comma_home()
     else:
       return "/tmp/.comma"
+
+  @staticmethod
+  def crash_root() -> str:
+    if PC:
+      return str(Path(Paths.comma_home()) / "media" / "0" / "crash_log")
+    else:
+      return '/data/media/0/crash_log/'

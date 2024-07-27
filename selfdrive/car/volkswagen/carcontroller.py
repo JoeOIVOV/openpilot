@@ -29,7 +29,16 @@ class CarController(CarControllerBase):
     self.hca_frame_same_torque = 0
 
     # dp
-    self.dp_vag_sng = Params().get("dp_vag_sng")
+    params = Params()
+    try:
+      self.dp_vag_sng = params.get_bool("dp_vag_sng")
+    except:
+      self.dp_vag_sng = False
+    # this is not used in MQB, only PQ, checking status is 7 instead of 5
+    try:
+      self.dp_vag_pq_steering_patch = 7 if Params().get_bool("dp_vag_pq_steering_patch") else 5
+    except:
+      self.dp_vag_pq_steering_patch = 5
 
   def update(self, CC, CS, now_nanos):
     actuators = CC.actuators
@@ -69,7 +78,7 @@ class CarController(CarControllerBase):
 
       self.eps_timer_soft_disable_alert = self.hca_frame_timer_running > self.CCP.STEER_TIME_ALERT / DT_CTRL
       self.apply_steer_last = apply_steer
-      can_sends.append(self.CCS.create_steering_control(self.packer_pt, CANBUS.pt, apply_steer, hca_enabled))
+      can_sends.append(self.CCS.create_steering_control(self.packer_pt, CANBUS.pt, apply_steer, hca_enabled, self.dp_vag_pq_steering_patch))
 
       if self.CP.flags & VolkswagenFlags.STOCK_HCA_PRESENT:
         # Pacify VW Emergency Assist driver inactivity detection by changing its view of driver steering input torque

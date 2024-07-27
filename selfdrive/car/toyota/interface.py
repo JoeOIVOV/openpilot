@@ -146,10 +146,14 @@ class CarInterface(CarInterfaceBase):
 
     tune = ret.longitudinalTuning
     # dp
-    if Params().get_bool("dp_toyota_pcm_compensation"):
+    try:
+      dp_toyota_pcm_compensation = Params().get_bool("dp_toyota_pcm_compensation")
+    except:
+      dp_toyota_pcm_compensation = False
+    if dp_toyota_pcm_compensation:
       # on stock Toyota this is -2.5
       if candidate in TSS2_CAR:
-        ret.stopAccel = -1.2
+        ret.stopAccel = -1.6
       else:
         ret.stopAccel = -2.0
 

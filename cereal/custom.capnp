@@ -26,7 +26,33 @@ enum LaneChangeAssistMode {
   auto @3;
 }
 
-struct CustomReserved2 @0xf35cc4560bbf6ec2 {
+struct TeToo @0xf35cc4560bbf6ec2 {
+  lat @0 :Float32;
+  lon @1 :Float32;
+  bearing @2 :Float32;
+  name @3 :Text;
+  maxspeed @4 :Float32;
+  tags @5 :Text;
+
+  updatingData @6 :Bool;
+  nearestFeatures @7 :List(Feature);
+
+  struct Feature {
+    id @0 :Text;
+    type @1 :FeatureType;
+    lat @2 :Float32;
+    lon @3 :Float32;
+    bearing @4 :Float32;
+    distance @5 :Float32;
+    tags @6 :Text;
+    probability @7 :Float32;
+  }
+
+  enum FeatureType {
+    trafficSignal @0;
+    speedCamera @1;
+  }
+
 }
 
 struct CustomReserved3 @0xda96579883444c35 {

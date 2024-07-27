@@ -12,6 +12,7 @@ from openpilot.common.retry import retry
 from openpilot.common.swaglog import cloudlog
 
 from openpilot.system import micd
+from openpilot.common.params import Params
 
 SAMPLE_RATE = 48000
 SAMPLE_BUFFER = 4096 # (approx 100ms)
@@ -62,6 +63,10 @@ class Soundd:
 
     self.spl_filter_weighted = FirstOrderFilter(0, 2.5, FILTER_DT, initialized=False)
 
+    params = Params()
+    self._dp_device_audible_alert_mode = int(params.get("dp_device_audible_alert_mode"))
+
+
   def load_sounds(self):
     self.loaded_sounds: dict[int, np.ndarray] = {}
 
@@ -82,6 +87,13 @@ class Soundd:
 
     ret = np.zeros(frames, dtype=np.float32)
 
+    # dp - set vol to 0 instead
+    mute = False
+    if self._dp_device_audible_alert_mode == 2:
+      mute = True
+    elif self._dp_device_audible_alert_mode == 1 and self.current_alert in [AudibleAlert.engage, AudibleAlert.disengage]:
+      mute = True
+
     if self.current_alert != AudibleAlert.none:
       num_loops = sound_list[self.current_alert][1]
       sound_data = self.loaded_sounds[self.current_alert]
@@ -97,7 +109,7 @@ class Soundd:
         written_frames += frames_to_write
         self.current_sound_frame += frames_to_write
 
-    return ret * self.current_volume
+    return ret * (self.current_volume if not mute else 0)
 
   def callback(self, data_out: np.ndarray, frames: int, time, status) -> None:
     if status:

@@ -129,6 +129,44 @@ Reboot required.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Enable Lane Priority Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will use lane lines for lateral control, fallback to laneless mode automatically when lane lines probabilities are low.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only When Drive Above</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Any - Use Lane Line when available.
+*Number* - Use Lane Line when available and when vehicle speed is above the *number*.
+1 km/h = 0.62 mph.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> km/h</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Any</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust your camera position if your device is not mounted as per guidance.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> cm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>OP</source>
         <translation type="unfinished"></translation>
     </message>
@@ -174,14 +212,6 @@ Reboot required.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> km/h</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Any</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Perform Auto Lane Change After</source>
         <translation type="unfinished"></translation>
     </message>
@@ -198,12 +228,20 @@ Reboot required.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable Slow Down on Curve</source>
+        <source>Enable PAL (Personalized Accel Learner)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>When enabled, openpilot will reduce vehicle speed on curve road using algorithm found in taco2 branch.
-See https://github.com/commaai/openpilot/commit/7b97ddb3aacb222bfaf0b978c49cb5b756903ef7 for more information.
+        <source>When enabled, openpilot will learn from your acceleration habits.
+Reboot required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Freeze PAL Parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will stop updating your PAL parameters.
 Reboot required.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -213,6 +251,14 @@ Reboot required.</source>
     </message>
     <message>
         <source>When enabled, openpilot will dynamically change between End-to-End or ACC mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Road Condition Detection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, Dynamic End-to-End will check road condition such as traffic signals, large curve, stop sign.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -251,6 +297,30 @@ Once activate, the lead vehicle indicator will display an &quot;A&quot;</source>
     </message>
     <message>
         <source>Alt. Driving Personality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PAL Launch Boost</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Boost initial acceleration (up to 18 km/h ≈ 11 mph), limited to 2 m/s².</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset PAL Parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RESET</source>
+        <translation type="unfinished">ﾘｾｯﾄ</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to reset PAL parameters?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -330,6 +400,44 @@ Reboot required.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Enable Auto Shutdown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will shutdown the device automatically.
+Reboot required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto Shutdown In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust your shutdown waiting period.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> mins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audible Alert Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning - Only emits sound when there is a warning.
+Off - Does not emit any sound at all.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Navigation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -369,6 +477,36 @@ Internet required.</source>
         <source>When enabled, openpilot will add traffic status to the map.
 This does not work in China.
 Internet required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tē-Tôo (Map)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Road Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will display live road name using OpenStreetMap data.
+DO NOT USE IT WITH COMMA PRIME SUBSCRIPTION.
+Internet required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Speed Camera Warning (Taiwan)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will display speed camera warning using offline database.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Speed Camera Warning Threshold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only show the warning when the speed camera limit is within threshold (+/-) % of the vehicle speed or cruise speed or road limit speed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -460,6 +598,14 @@ Reboot required.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Patch for modified PQ Platform</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reboot Required</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Hyundai / Kia / Genesis</source>
         <translation type="unfinished"></translation>
     </message>
@@ -476,10 +622,6 @@ Reboot required.</source>
     <message>
         <source>Reset dragonpilot settings</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>RESET</source>
-        <translation type="unfinished">ﾘｾｯﾄ</translation>
     </message>
     <message>
         <source>Are you sure you want to reset all dp settings?
@@ -642,6 +784,18 @@ This will also reboot your device.</source>
     </message>
     <message>
         <source>PAIR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete All Logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DELETE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete all logs?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -36,6 +36,9 @@ class PowerMonitoring:
     # Reset capacity if it's low
     self.car_battery_capacity_uWh = max((CAR_BATTERY_CAPACITY_uWh / 10), int(car_battery_capacity_uWh))
 
+    self.dp_device_auto_shutdown = self.params.get_bool("dp_device_auto_shutdown")
+    self.dp_device_auto_shutdown_in = int(self.params.get("dp_device_auto_shutdown_in")) * 60
+
   # Calculation tick
   def calculate(self, voltage: int | None, ignition: bool):
     try:
@@ -114,6 +117,10 @@ class PowerMonitoring:
     now = time.monotonic()
     should_shutdown = False
     offroad_time = (now - offroad_timestamp)
+
+    if started_seen and self.dp_device_auto_shutdown and offroad_time > self.dp_device_auto_shutdown_in:
+      return True
+
     low_voltage_shutdown = (self.car_voltage_mV < (VBATT_PAUSE_CHARGING * 1e3) and
                             offroad_time > VOLTAGE_SHUTDOWN_MIN_OFFROAD_TIME_S)
     should_shutdown |= offroad_time > MAX_TIME_OFFROAD_S

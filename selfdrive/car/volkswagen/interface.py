@@ -4,6 +4,8 @@ from openpilot.selfdrive.car import get_safety_config
 from openpilot.selfdrive.car.interfaces import CarInterfaceBase
 from openpilot.selfdrive.car.volkswagen.values import CAR, CANBUS, CarControllerParams, NetworkLocation, TransmissionType, GearShifter, VolkswagenFlags
 
+from openpilot.common.params import Params
+
 ButtonType = car.CarState.ButtonEvent.Type
 EventName = car.CarEvent.EventName
 
@@ -45,7 +47,22 @@ class CarInterface(CarInterfaceBase):
       # It is documented in a four-part blog series:
       #   https://blog.willemmelching.nl/carhacking/2022/01/02/vw-part1/
       # Panda ALLOW_DEBUG firmware required.
-      ret.dashcamOnly = True
+      # dp - lets allow it
+      # ret.dashcamOnly = False
+
+      # dp - For modified PQ steering
+      try:
+        dp_vag_pq_steering_patch = Params().get_bool("dp_vag_pq_steering_patch")
+      except:
+        dp_vag_pq_steering_patch = False
+      if dp_vag_pq_steering_patch:
+        ret.networkLocation = NetworkLocation.gateway
+        # patched steering should allow steer to 0.
+        ret.minSteerSpeed = 0.
+
+        # only for VOLKSWAGEN_PASSAT_NMS
+        if candidate == CAR.VOLKSWAGEN_PASSAT_NMS:
+          ret.wheelbase = 2.62
 
     else:
       # Set global MQB parameters

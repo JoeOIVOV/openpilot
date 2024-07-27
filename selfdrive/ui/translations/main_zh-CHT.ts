@@ -187,13 +187,13 @@ Reboot required.</source>
     </message>
     <message>
         <source>Enable Slow Down on Curve</source>
-        <translation>啟用彎道減速</translation>
+        <translation type="vanished">啟用彎道減速</translation>
     </message>
     <message>
         <source>When enabled, openpilot will reduce vehicle speed on curve road using algorithm found in taco2 branch.
 See https://github.com/commaai/openpilot/commit/7b97ddb3aacb222bfaf0b978c49cb5b756903ef7 for more information.
 Reboot required.</source>
-        <translation>啟用後，Openpilot將使用在 taco2 分支中找到的算法，在彎道上減少車輛速度。
+        <translation type="vanished">啟用後，Openpilot將使用在 taco2 分支中找到的算法，在彎道上減少車輛速度。
 詳細信息請查看https://github.com/commaai/openpilot/commit/7b97ddb3aacb222bfaf0b978c49cb5b756903ef7。
 需要重新啟動。</translation>
     </message>
@@ -224,7 +224,7 @@ Your vehicle must support openpilot longitudinal control.</source>
 Once activate, the lead vehicle indicator will display an &quot;A&quot;</source>
         <translation>當速度低於設定值時，openpilot將會切換到指定的「駕駛風格」。
 1 km/h = 0.62 mph。
-一旦啟用，前車指示將顯示一個「A」。</translation>
+一旦啟用，前車指示將顯示一個「A」</translation>
     </message>
     <message>
         <source>OFF</source>
@@ -527,13 +527,179 @@ Reboot Required.</source>
     </message>
     <message>
         <source>Enable Stop and Go (SnG) Hack</source>
-        <translation type="unfinished"></translation>
+        <translation>啟用 Stop and Go (SnG) 修正</translation>
     </message>
     <message>
         <source>When enabled, openpilot will stop sending standstill signal when the car is fully stopped.
 ONLY WORK ON SOME VEHICLES.
 Reboot Required.</source>
-        <translation type="unfinished"></translation>
+        <translation>啟用後，openpilot 在車輛完全停止時將不再發送停止信號。
+僅適用於部分車輛。
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>Display Road Name</source>
+        <translation>顯示道路名稱</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will display live road name using OpenStreetMap data.
+Internet required.</source>
+        <translation type="vanished">啟用後，openpilot 將使用 OpenStreetMap 資料顯示即時道路名稱。
+需要網路連線。</translation>
+    </message>
+    <message>
+        <source>Display Speed Camera Warning (Taiwan)</source>
+        <translation>顯示測速照相警告（台灣）</translation>
+    </message>
+    <message>
+        <source>Tē-Tôo (Map)</source>
+        <translation>地圖</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will display speed camera warning using offline database.</source>
+        <translation>啟用後，openpilot 將使用離線資料庫顯示測速照相警告。</translation>
+    </message>
+    <message>
+        <source>Enable PAL (Personalized Accel Learner)</source>
+        <translation>啟用個性化加速控制 (PAL)</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will learn from your acceleration habits.
+Reboot required.</source>
+        <translation>啟用後，openpilot 會學習您的加速習慣。</translation>
+    </message>
+    <message>
+        <source>Freeze PAL Parameters</source>
+        <translation>凍結 PAL 參數</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will stop updating your PAL parameters.
+Reboot required.</source>
+        <translation>啟用後，openpilot 將停止更新您的 PAL 參數。</translation>
+    </message>
+    <message>
+        <source>PAL Launch Boost</source>
+        <translation>PAL 啟動加速</translation>
+    </message>
+    <message>
+        <source>Boost initial acceleration (up to 18 km/h ≈ 11 mph), limited to 2 m/s².</source>
+        <translation>提升初始加速（最高至 18 公里/小時 ≈ 11 英里/小時），限制為 2 米/秒²。</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <source>Reset PAL Parameters</source>
+        <translation>重置 PAL 參數</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to reset PAL parameters?</source>
+        <translation>您確定要重置 PAL 參數嗎？</translation>
+    </message>
+    <message>
+        <source>Enable Auto Shutdown</source>
+        <translation>啟用自動關機</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will shutdown the device automatically.
+Reboot required.</source>
+        <translation>啟用後，openpilot 會自動關閉設備。
+需要重新啟動。</translation>
+    </message>
+    <message>
+        <source>Auto Shutdown In</source>
+        <translation>自動關機倒數</translation>
+    </message>
+    <message>
+        <source>Adjust your shutdown waiting period.</source>
+        <translation>調整您的自動關機倒數時間。</translation>
+    </message>
+    <message>
+        <source> mins</source>
+        <translation> 分鐘</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>關閉</translation>
+    </message>
+    <message>
+        <source>Audible Alert Mode</source>
+        <translation>聲音警示模式</translation>
+    </message>
+    <message>
+        <source>Warning - Only emits sound when there is a warning.
+Off - Does not emit any sound at all.</source>
+        <translation>警告模式 - 只有在有警告時發出聲音。
+關閉 - 完全不發出任何聲音。</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will display live road name using OpenStreetMap data.
+DO NOT USE IT WITH COMMA PRIME SUBSCRIPTION.
+Internet required.</source>
+        <translation>啟用後，openpilot 將使用 OpenStreetMap 數據顯示即時道路名稱。
+請勿在使用 Comma Prime 訂閱時使用此功能。
+需要網路連線。</translation>
+    </message>
+    <message>
+        <source>Speed Camera Warning Threshold</source>
+        <translation>超速照相警示閾值</translation>
+    </message>
+    <message>
+        <source>Only show the warning when the speed camera limit is within threshold (+/-) % of the vehicle speed or cruise speed or road limit speed.</source>
+        <translation>只在測速照相限速與「車速」或「巡航速度」或「道路限速」的閾值（±％）內時顯示警告。</translation>
+    </message>
+    <message>
+        <source>Patch for modified PQ Platform</source>
+        <translation>使用 PQ 平台 (改過 EPS) 補丁</translation>
+    </message>
+    <message>
+        <source>Reboot Required</source>
+        <translation>需要重新啟動</translation>
+    </message>
+    <message>
+        <source>Enable Lane Priority Mode</source>
+        <translation>啟用車道優先模式</translation>
+    </message>
+    <message>
+        <source>When enabled, openpilot will use lane lines for lateral control, fallback to laneless mode automatically when lane lines probabilities are low.</source>
+        <translation>啟用後，openpilot 將使用車道線進行橫向控制，當車道線概率低時，會自動切換到無車道 (端到端) 模式。</translation>
+    </message>
+    <message>
+        <source>Only When Drive Above</source>
+        <translation>僅當行駛速度超過</translation>
+    </message>
+    <message>
+        <source>Any - Use Lane Line when available.
+*Number* - Use Lane Line when available and when vehicle speed is above the *number*.
+1 km/h = 0.62 mph.</source>
+        <translation>任何 - 若有車道線，則使用車道線。
+*數字* - 若有車道線且車速超過該數字，則使用車道線。
+1 公里/小時 = 0.62 英里/小時。</translation>
+    </message>
+    <message>
+        <source>Camera Offset</source>
+        <translation>鏡頭偏移</translation>
+    </message>
+    <message>
+        <source>Adjust your camera position if your device is not mounted as per guidance.</source>
+        <translation>微調鏡頭偏移。</translation>
+    </message>
+    <message>
+        <source> cm</source>
+        <translation> 公分</translation>
+    </message>
+    <message>
+        <source>Enable Road Condition Detection</source>
+        <translation>啟用道路狀況檢測</translation>
+    </message>
+    <message>
+        <source>When enabled, Dynamic End-to-End will check road condition such as traffic signals, large curve, stop sign.</source>
+        <translation>啟用後，動態端到端將檢查道路狀況，例如交通信號、大彎道、停車標誌。</translation>
     </message>
 </context>
 <context>
@@ -692,6 +858,18 @@ Reboot Required.</source>
     <message>
         <source>PAIR</source>
         <translation>配對</translation>
+    </message>
+    <message>
+        <source>Delete All Logs</source>
+        <translation>刪除所有日誌記錄</translation>
+    </message>
+    <message>
+        <source>DELETE</source>
+        <translation>刪除</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete all logs?</source>
+        <translation>您確定要刪除全部的記錄嗎？</translation>
     </message>
 </context>
 <context>
@@ -1334,23 +1512,23 @@ This may take up to a minute.</source>
     </message>
     <message>
         <source>Onroad/Offroad Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>上線/離線 模式</translation>
     </message>
     <message>
         <source>Go Offroad</source>
-        <translation type="unfinished"></translation>
+        <translation>切換到離線</translation>
     </message>
     <message>
         <source>Are you sure you want to switch driving mode?</source>
-        <translation type="unfinished"></translation>
+        <translation>您確定要切換模式嗎？</translation>
     </message>
     <message>
         <source>CONFIRM</source>
-        <translation type="unfinished"></translation>
+        <translation>確認</translation>
     </message>
     <message>
         <source>Go Onroad</source>
-        <translation type="unfinished"></translation>
+        <translation>切換到上線</translation>
     </message>
 </context>
 <context>

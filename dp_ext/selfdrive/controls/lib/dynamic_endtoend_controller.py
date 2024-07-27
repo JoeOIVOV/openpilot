@@ -1,28 +1,8 @@
 #!/usr/bin/env python3
-# The MIT License
-#
-# Copyright (c) 2019-, Rick Lan, dragonpilot community, and a number of other of contributors.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
 #
 # Version = 2024-03-29
 from common.numpy_fast import interp
+from openpilot.common.params import Params
 
 # d-e2e, from modeldata.h
 TRAJECTORY_SIZE = 33
@@ -88,6 +68,7 @@ class DynamicEndtoEndController:
     self._mode_prev = 'acc'
     self._mode_changed = False
     self._frame = 0
+    self._road_condition_detection = Params().get_bool('dp_long_de2e_road_condition')
 
     self._lead_gmac = GenericMovingAverageCalculator(window_size=LEAD_WINDOW_SIZE)
     self._has_lead_filtered = False
@@ -213,7 +194,7 @@ class DynamicEndtoEndController:
 
     # when detecting slow down scenario: blended
     # e.g. traffic light, curve, stop sign etc.
-    if self._has_slow_down:
+    if self._road_condition_detection and self._has_slow_down:
       self._set_mode('blended')
       return
 
@@ -261,7 +242,7 @@ class DynamicEndtoEndController:
 
     # when detecting slow down scenario: blended
     # e.g. traffic light, curve, stop sign etc.
-    if self._has_slow_down:
+    if self._road_condition_detection and self._has_slow_down:
       self._set_mode('blended')
       return
 

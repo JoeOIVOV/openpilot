@@ -1,15 +1,12 @@
 '''
-This is the lane_planner from 0.8.16
+This is the lane_planner from 0.8.17 with slight modification to support new lateral_mpc_lane_planner
+https://raw.githubusercontent.com/commaai/openpilot/01a73b14d8b23c17bc6c7b314a266d594e88eb55/selfdrive/controls/lib/lane_planner.py
 
-reason I keep this as a separate file is that Nuclear Grade model released during 0.8.15 / 0.8.16.
-So it could handle better with old planners.
-
-Note 1: This may not work in newer version.
+Note: This may not work in the future.
 
 '''
 
 import numpy as np
-from cereal import log
 from openpilot.common.filter_simple import FirstOrderFilter
 from openpilot.common.numpy_fast import interp
 from openpilot.common.realtime import DT_MDL
@@ -19,9 +16,8 @@ from openpilot.common.swaglog import cloudlog
 TRAJECTORY_SIZE = 33
 # camera offset is meters from center car to camera
 # model path is in the frame of the camera
-
+PATH_OFFSET = 0.00
 CAMERA_OFFSET = 0.04
-PATH_OFFSET = 0.04
 
 class LanePlanner:
   def __init__(self):
@@ -29,9 +25,9 @@ class LanePlanner:
     self.ll_x = np.zeros((TRAJECTORY_SIZE,))
     self.lll_y = np.zeros((TRAJECTORY_SIZE,))
     self.rll_y = np.zeros((TRAJECTORY_SIZE,))
-    self.lane_width_estimate = FirstOrderFilter(2.7, 9.95, DT_MDL)
+    self.lane_width_estimate = FirstOrderFilter(3.7, 9.95, DT_MDL)
     self.lane_width_certainty = FirstOrderFilter(1.0, 0.95, DT_MDL)
-    self.lane_width = 2.7
+    self.lane_width = 3.7
 
     self.lll_prob = 0.
     self.rll_prob = 0.
@@ -40,11 +36,11 @@ class LanePlanner:
     self.lll_std = 0.
     self.rll_std = 0.
 
-    self.l_lane_change_prob = 0.
-    self.r_lane_change_prob = 0.
-
     self.camera_offset = CAMERA_OFFSET
     self.path_offset = PATH_OFFSET
+
+  def update_offsets(self, camera_offset):
+    self.camera_offset = camera_offset
 
   def parse_model(self, md):
     lane_lines = md.laneLines
@@ -58,11 +54,6 @@ class LanePlanner:
       self.rll_prob = md.laneLineProbs[2]
       self.lll_std = md.laneLineStds[1]
       self.rll_std = md.laneLineStds[2]
-
-    desire_state = md.meta.desireState
-    if len(desire_state):
-      self.l_lane_change_prob = desire_state[log.LateralPlan.Desire.laneChangeLeft]
-      self.r_lane_change_prob = desire_state[log.LateralPlan.Desire.laneChangeRight]
 
   def get_d_path(self, v_ego, path_t, path_xyz):
     # Reduce reliance on lanelines that are too far apart or
@@ -88,7 +79,7 @@ class LanePlanner:
     self.lane_width_certainty.update(l_prob * r_prob)
     current_lane_width = abs(self.rll_y[0] - self.lll_y[0])
     self.lane_width_estimate.update(current_lane_width)
-    speed_lane_width = interp(v_ego, [0., 31.], [2.7, 3.5])
+    speed_lane_width = interp(v_ego, [0., 31.], [2.8, 3.5])
     self.lane_width = self.lane_width_certainty.x * self.lane_width_estimate.x + \
                       (1 - self.lane_width_certainty.x) * speed_lane_width
 

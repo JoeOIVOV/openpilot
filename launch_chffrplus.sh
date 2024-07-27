@@ -76,6 +76,15 @@ function launch {
   # hardware specific init
   if [ -f /AGNOS ]; then
     agnos_init
+    # dp
+    if ! (LD_LIBRARY_PATH=$DIR/third_party/libspatialindex/larch64/lib/ python -c "import rtree") &> /dev/null; then
+      pip install "$DIR/dp_ext/selfdrive/tetood/pkgs/Rtree-1.2.0-cp311-cp311-linux_aarch64.whl"
+    fi
+  else
+    # dp
+    if ! (LD_LIBRARY_PATH=$DIR/third_party/libspatialindex/x86_64/lib/ python -c "import rtree") &> /dev/null; then
+      pip install "$DIR/dp_ext/selfdrive/tetood/pkgs/Rtree-1.2.0-cp312-cp312-linux_x86_64.whl"
+    fi
   fi
 
   # write tmux scrollback to a file

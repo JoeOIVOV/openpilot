@@ -2544,8 +2544,8 @@ struct Event {
     UI_PLAN_D_E_P_R_E_C_A_T_E_D,
     CONTROLS_STATE_EXT,
     LONGITUDINAL_PLAN_EXT,
-    CUSTOM_RESERVED2,
-    CUSTOM_RESERVED3,
+    TE_TOO,
+    LATERAL_PLAN,
     CUSTOM_RESERVED4,
     CUSTOM_RESERVED5,
     CUSTOM_RESERVED6,
@@ -19684,13 +19684,13 @@ public:
   inline bool hasLongitudinalPlanExt() const;
   inline  ::cereal::LongitudinalPlanExt::Reader getLongitudinalPlanExt() const;
 
-  inline bool isCustomReserved2() const;
-  inline bool hasCustomReserved2() const;
-  inline  ::cereal::CustomReserved2::Reader getCustomReserved2() const;
+  inline bool isTeToo() const;
+  inline bool hasTeToo() const;
+  inline  ::cereal::TeToo::Reader getTeToo() const;
 
-  inline bool isCustomReserved3() const;
-  inline bool hasCustomReserved3() const;
-  inline  ::cereal::CustomReserved3::Reader getCustomReserved3() const;
+  inline bool isLateralPlan() const;
+  inline bool hasLateralPlan() const;
+  inline  ::cereal::LateralPlan::Reader getLateralPlan() const;
 
   inline bool isCustomReserved4() const;
   inline bool hasCustomReserved4() const;
@@ -20655,21 +20655,21 @@ public:
   inline void adoptLongitudinalPlanExt(::capnp::Orphan< ::cereal::LongitudinalPlanExt>&& value);
   inline ::capnp::Orphan< ::cereal::LongitudinalPlanExt> disownLongitudinalPlanExt();
 
-  inline bool isCustomReserved2();
-  inline bool hasCustomReserved2();
-  inline  ::cereal::CustomReserved2::Builder getCustomReserved2();
-  inline void setCustomReserved2( ::cereal::CustomReserved2::Reader value);
-  inline  ::cereal::CustomReserved2::Builder initCustomReserved2();
-  inline void adoptCustomReserved2(::capnp::Orphan< ::cereal::CustomReserved2>&& value);
-  inline ::capnp::Orphan< ::cereal::CustomReserved2> disownCustomReserved2();
+  inline bool isTeToo();
+  inline bool hasTeToo();
+  inline  ::cereal::TeToo::Builder getTeToo();
+  inline void setTeToo( ::cereal::TeToo::Reader value);
+  inline  ::cereal::TeToo::Builder initTeToo();
+  inline void adoptTeToo(::capnp::Orphan< ::cereal::TeToo>&& value);
+  inline ::capnp::Orphan< ::cereal::TeToo> disownTeToo();
 
-  inline bool isCustomReserved3();
-  inline bool hasCustomReserved3();
-  inline  ::cereal::CustomReserved3::Builder getCustomReserved3();
-  inline void setCustomReserved3( ::cereal::CustomReserved3::Reader value);
-  inline  ::cereal::CustomReserved3::Builder initCustomReserved3();
-  inline void adoptCustomReserved3(::capnp::Orphan< ::cereal::CustomReserved3>&& value);
-  inline ::capnp::Orphan< ::cereal::CustomReserved3> disownCustomReserved3();
+  inline bool isLateralPlan();
+  inline bool hasLateralPlan();
+  inline  ::cereal::LateralPlan::Builder getLateralPlan();
+  inline void setLateralPlan( ::cereal::LateralPlan::Reader value);
+  inline  ::cereal::LateralPlan::Builder initLateralPlan();
+  inline void adoptLateralPlan(::capnp::Orphan< ::cereal::LateralPlan>&& value);
+  inline ::capnp::Orphan< ::cereal::LateralPlan> disownLateralPlan();
 
   inline bool isCustomReserved4();
   inline bool hasCustomReserved4();
@@ -53230,111 +53230,111 @@ inline ::capnp::Orphan< ::cereal::LongitudinalPlanExt> Event::Builder::disownLon
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 
-inline bool Event::Reader::isCustomReserved2() const {
-  return which() == Event::CUSTOM_RESERVED2;
+inline bool Event::Reader::isTeToo() const {
+  return which() == Event::TE_TOO;
 }
-inline bool Event::Builder::isCustomReserved2() {
-  return which() == Event::CUSTOM_RESERVED2;
+inline bool Event::Builder::isTeToo() {
+  return which() == Event::TE_TOO;
 }
-inline bool Event::Reader::hasCustomReserved2() const {
-  if (which() != Event::CUSTOM_RESERVED2) return false;
+inline bool Event::Reader::hasTeToo() const {
+  if (which() != Event::TE_TOO) return false;
   return !_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline bool Event::Builder::hasCustomReserved2() {
-  if (which() != Event::CUSTOM_RESERVED2) return false;
+inline bool Event::Builder::hasTeToo() {
+  if (which() != Event::TE_TOO) return false;
   return !_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline  ::cereal::CustomReserved2::Reader Event::Reader::getCustomReserved2() const {
-  KJ_IREQUIRE((which() == Event::CUSTOM_RESERVED2),
+inline  ::cereal::TeToo::Reader Event::Reader::getTeToo() const {
+  KJ_IREQUIRE((which() == Event::TE_TOO),
               "Must check which() before get()ing a union member.");
-  return ::capnp::_::PointerHelpers< ::cereal::CustomReserved2>::get(_reader.getPointerField(
+  return ::capnp::_::PointerHelpers< ::cereal::TeToo>::get(_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline  ::cereal::CustomReserved2::Builder Event::Builder::getCustomReserved2() {
-  KJ_IREQUIRE((which() == Event::CUSTOM_RESERVED2),
+inline  ::cereal::TeToo::Builder Event::Builder::getTeToo() {
+  KJ_IREQUIRE((which() == Event::TE_TOO),
               "Must check which() before get()ing a union member.");
-  return ::capnp::_::PointerHelpers< ::cereal::CustomReserved2>::get(_builder.getPointerField(
+  return ::capnp::_::PointerHelpers< ::cereal::TeToo>::get(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline void Event::Builder::setCustomReserved2( ::cereal::CustomReserved2::Reader value) {
+inline void Event::Builder::setTeToo( ::cereal::TeToo::Reader value) {
   _builder.setDataField<Event::Which>(
-      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::CUSTOM_RESERVED2);
-  ::capnp::_::PointerHelpers< ::cereal::CustomReserved2>::set(_builder.getPointerField(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::TE_TOO);
+  ::capnp::_::PointerHelpers< ::cereal::TeToo>::set(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), value);
 }
-inline  ::cereal::CustomReserved2::Builder Event::Builder::initCustomReserved2() {
+inline  ::cereal::TeToo::Builder Event::Builder::initTeToo() {
   _builder.setDataField<Event::Which>(
-      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::CUSTOM_RESERVED2);
-  return ::capnp::_::PointerHelpers< ::cereal::CustomReserved2>::init(_builder.getPointerField(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::TE_TOO);
+  return ::capnp::_::PointerHelpers< ::cereal::TeToo>::init(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline void Event::Builder::adoptCustomReserved2(
-    ::capnp::Orphan< ::cereal::CustomReserved2>&& value) {
+inline void Event::Builder::adoptTeToo(
+    ::capnp::Orphan< ::cereal::TeToo>&& value) {
   _builder.setDataField<Event::Which>(
-      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::CUSTOM_RESERVED2);
-  ::capnp::_::PointerHelpers< ::cereal::CustomReserved2>::adopt(_builder.getPointerField(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::TE_TOO);
+  ::capnp::_::PointerHelpers< ::cereal::TeToo>::adopt(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
 }
-inline ::capnp::Orphan< ::cereal::CustomReserved2> Event::Builder::disownCustomReserved2() {
-  KJ_IREQUIRE((which() == Event::CUSTOM_RESERVED2),
+inline ::capnp::Orphan< ::cereal::TeToo> Event::Builder::disownTeToo() {
+  KJ_IREQUIRE((which() == Event::TE_TOO),
               "Must check which() before get()ing a union member.");
-  return ::capnp::_::PointerHelpers< ::cereal::CustomReserved2>::disown(_builder.getPointerField(
+  return ::capnp::_::PointerHelpers< ::cereal::TeToo>::disown(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 
-inline bool Event::Reader::isCustomReserved3() const {
-  return which() == Event::CUSTOM_RESERVED3;
+inline bool Event::Reader::isLateralPlan() const {
+  return which() == Event::LATERAL_PLAN;
 }
-inline bool Event::Builder::isCustomReserved3() {
-  return which() == Event::CUSTOM_RESERVED3;
+inline bool Event::Builder::isLateralPlan() {
+  return which() == Event::LATERAL_PLAN;
 }
-inline bool Event::Reader::hasCustomReserved3() const {
-  if (which() != Event::CUSTOM_RESERVED3) return false;
+inline bool Event::Reader::hasLateralPlan() const {
+  if (which() != Event::LATERAL_PLAN) return false;
   return !_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline bool Event::Builder::hasCustomReserved3() {
-  if (which() != Event::CUSTOM_RESERVED3) return false;
+inline bool Event::Builder::hasLateralPlan() {
+  if (which() != Event::LATERAL_PLAN) return false;
   return !_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline  ::cereal::CustomReserved3::Reader Event::Reader::getCustomReserved3() const {
-  KJ_IREQUIRE((which() == Event::CUSTOM_RESERVED3),
+inline  ::cereal::LateralPlan::Reader Event::Reader::getLateralPlan() const {
+  KJ_IREQUIRE((which() == Event::LATERAL_PLAN),
               "Must check which() before get()ing a union member.");
-  return ::capnp::_::PointerHelpers< ::cereal::CustomReserved3>::get(_reader.getPointerField(
+  return ::capnp::_::PointerHelpers< ::cereal::LateralPlan>::get(_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline  ::cereal::CustomReserved3::Builder Event::Builder::getCustomReserved3() {
-  KJ_IREQUIRE((which() == Event::CUSTOM_RESERVED3),
+inline  ::cereal::LateralPlan::Builder Event::Builder::getLateralPlan() {
+  KJ_IREQUIRE((which() == Event::LATERAL_PLAN),
               "Must check which() before get()ing a union member.");
-  return ::capnp::_::PointerHelpers< ::cereal::CustomReserved3>::get(_builder.getPointerField(
+  return ::capnp::_::PointerHelpers< ::cereal::LateralPlan>::get(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline void Event::Builder::setCustomReserved3( ::cereal::CustomReserved3::Reader value) {
+inline void Event::Builder::setLateralPlan( ::cereal::LateralPlan::Reader value) {
   _builder.setDataField<Event::Which>(
-      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::CUSTOM_RESERVED3);
-  ::capnp::_::PointerHelpers< ::cereal::CustomReserved3>::set(_builder.getPointerField(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::LATERAL_PLAN);
+  ::capnp::_::PointerHelpers< ::cereal::LateralPlan>::set(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), value);
 }
-inline  ::cereal::CustomReserved3::Builder Event::Builder::initCustomReserved3() {
+inline  ::cereal::LateralPlan::Builder Event::Builder::initLateralPlan() {
   _builder.setDataField<Event::Which>(
-      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::CUSTOM_RESERVED3);
-  return ::capnp::_::PointerHelpers< ::cereal::CustomReserved3>::init(_builder.getPointerField(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::LATERAL_PLAN);
+  return ::capnp::_::PointerHelpers< ::cereal::LateralPlan>::init(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline void Event::Builder::adoptCustomReserved3(
-    ::capnp::Orphan< ::cereal::CustomReserved3>&& value) {
+inline void Event::Builder::adoptLateralPlan(
+    ::capnp::Orphan< ::cereal::LateralPlan>&& value) {
   _builder.setDataField<Event::Which>(
-      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::CUSTOM_RESERVED3);
-  ::capnp::_::PointerHelpers< ::cereal::CustomReserved3>::adopt(_builder.getPointerField(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::LATERAL_PLAN);
+  ::capnp::_::PointerHelpers< ::cereal::LateralPlan>::adopt(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
 }
-inline ::capnp::Orphan< ::cereal::CustomReserved3> Event::Builder::disownCustomReserved3() {
-  KJ_IREQUIRE((which() == Event::CUSTOM_RESERVED3),
+inline ::capnp::Orphan< ::cereal::LateralPlan> Event::Builder::disownLateralPlan() {
+  KJ_IREQUIRE((which() == Event::LATERAL_PLAN),
               "Must check which() before get()ing a union member.");
-  return ::capnp::_::PointerHelpers< ::cereal::CustomReserved3>::disown(_builder.getPointerField(
+  return ::capnp::_::PointerHelpers< ::cereal::LateralPlan>::disown(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 

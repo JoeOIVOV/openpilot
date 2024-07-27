@@ -1,8 +1,72 @@
-dragonpilot 0.9.8
+dragonpilot beta3 0.9.8
+=======================
+* Up to comma.ai openpilot master branch commit cbee4421da690fa7b260f62c4a2c72ccacc6c902 (2024-07-14)
+* DP HIGHLIGHT:
+  * [BUGFIX] Fixed Lexus IS/GS crashed issue.
+  * [BUGFIX] [TESTING] Fixed issue with TeToo road match. 
+  * [NEW] [TESTING] Personalized Accel Learner (PAL) - Learn and apply accel habits from driver.
+    * Ability to set a launch boost for initial acceleration  
+    * Ability to freeze / reset learned parameters
+  * [NEW] Delete logs button (Device Panel)
+  * [NEW] [VAG] Patch for Modified PQ Platform
+  * [NEW] Lane Priority Mode
+    * Ability to use Lane Planner for lane centering instead of end to end (when lane probs are high, logic by sunnyhaibin).
+    * Ability to set speed limit and only activate at high speed (e.g. highway use only)
+　　
+　　
+===============
+DP FEATURE LIST
+===============
+  * Common / Lateral
+    * Always on Lane Keeping Assist (ALKA)
+    * Configurable Lane Change Assist w/ Auto Lane Change Support
+    * Road Edge Detection. (by rav4kumar)
+  * Common / Longitudinal
+    * Dynamic End-to-End Controller
+    * On-Screen Driving Personality Button
+    * Speed-based Alternative Driving Personality Mode
+  * Common / UI
+    * Display Flight Panel
+    * Display Rainbow Path
+    * Accel/Decel Indicator
+    * Blinker / Brake Indicator
+  * Common / Tē-Tôo (Map)
+    * [TESTING] Display Road Name (Global, Online OSM)
+    * [TESTING] Display Speed Camera Warning (Global, Online OSM)
+    * [TESTING] Display Speed Camera Warning for Taiwan (Offline DB)
+  * Common / Device
+    * Disable Logging
+    * Disable Upload While On-Road (by rav4kumar)
+    * Display On/Off Mode
+    * Audible Alert Mode
+    * Auto Shutdown w/ Timer
+    * On-Road / Off-Road Switcher (Software Panel)
+    * Debug Console
+  * Vehicle / Toyota
+    * Stop and Go Mod
+    * Enhanced BSM (by rav4kumar)
+    * Auto Door Lock/Unlock
+    * Zorro-Steering-Sensor (ZSS) Support (by erichMoraga)
+    * PCM Compensation Enhancement (by cydia2020)
+    * Auto Brake-Hold (by alexandreSato)
+  * Vehicle / VAG
+    * SnG for A0 Platform (by Saber422)
+  * Vehicle / HKG
+    * Low Speed Turn Enhancement
+
+dragonpilot beta3 [2024.07.13]
 =======================
 * Up to comma.ai openpilot master branch commit 01c2174d5968266b87f1d1fecefce5affaeaa624 (2024-07-02)
+* DP HIGHLIGHT:
+  * [NEW] [TESTING] Tē-Tôo / Map Module
+    * Road Name Display (Online using OSM)
+    * Speed Camera Warning (Online using OSM: Untested)
+    * Speed Camera Warning (Taiwan, Offline)
+  * Dynamic End-to-End w/ Toggleable Road Condition Detection.
+  * Device Auto Shutdown Toggle.
+  * Device Audible Alert Mode Toggle.
 
-dragonpilot [2024.07.01]
+dragonpilot beta3 [2024.07.01]
 =======================
 * Up to comma.ai openpilot master branch commit 442e9f4ae492901a5698b3188741c97c053026c4 (2024-06-21)
 * DP HIGHLIGHT:

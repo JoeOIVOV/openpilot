@@ -271,13 +271,18 @@ class Updater:
   def get_commit_hash(self, path: str = OVERLAY_MERGED) -> str:
     return run(["git", "rev-parse", "HEAD"], path).rstrip()
 
+  def filter_branches(self, branches, prefixes):
+    return [branch for branch in branches if any(branch.startswith(prefix) for prefix in prefixes)]
+
   def set_params(self, update_success: bool, failed_count: int, exception: str | None) -> None:
     self.params.put("UpdateFailedCount", str(failed_count))
     self.params.put("UpdaterTargetBranch", self.target_branch)
 
     self.params.put_bool("UpdaterFetchAvailable", self.update_available)
     if len(self.branches):
-      self.params.put("UpdaterAvailableBranches", ','.join(self.branches.keys()))
+      allowed_prefixes = ['beta3', 'release3']
+      filtered_branches = self.filter_branches(self.branches.keys(), allowed_prefixes)
+      self.params.put("UpdaterAvailableBranches", ','.join(filtered_branches))
 
     last_update = datetime.datetime.now(datetime.UTC).replace(tzinfo=None)
     if update_success:

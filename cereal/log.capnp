@@ -2351,8 +2351,8 @@ struct Event {
     # *********** Custom: reserved for forks ***********
     controlsStateExt @107 :Custom.ControlsStateExt;
     longitudinalPlanExt @108 :Custom.LongitudinalPlanExt;
-    customReserved2 @109 :Custom.CustomReserved2;
-    customReserved3 @110 :Custom.CustomReserved3;
+    teToo @109 :Custom.TeToo;
+    lateralPlan @110 :LateralPlan;
     customReserved4 @111 :Custom.CustomReserved4;
     customReserved5 @112 :Custom.CustomReserved5;
     customReserved6 @113 :Custom.CustomReserved6;

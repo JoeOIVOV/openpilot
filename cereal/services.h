@@ -54,7 +54,7 @@ static std::map<std::string, service> services = {
   { "wideRoadEncodeIdx", {"wideRoadEncodeIdx", false, 20, 1}},
   { "wideRoadCameraState", {"wideRoadCameraState", true, 20, 20}},
   { "drivingModelData", {"drivingModelData", true, 20, 10}},
-  { "modelV2", {"modelV2", true, 20, 0}},
+  { "modelV2", {"modelV2", true, 20, -1}},
   { "managerState", {"managerState", true, 2, 1}},
   { "uploaderState", {"uploaderState", true, 0, 1}},
   { "navInstruction", {"navInstruction", true, 1, 10}},
@@ -80,6 +80,8 @@ static std::map<std::string, service> services = {
   { "customReservedRawData2", {"customReservedRawData2", true, 0, -1}},
   { "controlsStateExt", {"controlsStateExt", false, 100, 10}},
   { "longitudinalPlanExt", {"longitudinalPlanExt", false, 20, 5}},
+  { "teToo", {"teToo", false, 5, -1}},
+  { "lateralPlan", {"lateralPlan", false, 20, 5}},
 };
 #endif
 

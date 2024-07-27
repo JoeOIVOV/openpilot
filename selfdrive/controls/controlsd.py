@@ -20,7 +20,7 @@ from openpilot.common.swaglog import cloudlog
 
 from openpilot.selfdrive.car.car_helpers import get_car_interface, get_startup_event
 from openpilot.selfdrive.controls.lib.alertmanager import AlertManager, set_offroad_alert
-from openpilot.selfdrive.controls.lib.drive_helpers import VCruiseHelper, clip_curvature
+from openpilot.selfdrive.controls.lib.drive_helpers import VCruiseHelper, clip_curvature, get_lag_adjusted_curvature
 from openpilot.selfdrive.controls.lib.events import Events, ET
 from openpilot.selfdrive.controls.lib.latcontrol import LatControl, MIN_LATERAL_CONTROL_SPEED
 from openpilot.selfdrive.controls.lib.latcontrol_pid import LatControlPID
@@ -63,18 +63,31 @@ class Controls:
     self.params = Params()
 
     # dp
-    self._dp_alka = self.params.get_bool("dp_alka")
+    try:
+      self._dp_alka = self.params.get_bool("dp_alka")
+    except:
+      self._dp_alka = False
     self._dp_alka_active = True
-    self._dp_lat_lane_change_assist_mode = int(self.params.get("dp_lat_lane_change_assist_mode"))
+    try:
+      self._dp_lat_lane_change_assist_mode = int(self.params.get("dp_lat_lane_change_assist_mode"))
+    except:
+      self._dp_lat_lane_change_assist_mode = 0
     self._dp_lat_lane_change_assist_mode_disable_active = False
-    self._dp_device_dm_unavailable = self.params.get_bool("dp_device_dm_unavailable")
+    try:
+      self._dp_device_dm_unavailable = self.params.get_bool("dp_device_dm_unavailable")
+    except:
+      self._dp_device_dm_unavailable = False
+
+    try:
+      self._dp_lat_lane_priority_mode = self.params.get_bool("dp_lat_lane_priority_mode")
+    except (ValueError, TypeError):
+      self._dp_lat_lane_priority_mode = False
+
     self._dp_device_dm_unavailable_active = True if self._dp_device_dm_unavailable else False
 
     if CI is None:
       cloudlog.info("controlsd is waiting for CarParams")
-      with car.CarParams.from_bytes(self.params.get("CarParams", block=True)) as msg:
-        # TODO: this shouldn't need to be a builder
-        self.CP = msg.as_builder()
+      self.CP = messaging.log_from_bytes(self.params.get("CarParams", block=True), car.CarParams)
       cloudlog.info("controlsd got CarParams")
 
       # Uses car interface helper functions, altering state won't be considered by card for actuation
@@ -105,9 +118,14 @@ class Controls:
     if REPLAY:
       # no vipc in replay will make them ignored anyways
       ignore += ['roadCameraState', 'wideRoadCameraState']
+    # dp
+    if not self._dp_lat_lane_priority_mode:
+      ignore += ['lateralPlan']
+
     self.sm = messaging.SubMaster(['deviceState', 'pandaStates', 'peripheralState', 'modelV2', 'liveCalibration',
                                    'carOutput', 'driverMonitoringState', 'longitudinalPlan', 'liveLocationKalman',
                                    'managerState', 'liveParameters', 'radarState', 'liveTorqueParameters',
+                                   "lateralPlan", # dp - lane priority mode
                                    'testJoystick'] + self.camera_packets + self.sensor_packets,
                                   ignore_alive=ignore, ignore_avg_freq=ignore+['radarState', 'testJoystick'], ignore_valid=['testJoystick', ],
                                   frequency=int(1/DT_CTRL))
@@ -619,8 +637,12 @@ class Controls:
       pid_accel_limits = self.CI.get_pid_accel_limits(self.CP, CS.vEgo, self.v_cruise_helper.v_cruise_kph * CV.KPH_TO_MS)
       actuators.accel = self.LoC.update(CC.longActive, CS, long_plan.aTarget, long_plan.shouldStop, pid_accel_limits)
 
-      # Steering PID loop and lateral MPC
-      self.desired_curvature = clip_curvature(CS.vEgo, self.desired_curvature, model_v2.action.desiredCurvature)
+      # dp - lane line priority mode
+      if self._dp_lat_lane_priority_mode and self.sm['lateralPlan'].useLaneLines:
+        self.desired_curvature = get_lag_adjusted_curvature(self.CP, CS.vEgo, self.sm['lateralPlan'].psis, self.sm['lateralPlan'].curvatures)
+      else:
+        # Steering PID loop and lateral MPC
+        self.desired_curvature = clip_curvature(CS.vEgo, self.desired_curvature, model_v2.action.desiredCurvature)
       actuators.curvature = self.desired_curvature
       actuators.steer, actuators.steeringAngleDeg, lac_log = self.LaC.update(CC.latActive, CS, self.VM, lp,
                                                                              self.steer_limited, self.desired_curvature,

@@ -20,6 +20,7 @@ from openpilot.common.params import Params
 from openpilot.dp_ext.selfdrive.controls.lib.dynamic_endtoend_controller import DynamicEndtoEndController
 from openpilot.dp_ext.selfdrive.controls.lib.alt_driving_personality_controller import AlternativeDrivingPersonalityController
 from openpilot.dp_ext.selfdrive.controls.lib.curve_speed_limiter import CurveSpeedLimiter
+from openpilot.dp_ext.selfdrive.controls.lib.personalized_accel_learner import PersonalizedAccelLearner
 
 LON_MPC_STEP = 0.2  # first step is 0.2s
 A_CRUISE_MIN = -1.2
@@ -51,22 +52,21 @@ def limit_accel_in_turns(v_ego, angle_steers, a_target, CP):
 
 
 def get_accel_from_plan(CP, speeds, accels):
-    if len(speeds) == CONTROL_N:
-      v_target_now = interp(DT_MDL, CONTROL_N_T_IDX, speeds)
-      a_target_now = interp(DT_MDL, CONTROL_N_T_IDX, accels)
+  if len(speeds) == CONTROL_N:
+    v_target_now = interp(DT_MDL, CONTROL_N_T_IDX, speeds)
+    a_target_now = interp(DT_MDL, CONTROL_N_T_IDX, accels)
 
-      v_target = interp(CP.longitudinalActuatorDelay + DT_MDL, CONTROL_N_T_IDX, speeds)
-      a_target = 2 * (v_target - v_target_now) / CP.longitudinalActuatorDelay - a_target_now
+    v_target = interp(CP.longitudinalActuatorDelay + DT_MDL, CONTROL_N_T_IDX, speeds)
+    a_target = 2 * (v_target - v_target_now) / CP.longitudinalActuatorDelay - a_target_now
 
-      v_target_1sec = interp(CP.longitudinalActuatorDelay + DT_MDL + 1.0, CONTROL_N_T_IDX, speeds)
-    else:
-      v_target = 0.0
-      v_target_now = 0.0
-      v_target_1sec = 0.0
-      a_target = 0.0
-    should_stop = (v_target < CP.vEgoStopping and
-                    v_target_1sec < CP.vEgoStopping)
-    return a_target, should_stop
+    v_target_1sec = interp(CP.longitudinalActuatorDelay + DT_MDL + 1.0, CONTROL_N_T_IDX, speeds)
+  else:
+    v_target = 0.0
+    v_target_1sec = 0.0
+    a_target = 0.0
+  should_stop = (v_target < CP.vEgoStopping and
+                 v_target_1sec < CP.vEgoStopping)
+  return a_target, should_stop
 
 
 class LongitudinalPlanner:
@@ -91,12 +91,13 @@ class LongitudinalPlanner:
     self._dynamic_endtoend_controller = DynamicEndtoEndController()
     self._adp_controller = AlternativeDrivingPersonalityController()
     self._curve_speed_limiter = CurveSpeedLimiter()
+    self._pal = PersonalizedAccelLearner()
 
   @staticmethod
   def parse_model(model_msg, model_error):
     if (len(model_msg.position.x) == ModelConstants.IDX_N and
-       len(model_msg.velocity.x) == ModelConstants.IDX_N and
-       len(model_msg.acceleration.x) == ModelConstants.IDX_N):
+      len(model_msg.velocity.x) == ModelConstants.IDX_N and
+      len(model_msg.acceleration.x) == ModelConstants.IDX_N):
       x = np.interp(T_IDXS_MPC, ModelConstants.T_IDXS, model_msg.position.x) - model_error * T_IDXS_MPC
       v = np.interp(T_IDXS_MPC, ModelConstants.T_IDXS, model_msg.velocity.x) - model_error
       a = np.interp(T_IDXS_MPC, ModelConstants.T_IDXS, model_msg.acceleration.x)
@@ -110,7 +111,8 @@ class LongitudinalPlanner:
 
   def update(self, sm):
     if self._frame % 50 == 0:
-      self._dynamic_endtoend_controller.set_enabled(self.params.get_bool("dp_long_de2e"))
+      self._dynamic_endtoend_controller.set_enabled(sm['controlsState'].experimentalMode and self.params.get_bool("dp_long_de2e"))
+      self._pal.set_enabled(self.params.get_bool("dp_long_pal"))
 
     self._frame += 1
 
@@ -140,7 +142,8 @@ class LongitudinalPlanner:
     prev_accel_constraint = not (reset_state or sm['carState'].standstill)
 
     if self.mpc.mode == 'acc':
-      accel_limits = [A_CRUISE_MIN, get_max_accel(v_ego)]
+      self._pal.update(sm['carState'], sm['radarState'].leadOne.status and v_ego > 0. and sm['radarState'].leadOne.dRel / v_ego < 2.5)
+      accel_limits = [A_CRUISE_MIN, self._pal.get_max_accel(v_ego, A_CRUISE_MAX_BP, A_CRUISE_MAX_VALS)]
       accel_limits_turns = limit_accel_in_turns(v_ego, sm['carState'].steeringAngleDeg, accel_limits, self.CP)
     else:
       accel_limits = [ACCEL_MIN, ACCEL_MAX]

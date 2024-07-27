@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
+
+ARCHNAME=$(uname -m)
+if [ -f /TICI ]; then
+  ARCHNAME="larch64"
+fi
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  ARCHNAME="Darwin"
+fi
+
+LIB_DIR=$DIR/../../../third_party/libspatialindex/$ARCHNAME/lib/
+
+export LD_LIBRARY_PATH=$LIB_DIR:$LD_LIBRARY_PATH
+
+exec "$DIR/tetood.py" "$@"

@@ -29,6 +29,13 @@ enum class LaneChangeAssistMode_db95ceb5f50cf43d: uint16_t {
 };
 CAPNP_DECLARE_ENUM(LaneChangeAssistMode, db95ceb5f50cf43d);
 CAPNP_DECLARE_SCHEMA(f35cc4560bbf6ec2);
+CAPNP_DECLARE_SCHEMA(95d6756cb2bc0e0c);
+CAPNP_DECLARE_SCHEMA(d2214cc8a8c159f3);
+enum class FeatureType_d2214cc8a8c159f3: uint16_t {
+  TRAFFIC_SIGNAL,
+  SPEED_CAMERA,
+};
+CAPNP_DECLARE_ENUM(FeatureType, d2214cc8a8c159f3);
 CAPNP_DECLARE_SCHEMA(da96579883444c35);
 CAPNP_DECLARE_SCHEMA(80ae746ee2596b11);
 CAPNP_DECLARE_SCHEMA(a5cd762cd951a455);
@@ -74,15 +81,33 @@ struct LongitudinalPlanExt {
 
 typedef ::capnp::schemas::LaneChangeAssistMode_db95ceb5f50cf43d LaneChangeAssistMode;
 
-struct CustomReserved2 {
-  CustomReserved2() = delete;
+struct TeToo {
+  TeToo() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+  struct Feature;
+  typedef ::capnp::schemas::FeatureType_d2214cc8a8c159f3 FeatureType;
+
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(f35cc4560bbf6ec2, 3, 3)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct TeToo::Feature {
+  Feature() = delete;
 
   class Reader;
   class Builder;
   class Pipeline;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(f35cc4560bbf6ec2, 0, 0)
+    CAPNP_DECLARE_STRUCT_HEADER(95d6756cb2bc0e0c, 3, 2)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -363,9 +388,9 @@ private:
 };
 #endif  // !CAPNP_LITE
 
-class CustomReserved2::Reader {
+class TeToo::Reader {
 public:
-  typedef CustomReserved2 Reads;
+  typedef TeToo Reads;
 
   Reader() = default;
   inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
@@ -380,6 +405,25 @@ public:
   }
 #endif  // !CAPNP_LITE
 
+  inline float getLat() const;
+
+  inline float getLon() const;
+
+  inline float getBearing() const;
+
+  inline bool hasName() const;
+  inline  ::capnp::Text::Reader getName() const;
+
+  inline float getMaxspeed() const;
+
+  inline bool hasTags() const;
+  inline  ::capnp::Text::Reader getTags() const;
+
+  inline bool getUpdatingData() const;
+
+  inline bool hasNearestFeatures() const;
+  inline  ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>::Reader getNearestFeatures() const;
+
 private:
   ::capnp::_::StructReader _reader;
   template <typename, ::capnp::Kind>
@@ -392,9 +436,9 @@ private:
   friend class ::capnp::Orphanage;
 };
 
-class CustomReserved2::Builder {
+class TeToo::Builder {
 public:
-  typedef CustomReserved2 Builds;
+  typedef TeToo Builds;
 
   Builder() = delete;  // Deleted to discourage incorrect usage.
                        // You can explicitly initialize to nullptr instead.
@@ -408,6 +452,42 @@ public:
   inline ::kj::StringTree toString() const { return asReader().toString(); }
 #endif  // !CAPNP_LITE
 
+  inline float getLat();
+  inline void setLat(float value);
+
+  inline float getLon();
+  inline void setLon(float value);
+
+  inline float getBearing();
+  inline void setBearing(float value);
+
+  inline bool hasName();
+  inline  ::capnp::Text::Builder getName();
+  inline void setName( ::capnp::Text::Reader value);
+  inline  ::capnp::Text::Builder initName(unsigned int size);
+  inline void adoptName(::capnp::Orphan< ::capnp::Text>&& value);
+  inline ::capnp::Orphan< ::capnp::Text> disownName();
+
+  inline float getMaxspeed();
+  inline void setMaxspeed(float value);
+
+  inline bool hasTags();
+  inline  ::capnp::Text::Builder getTags();
+  inline void setTags( ::capnp::Text::Reader value);
+  inline  ::capnp::Text::Builder initTags(unsigned int size);
+  inline void adoptTags(::capnp::Orphan< ::capnp::Text>&& value);
+  inline ::capnp::Orphan< ::capnp::Text> disownTags();
+
+  inline bool getUpdatingData();
+  inline void setUpdatingData(bool value);
+
+  inline bool hasNearestFeatures();
+  inline  ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>::Builder getNearestFeatures();
+  inline void setNearestFeatures( ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>::Reader value);
+  inline  ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>::Builder initNearestFeatures(unsigned int size);
+  inline void adoptNearestFeatures(::capnp::Orphan< ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>>&& value);
+  inline ::capnp::Orphan< ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>> disownNearestFeatures();
+
 private:
   ::capnp::_::StructBuilder _builder;
   template <typename, ::capnp::Kind>
@@ -418,9 +498,130 @@ private:
 };
 
 #if !CAPNP_LITE
-class CustomReserved2::Pipeline {
+class TeToo::Pipeline {
 public:
-  typedef CustomReserved2 Pipelines;
+  typedef TeToo Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class TeToo::Feature::Reader {
+public:
+  typedef Feature Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasId() const;
+  inline  ::capnp::Text::Reader getId() const;
+
+  inline  ::cereal::TeToo::FeatureType getType() const;
+
+  inline float getLat() const;
+
+  inline float getLon() const;
+
+  inline float getBearing() const;
+
+  inline float getDistance() const;
+
+  inline bool hasTags() const;
+  inline  ::capnp::Text::Reader getTags() const;
+
+  inline float getProbability() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class TeToo::Feature::Builder {
+public:
+  typedef Feature Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasId();
+  inline  ::capnp::Text::Builder getId();
+  inline void setId( ::capnp::Text::Reader value);
+  inline  ::capnp::Text::Builder initId(unsigned int size);
+  inline void adoptId(::capnp::Orphan< ::capnp::Text>&& value);
+  inline ::capnp::Orphan< ::capnp::Text> disownId();
+
+  inline  ::cereal::TeToo::FeatureType getType();
+  inline void setType( ::cereal::TeToo::FeatureType value);
+
+  inline float getLat();
+  inline void setLat(float value);
+
+  inline float getLon();
+  inline void setLon(float value);
+
+  inline float getBearing();
+  inline void setBearing(float value);
+
+  inline float getDistance();
+  inline void setDistance(float value);
+
+  inline bool hasTags();
+  inline  ::capnp::Text::Builder getTags();
+  inline void setTags( ::capnp::Text::Reader value);
+  inline  ::capnp::Text::Builder initTags(unsigned int size);
+  inline void adoptTags(::capnp::Orphan< ::capnp::Text>&& value);
+  inline ::capnp::Orphan< ::capnp::Text> disownTags();
+
+  inline float getProbability();
+  inline void setProbability(float value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class TeToo::Feature::Pipeline {
+public:
+  typedef Feature Pipelines;
 
   inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
   inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
@@ -1001,6 +1202,330 @@ inline bool LongitudinalPlanExt::Builder::getAltDrivingPersonalityIsActive() {
 inline void LongitudinalPlanExt::Builder::setAltDrivingPersonalityIsActive(bool value) {
   _builder.setDataField<bool>(
       ::capnp::bounded<2>() * ::capnp::ELEMENTS, value);
+}
+
+inline float TeToo::Reader::getLat() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline float TeToo::Builder::getLat() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void TeToo::Builder::setLat(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
+inline float TeToo::Reader::getLon() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+
+inline float TeToo::Builder::getLon() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+inline void TeToo::Builder::setLon(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
+}
+
+inline float TeToo::Reader::getBearing() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+
+inline float TeToo::Builder::getBearing() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+inline void TeToo::Builder::setBearing(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool TeToo::Reader::hasName() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool TeToo::Builder::hasName() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::Text::Reader TeToo::Reader::getName() const {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::capnp::Text::Builder TeToo::Builder::getName() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void TeToo::Builder::setName( ::capnp::Text::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::Text::Builder TeToo::Builder::initName(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), size);
+}
+inline void TeToo::Builder::adoptName(
+    ::capnp::Orphan< ::capnp::Text>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::Text> TeToo::Builder::disownName() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline float TeToo::Reader::getMaxspeed() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS);
+}
+
+inline float TeToo::Builder::getMaxspeed() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS);
+}
+inline void TeToo::Builder::setMaxspeed(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool TeToo::Reader::hasTags() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline bool TeToo::Builder::hasTags() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::Text::Reader TeToo::Reader::getTags() const {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline  ::capnp::Text::Builder TeToo::Builder::getTags() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline void TeToo::Builder::setTags( ::capnp::Text::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::set(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::Text::Builder TeToo::Builder::initTags(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::init(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), size);
+}
+inline void TeToo::Builder::adoptTags(
+    ::capnp::Orphan< ::capnp::Text>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::adopt(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::Text> TeToo::Builder::disownTags() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::disown(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+
+inline bool TeToo::Reader::getUpdatingData() const {
+  return _reader.getDataField<bool>(
+      ::capnp::bounded<128>() * ::capnp::ELEMENTS);
+}
+
+inline bool TeToo::Builder::getUpdatingData() {
+  return _builder.getDataField<bool>(
+      ::capnp::bounded<128>() * ::capnp::ELEMENTS);
+}
+inline void TeToo::Builder::setUpdatingData(bool value) {
+  _builder.setDataField<bool>(
+      ::capnp::bounded<128>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool TeToo::Reader::hasNearestFeatures() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS).isNull();
+}
+inline bool TeToo::Builder::hasNearestFeatures() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>::Reader TeToo::Reader::getNearestFeatures() const {
+  return ::capnp::_::PointerHelpers< ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>>::get(_reader.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+inline  ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>::Builder TeToo::Builder::getNearestFeatures() {
+  return ::capnp::_::PointerHelpers< ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>>::get(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+inline void TeToo::Builder::setNearestFeatures( ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>>::set(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>::Builder TeToo::Builder::initNearestFeatures(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>>::init(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), size);
+}
+inline void TeToo::Builder::adoptNearestFeatures(
+    ::capnp::Orphan< ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>>::adopt(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>> TeToo::Builder::disownNearestFeatures() {
+  return ::capnp::_::PointerHelpers< ::capnp::List< ::cereal::TeToo::Feature,  ::capnp::Kind::STRUCT>>::disown(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+
+inline bool TeToo::Feature::Reader::hasId() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool TeToo::Feature::Builder::hasId() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::Text::Reader TeToo::Feature::Reader::getId() const {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::capnp::Text::Builder TeToo::Feature::Builder::getId() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void TeToo::Feature::Builder::setId( ::capnp::Text::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::Text::Builder TeToo::Feature::Builder::initId(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), size);
+}
+inline void TeToo::Feature::Builder::adoptId(
+    ::capnp::Orphan< ::capnp::Text>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::Text> TeToo::Feature::Builder::disownId() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline  ::cereal::TeToo::FeatureType TeToo::Feature::Reader::getType() const {
+  return _reader.getDataField< ::cereal::TeToo::FeatureType>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline  ::cereal::TeToo::FeatureType TeToo::Feature::Builder::getType() {
+  return _builder.getDataField< ::cereal::TeToo::FeatureType>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void TeToo::Feature::Builder::setType( ::cereal::TeToo::FeatureType value) {
+  _builder.setDataField< ::cereal::TeToo::FeatureType>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
+inline float TeToo::Feature::Reader::getLat() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+
+inline float TeToo::Feature::Builder::getLat() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+inline void TeToo::Feature::Builder::setLat(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
+}
+
+inline float TeToo::Feature::Reader::getLon() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+
+inline float TeToo::Feature::Builder::getLon() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+inline void TeToo::Feature::Builder::setLon(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS, value);
+}
+
+inline float TeToo::Feature::Reader::getBearing() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS);
+}
+
+inline float TeToo::Feature::Builder::getBearing() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS);
+}
+inline void TeToo::Feature::Builder::setBearing(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS, value);
+}
+
+inline float TeToo::Feature::Reader::getDistance() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS);
+}
+
+inline float TeToo::Feature::Builder::getDistance() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS);
+}
+inline void TeToo::Feature::Builder::setDistance(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool TeToo::Feature::Reader::hasTags() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline bool TeToo::Feature::Builder::hasTags() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::Text::Reader TeToo::Feature::Reader::getTags() const {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline  ::capnp::Text::Builder TeToo::Feature::Builder::getTags() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline void TeToo::Feature::Builder::setTags( ::capnp::Text::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::set(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::Text::Builder TeToo::Feature::Builder::initTags(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::init(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), size);
+}
+inline void TeToo::Feature::Builder::adoptTags(
+    ::capnp::Orphan< ::capnp::Text>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::adopt(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::Text> TeToo::Feature::Builder::disownTags() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::disown(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+
+inline float TeToo::Feature::Reader::getProbability() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<5>() * ::capnp::ELEMENTS);
+}
+
+inline float TeToo::Feature::Builder::getProbability() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<5>() * ::capnp::ELEMENTS);
+}
+inline void TeToo::Feature::Builder::setProbability(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<5>() * ::capnp::ELEMENTS, value);
 }
 
 }  // namespace
