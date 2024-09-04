@@ -4,9 +4,9 @@ from cereal import car
 from openpilot.common.conversions import Conversions as CV
 from openpilot.common.numpy_fast import mean
 from openpilot.common.filter_simple import FirstOrderFilter
-from openpilot.common.realtime import DT_CTRL
 from opendbc.can.can_define import CANDefine
 from opendbc.can.parser import CANParser
+from openpilot.selfdrive.car import DT_CTRL
 from openpilot.selfdrive.car.interfaces import CarStateBase
 from openpilot.selfdrive.car.toyota.values import ToyotaFlags, CAR, DBC, STEER_THRESHOLD, NO_STOP_TIMER_CAR, \
                                                   TSS2_CAR, RADAR_ACC_CAR, EPS_SCALE, UNSUPPORTED_DSU_CAR
@@ -14,6 +14,7 @@ from openpilot.selfdrive.car.toyota.values import ToyotaFlags, CAR, DBC, STEER_T
 from openpilot.dp_ext.selfdrive.car.toyota.zss.controller import ZSSController
 from openpilot.dp_ext.selfdrive.car.toyota.bsm.state import BSMState
 from openpilot.dp_ext.selfdrive.car.toyota.brake_hold.state import BrakeHoldState
+from openpilot.dp_ext.selfdrive.car.toyota.acc_filter.state import ACCFilterState
 
 SteerControlType = car.CarParams.SteerControlType
 
@@ -63,6 +64,8 @@ class CarState(CarStateBase):
     self.brake_hold_state = BrakeHoldState(CP.carFingerprint in TSS2_CAR)
     self.brakehold_governor = False
     self.stock_aeb = {}
+    # SDSU / Radar Fitler
+    self.acc_filter_state = ACCFilterState(CP)
 
   def update(self, cp, cp_cam):
     ret = car.CarState.new_message()
@@ -199,13 +202,14 @@ class CarState(CarStateBase):
     if self.CP.carFingerprint not in UNSUPPORTED_DSU_CAR:
       self.pcm_follow_distance = cp.vl["PCM_CRUISE_2"]["PCM_FOLLOW_DISTANCE"]
 
-    if self.CP.carFingerprint in (TSS2_CAR - RADAR_ACC_CAR) or (self.CP.flags & ToyotaFlags.SMART_DSU and not self.CP.flags & ToyotaFlags.RADAR_CAN_FILTER):
+    if self.CP.carFingerprint in (TSS2_CAR - RADAR_ACC_CAR):
       # distance button is wired to the ACC module (camera or radar)
       self.prev_distance_button = self.distance_button
       if self.CP.carFingerprint in (TSS2_CAR - RADAR_ACC_CAR):
         self.distance_button = cp_acc.vl["ACC_CONTROL"]["DISTANCE"]
-      else:
-        self.distance_button = cp.vl["SDSU"]["FD_BUTTON"]
+
+    # dp - acc filter - distance button logic for sdsu not radar can filter
+    self.prev_distance_button, self.distance_button = self.acc_filter_state.get_distance_button_states(self.prev_distance_button, self.distance_button)
 
     return ret
 
@@ -251,11 +255,6 @@ class CarState(CarStateBase):
     if CP.carFingerprint not in (TSS2_CAR - RADAR_ACC_CAR) and not CP.enableDsu and not CP.flags & ToyotaFlags.DISABLE_RADAR.value:
       messages += [
         ("PRE_COLLISION", 33),
-      ]
-
-    if CP.flags & ToyotaFlags.SMART_DSU and not CP.flags & ToyotaFlags.RADAR_CAN_FILTER:
-      messages += [
-        ("SDSU", 100),
       ]
 
     return CANParser(DBC[CP.carFingerprint]["pt"], messages, 0)

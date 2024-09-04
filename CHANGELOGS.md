@@ -1,5 +1,76 @@
 dragonpilot beta3 0.9.8
 =======================
+* Up to comma.ai openpilot master branch commit 7ee9d2d1b93abb3ccba53f9552b716d3a11c2b6d (2024-07-31)
+* DP HIGHLIGHT:
+  * [NEW] Disable Auto Update Toggle (Software Panel)
+  * [UPDATE] Flight Panel
+    * Performance improvement
+    * Removed shade
+    * Use green + yellow colour scheme
+    * Moved below road name
+    * Less elements on the screen
+    * Rotate compass instead of the indicator
+  * [UPDATE] Rainbow Path
+    * Performance improvement
+  * [UPDATE] TeToo
+    * Updated Taiwan Speed Camera Database (2024-07-11)
+  * [UPDATE] Personalized Accel Learner (PAL)
+    * Adjusted learning freq
+    * Save learnt values every minute
+  * [UPDATE] Dynamic End-to-End Controller
+    * DANGEOROUS_TTC reduce to 1.2s to rely on ACC mode more.
+　　
+　　
+===============
+DP FEATURE LIST
+===============
+  * Common / Lateral
+    * Always on Lane Keeping Assist (ALKA)
+    * Configurable Lane Change Assist w/ Auto Lane Change Support
+    * Road Edge Detection (by rav4kumar)
+    * Lane Priority Mode
+      * Ability to use Lane Planner for lane centering instead of end to end (when lane probs are high, logic by sunnyhaibin)
+      * Ability to set speed limit and only activate at high speed (e.g. highway use only)
+  * Common / Longitudinal
+    * Dynamic End-to-End Controller
+    * On-Screen Driving Personality Button
+    * Speed-based Alternative Driving Personality Mode
+    * [TESTING] Personalized Accel Learner (PAL) - Learn and apply accel habits from driver
+      * Ability to set a launch boost for initial acceleration
+      * Ability to freeze / reset learned parameters
+  * Common / UI
+    * Flight Panel
+    * Rainbow Path
+    * Accel/Decel Indicator
+    * Blinker / Brake Indicator
+  * Common / TeToo (Map / Tē-Tôo)
+    * [TESTING] Display Road Name (Global, Online OSM)
+    * [TESTING] Display Speed Camera Warning (Global, Online OSM)
+    * [TESTING] Display Speed Camera Warning for Taiwan (Offline DB)
+  * Common / Device
+    * Disable Logging
+    * Disable Upload While On-Road (by rav4kumar)
+    * Display On/Off Mode
+    * Audible Alert Mode
+    * Auto Shutdown w/ Timer
+    * On-Road / Off-Road Switcher (Software Panel)
+    * Debug Console
+    * Delete logs button (Device Panel)
+  * Vehicle / Toyota
+    * Stop and Go Mod
+    * Enhanced BSM (by rav4kumar)
+    * Auto Door Lock/Unlock
+    * Zorro-Steering-Sensor (ZSS) Support (by erichMoraga)
+    * PCM Compensation Enhancement (by cydia2020)
+    * Auto Brake-Hold (by alexandreSato)
+  * Vehicle / VAG
+    * SnG for A0 Platform (by Saber422)
+    * Patch for Modified PQ Platform (by Saber422)
+  * Vehicle / HKG
+    * Low Speed Turn Enhancement
+
+dragonpilot beta3 [2024-07-24]
+=======================
 * Up to comma.ai openpilot master branch commit cbee4421da690fa7b260f62c4a2c72ccacc6c902 (2024-07-14)
 * DP HIGHLIGHT:
   * [BUGFIX] Fixed Lexus IS/GS crashed issue.
@@ -26,11 +97,11 @@ DP FEATURE LIST
     * On-Screen Driving Personality Button
     * Speed-based Alternative Driving Personality Mode
   * Common / UI
-    * Display Flight Panel
-    * Display Rainbow Path
+    * Flight Panel
+    * Rainbow Path
     * Accel/Decel Indicator
     * Blinker / Brake Indicator
-  * Common / Tē-Tôo (Map)
+  * Common / TeToo (Map / Tē-Tôo)
     * [TESTING] Display Road Name (Global, Online OSM)
     * [TESTING] Display Speed Camera Warning (Global, Online OSM)
     * [TESTING] Display Speed Camera Warning for Taiwan (Offline DB)

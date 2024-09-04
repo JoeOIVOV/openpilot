@@ -15,15 +15,15 @@ from openpilot.system.hardware.hw import Paths
 from cereal import car
 
 
+CRASH_DIR = Paths.crash_root()
+IP_ADDRESS = "{{auto}}"
+
+
 class SentryProject(Enum):
   # python project
   SELFDRIVE = "https://980a0cba712a4c3593c33c78a12446e1@o273754.ingest.sentry.io/1488600"
   # native project
   SELFDRIVE_NATIVE = "https://980a0cba712a4c3593c33c78a12446e1@o273754.ingest.sentry.io/1488600"
-
-
-CRASH_DIR = Paths.crash_root()
-IP_ADDRESS = "{{auto}}"
 
 
 def report_tombstone(fn: str, message: str, contents: str) -> None:
@@ -64,10 +64,10 @@ def save_exception(exc_text: str) -> None:
         f.write("\n".join(lines))
       else:
         f.write(exc_text)
-  print('Logged current crash to {}'.format(files))
+  print(f'Logged current crash to {files}')
 
 def bind_user() -> None:
-  dongle_id, gitname, _ = get_properties()
+  dongle_id, gitname, _ = get_tags()
   sentry_sdk.set_user({"id": dongle_id, "ip_address": IP_ADDRESS, "name": gitname})
 
 def capture_warning(warning_string: str) -> None:

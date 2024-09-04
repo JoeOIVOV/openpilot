@@ -97,6 +97,7 @@ private:
   ButtonControl *targetBranchBtn;
   // dp
   ButtonControl *onOffBtn;
+  ParamControl *disableUpdateToggle;
 
   Params params;
   ParamWatcher *fs_watch;

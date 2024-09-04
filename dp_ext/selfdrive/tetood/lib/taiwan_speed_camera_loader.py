@@ -8,7 +8,7 @@ import csv
 
 class TaiwanSpeedCameraLoader(SpeedCameraLoader):
     def __init__(self, data_source: str = None, data_type: str = 'osm_json'):
-        self.data_source = os.path.join(BASEDIR, "dp_ext", "selfdrive", "tetood", "assets", "taiwan_speed_camera_2024_06_07.csv")
+        self.data_source = os.path.join(BASEDIR, "dp_ext", "selfdrive", "tetood", "assets", "NPA_TD1.csv")
         self.data_type = "csv"
         self.speed_cameras = {}
 

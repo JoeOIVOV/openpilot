@@ -13,7 +13,7 @@ A_CRUISE_MAX_BP = [0., 10.0, 25., 40.]
 # other constants
 SMOOTH_FACTOR = 0.9
 LEARNING_RATE = 0.01
-MAX_SAMPLES_PER_RANGE = 50
+MAX_SAMPLES_PER_RANGE = 10
 
 class PersonalizedAccelLearner:
     def __init__(self):
@@ -23,8 +23,6 @@ class PersonalizedAccelLearner:
         self.dp_long_pal_freeze = False
         self.dp_long_pal_launch_boost = 0. # percentage
         self.frame = 0
-
-        self.samples_per_range = self._initialize_variable_samples()
 
         # The 0.5 m/s intervals up to 2 m/s (roughly 0-7.2 km/h or 0-4.5 mph) allow for very precise control during start-stop traffic.
         # The range from 2 m/s to 15 m/s (7.2-54 km/h or 4.5-33.6 mph) covers most urban driving scenarios.
@@ -41,9 +39,6 @@ class PersonalizedAccelLearner:
 
         self.load_model()
 
-    def _initialize_variable_samples(self):
-        return [10, 10, 10, 10, 10, 10, 15, 15, 15, 15, 20, 20, 25, 30, 35, 35, 40, 40, 40]
-
     def update(self, car_state, lead_present):
         if (not lead_present and
                 not car_state.leftBlinker and
@@ -54,13 +49,12 @@ class PersonalizedAccelLearner:
             speed_index = self._get_speed_index(car_state.vEgo)
             self.speed_range_samples[speed_index].append(car_state.aEgo)
 
-            if speed_index < len(self.samples_per_range):
-                if len(self.speed_range_samples[speed_index]) >= self.samples_per_range[speed_index]:
-                    self._update_cruise_profile_for_index(speed_index)
+            if len(self.speed_range_samples[speed_index]) >= MAX_SAMPLES_PER_RANGE:
+                self._update_cruise_profile_for_index(speed_index)
 
-            self.frame += 1
-            if self.frame % 1000 == 0:
-                self.save_model()
+        if self.frame % 1200 == 0:
+            self.save_model()
+
         # 3 sec
         if self.frame % 60 == 0:
             try:
@@ -78,6 +72,8 @@ class PersonalizedAccelLearner:
                 self.dp_long_pal_launch_boost = 0.
 
             self.dp_long_pal_freeze = self._params.get_bool("dp_long_pal_freeze")
+
+        self.frame += 1
 
 
     def _get_speed_index(self, speed):
@@ -112,7 +108,7 @@ class PersonalizedAccelLearner:
             'bp': self.A_MAX_BP,
             'vals': self._numpy_to_list(self.A_CRUISE_MAX_VALS)
         }
-        self._params.put("dp_long_pal_vals", json.dumps(data))
+        self._params.put_nonblocking("dp_long_pal_vals", json.dumps(data))
 
     def load_model(self):
         try:

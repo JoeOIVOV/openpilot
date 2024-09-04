@@ -5,6 +5,7 @@
 from openpilot.dp_ext.selfdrive.car.toyota.brake_hold.common import ENABLED
 from opendbc.can.parser import CANParser
 from cereal import car, messaging
+from openpilot.selfdrive.pandad import can_capnp_to_list
 
 class BrakeHoldState:
     def __init__(self, supported_vehicles):
@@ -28,7 +29,8 @@ class BrakeHoldState:
         if not self._enabled:
             return
         can_strings = messaging.drain_sock_raw(self.can_sock, wait_for_one=True)
-        self.can_parser.update_strings(can_strings)
+        can_list = can_capnp_to_list(can_strings)
+        self.can_parser.update_strings(can_list)
 
         self.stock_aeb = self.can_parser.vl["PRE_COLLISION_2"]
         self.brakehold_condition_satisfied =  (standstill and cruise_state.available and not gas_pressed and \

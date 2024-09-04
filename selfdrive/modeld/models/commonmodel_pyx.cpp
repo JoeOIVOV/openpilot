@@ -24391,7 +24391,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "selfdrive/modeld/models/commonmodel_pyx.pyx":4
- * # cython: c_string_encoding=ascii
+ * # cython: c_string_encoding=ascii, language_level=3
  * 
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as cnp
@@ -24492,7 +24492,7 @@ if (!__Pyx_RefNanny) {
 
   /* "selfdrive/modeld/models/commonmodel_pyx.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
- * # cython: c_string_encoding=ascii
+ * # cython: c_string_encoding=ascii, language_level=3
  * 
  */
   __pyx_t_7 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 1, __pyx_L1_error)

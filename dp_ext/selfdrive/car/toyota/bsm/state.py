@@ -6,6 +6,7 @@
 from openpilot.dp_ext.selfdrive.car.toyota.bsm.common import ENABLED
 from opendbc.can.parser import CANParser
 from cereal import messaging
+from openpilot.selfdrive.pandad import can_capnp_to_list
 
 class BSMState:
     def __init__(self):
@@ -91,7 +92,8 @@ class BSMState:
             return left_bsm, right_bsm
 
         can_strings = messaging.drain_sock_raw(self.can_sock, wait_for_one=True)
-        self.can_parser.update_strings(can_strings)
+        can_list = can_capnp_to_list(can_strings)
+        self.can_parser.update_strings(can_list)
 
         distance_1 = self.can_parser.vl["DEBUG"]['BLINDSPOTD1']
         distance_2 = self.can_parser.vl["DEBUG"]['BLINDSPOTD2']

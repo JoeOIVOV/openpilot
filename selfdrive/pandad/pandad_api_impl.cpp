@@ -4,6 +4,7 @@
 {
     "distutils": {
         "depends": [
+            "opendbc/can/common.h",
             "selfdrive/pandad/can_list_to_can_capnp.cc",
             "selfdrive/pandad/panda.h"
         ],
@@ -1223,7 +1224,9 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include <vector>
 #include <string.h>
 #include <string>
+#include <stdint.h>
 #include "panda.h"
+#include "opendbc/can/common.h"
 #include "can_list_to_can_capnp.cc"
 #ifdef _OPENMP
 #include <omp.h>
@@ -1693,6 +1696,48 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
   #define __PYX_STD_MOVE_IF_SUPPORTED(x) x
 #endif
 
+/* ListCompAppend.proto */
+#if CYTHON_USE_PYLIST_INTERNALS && CYTHON_ASSUME_SAFE_MACROS
+static CYTHON_INLINE int __Pyx_ListComp_Append(PyObject* list, PyObject* x) {
+    PyListObject* L = (PyListObject*) list;
+    Py_ssize_t len = Py_SIZE(list);
+    if (likely(L->allocated > len)) {
+        Py_INCREF(x);
+        #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030d0000
+        L->ob_item[len] = x;
+        #else
+        PyList_SET_ITEM(list, len, x);
+        #endif
+        __Pyx_SET_SIZE(list, len + 1);
+        return 0;
+    }
+    return PyList_Append(list, x);
+}
+#else
+#define __Pyx_ListComp_Append(L,x) PyList_Append(L,x)
+#endif
+
+/* ListAppend.proto */
+#if CYTHON_USE_PYLIST_INTERNALS && CYTHON_ASSUME_SAFE_MACROS
+static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
+    PyListObject* L = (PyListObject*) list;
+    Py_ssize_t len = Py_SIZE(list);
+    if (likely(L->allocated > len) & likely(len > (L->allocated >> 1))) {
+        Py_INCREF(x);
+        #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030d0000
+        L->ob_item[len] = x;
+        #else
+        PyList_SET_ITEM(list, len, x);
+        #endif
+        __Pyx_SET_SIZE(list, len + 1);
+        return 0;
+    }
+    return PyList_Append(list, x);
+}
+#else
+#define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
+#endif
+
 /* IncludeStructmemberH.proto */
 #include <structmember.h>
 
@@ -2009,6 +2054,12 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 /* CIntFromPy.proto */
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
 
+/* CIntToPy.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_uint64_t(uint64_t value);
+
+/* CIntToPy.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_uint32_t(uint32_t value);
+
 /* FormatTypeName.proto */
 #if CYTHON_COMPILING_IN_LIMITED_API
 typedef PyObject *__Pyx_TypeName;
@@ -2059,6 +2110,8 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from "libcpp" */
 
+/* Module declarations from "libc.stdint" */
+
 /* Module declarations from "selfdrive.pandad.pandad_api_impl" */
 static std::string __pyx_convert_string_from_py_std__in_string(PyObject *); /*proto*/
 static CYTHON_INLINE PyObject *__pyx_convert_PyObject_string_to_py_std__in_string(std::string const &); /*proto*/
@@ -2066,6 +2119,7 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyUnicode_string_to_py_std__in_stri
 static CYTHON_INLINE PyObject *__pyx_convert_PyStr_string_to_py_std__in_string(std::string const &); /*proto*/
 static CYTHON_INLINE PyObject *__pyx_convert_PyBytes_string_to_py_std__in_string(std::string const &); /*proto*/
 static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_string(std::string const &); /*proto*/
+static std::vector<std::string>  __pyx_convert_vector_from_py_std_3a__3a_string(PyObject *); /*proto*/
 /* #### Code section: typeinfo ### */
 /* #### Code section: before_global_var ### */
 #define __Pyx_MODULE_NAME "selfdrive.pandad.pandad_api_impl"
@@ -2075,20 +2129,27 @@ int __pyx_module_is_main_selfdrive__pandad__pandad_api_impl = 0;
 /* Implementation of "selfdrive.pandad.pandad_api_impl" */
 /* #### Code section: global_var ### */
 /* #### Code section: string_decls ### */
+static const char __pyx_k_d[] = "d";
 static const char __pyx_k_f[] = "f";
-static const char __pyx_k__4[] = "?";
+static const char __pyx_k__7[] = "?";
+static const char __pyx_k_it[] = "it";
 static const char __pyx_k_can[] = "can";
 static const char __pyx_k_out[] = "out";
+static const char __pyx_k_data[] = "data";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_valid[] = "valid";
+static const char __pyx_k_frames[] = "frames";
+static const char __pyx_k_result[] = "result";
 static const char __pyx_k_can_msg[] = "can_msg";
 static const char __pyx_k_msgtype[] = "msgtype";
 static const char __pyx_k_sendcan[] = "sendcan";
+static const char __pyx_k_strings[] = "strings";
 static const char __pyx_k_can_list[] = "can_list";
 static const char __pyx_k_can_msgs[] = "can_msgs";
 static const char __pyx_k_is_coroutine[] = "_is_coroutine";
+static const char __pyx_k_can_capnp_to_list[] = "can_capnp_to_list";
 static const char __pyx_k_asyncio_coroutines[] = "asyncio.coroutines";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_can_list_to_can_capnp[] = "can_list_to_can_capnp";
@@ -2096,6 +2157,7 @@ static const char __pyx_k_selfdrive_pandad_pandad_api_impl[] = "selfdrive/pandad
 static const char __pyx_k_selfdrive_pandad_pandad_api_impl_2[] = "selfdrive.pandad.pandad_api_impl";
 /* #### Code section: decls ### */
 static PyObject *__pyx_pf_9selfdrive_6pandad_15pandad_api_impl_can_list_to_can_capnp(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_can_msgs, PyObject *__pyx_v_msgtype, PyObject *__pyx_v_valid); /* proto */
+static PyObject *__pyx_pf_9selfdrive_6pandad_15pandad_api_impl_2can_capnp_to_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_strings, PyObject *__pyx_v_msgtype); /* proto */
 /* #### Code section: late_includes ### */
 /* #### Code section: module_state ### */
 typedef struct {
@@ -2133,28 +2195,40 @@ typedef struct {
   #endif
   #if CYTHON_USE_MODULE_STATE
   #endif
-  PyObject *__pyx_n_s__4;
+  #if CYTHON_USE_MODULE_STATE
+  #endif
+  PyObject *__pyx_n_s__7;
   PyObject *__pyx_n_s_asyncio_coroutines;
   PyObject *__pyx_n_u_can;
+  PyObject *__pyx_n_s_can_capnp_to_list;
   PyObject *__pyx_n_s_can_list;
   PyObject *__pyx_n_s_can_list_to_can_capnp;
   PyObject *__pyx_n_s_can_msg;
   PyObject *__pyx_n_s_can_msgs;
   PyObject *__pyx_n_s_cline_in_traceback;
+  PyObject *__pyx_n_s_d;
+  PyObject *__pyx_n_s_data;
   PyObject *__pyx_n_s_f;
+  PyObject *__pyx_n_s_frames;
   PyObject *__pyx_n_s_is_coroutine;
+  PyObject *__pyx_n_s_it;
   PyObject *__pyx_n_s_main;
   PyObject *__pyx_n_s_msgtype;
   PyObject *__pyx_n_s_name;
   PyObject *__pyx_n_s_out;
+  PyObject *__pyx_n_s_result;
   PyObject *__pyx_kp_s_selfdrive_pandad_pandad_api_impl;
   PyObject *__pyx_n_s_selfdrive_pandad_pandad_api_impl_2;
   PyObject *__pyx_n_u_sendcan;
+  PyObject *__pyx_n_s_strings;
   PyObject *__pyx_n_s_test;
   PyObject *__pyx_n_s_valid;
   PyObject *__pyx_tuple_;
   PyObject *__pyx_tuple__3;
+  PyObject *__pyx_tuple__4;
+  PyObject *__pyx_tuple__6;
   PyObject *__pyx_codeobj__2;
+  PyObject *__pyx_codeobj__5;
 } __pyx_mstate;
 
 #if CYTHON_USE_MODULE_STATE
@@ -2197,28 +2271,38 @@ static int __pyx_m_clear(PyObject *m) {
   #ifdef __Pyx_FusedFunction_USED
   Py_CLEAR(clear_module_state->__pyx_FusedFunctionType);
   #endif
-  Py_CLEAR(clear_module_state->__pyx_n_s__4);
+  Py_CLEAR(clear_module_state->__pyx_n_s__7);
   Py_CLEAR(clear_module_state->__pyx_n_s_asyncio_coroutines);
   Py_CLEAR(clear_module_state->__pyx_n_u_can);
+  Py_CLEAR(clear_module_state->__pyx_n_s_can_capnp_to_list);
   Py_CLEAR(clear_module_state->__pyx_n_s_can_list);
   Py_CLEAR(clear_module_state->__pyx_n_s_can_list_to_can_capnp);
   Py_CLEAR(clear_module_state->__pyx_n_s_can_msg);
   Py_CLEAR(clear_module_state->__pyx_n_s_can_msgs);
   Py_CLEAR(clear_module_state->__pyx_n_s_cline_in_traceback);
+  Py_CLEAR(clear_module_state->__pyx_n_s_d);
+  Py_CLEAR(clear_module_state->__pyx_n_s_data);
   Py_CLEAR(clear_module_state->__pyx_n_s_f);
+  Py_CLEAR(clear_module_state->__pyx_n_s_frames);
   Py_CLEAR(clear_module_state->__pyx_n_s_is_coroutine);
+  Py_CLEAR(clear_module_state->__pyx_n_s_it);
   Py_CLEAR(clear_module_state->__pyx_n_s_main);
   Py_CLEAR(clear_module_state->__pyx_n_s_msgtype);
   Py_CLEAR(clear_module_state->__pyx_n_s_name);
   Py_CLEAR(clear_module_state->__pyx_n_s_out);
+  Py_CLEAR(clear_module_state->__pyx_n_s_result);
   Py_CLEAR(clear_module_state->__pyx_kp_s_selfdrive_pandad_pandad_api_impl);
   Py_CLEAR(clear_module_state->__pyx_n_s_selfdrive_pandad_pandad_api_impl_2);
   Py_CLEAR(clear_module_state->__pyx_n_u_sendcan);
+  Py_CLEAR(clear_module_state->__pyx_n_s_strings);
   Py_CLEAR(clear_module_state->__pyx_n_s_test);
   Py_CLEAR(clear_module_state->__pyx_n_s_valid);
   Py_CLEAR(clear_module_state->__pyx_tuple_);
   Py_CLEAR(clear_module_state->__pyx_tuple__3);
+  Py_CLEAR(clear_module_state->__pyx_tuple__4);
+  Py_CLEAR(clear_module_state->__pyx_tuple__6);
   Py_CLEAR(clear_module_state->__pyx_codeobj__2);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__5);
   return 0;
 }
 #endif
@@ -2239,28 +2323,38 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   #ifdef __Pyx_FusedFunction_USED
   Py_VISIT(traverse_module_state->__pyx_FusedFunctionType);
   #endif
-  Py_VISIT(traverse_module_state->__pyx_n_s__4);
+  Py_VISIT(traverse_module_state->__pyx_n_s__7);
   Py_VISIT(traverse_module_state->__pyx_n_s_asyncio_coroutines);
   Py_VISIT(traverse_module_state->__pyx_n_u_can);
+  Py_VISIT(traverse_module_state->__pyx_n_s_can_capnp_to_list);
   Py_VISIT(traverse_module_state->__pyx_n_s_can_list);
   Py_VISIT(traverse_module_state->__pyx_n_s_can_list_to_can_capnp);
   Py_VISIT(traverse_module_state->__pyx_n_s_can_msg);
   Py_VISIT(traverse_module_state->__pyx_n_s_can_msgs);
   Py_VISIT(traverse_module_state->__pyx_n_s_cline_in_traceback);
+  Py_VISIT(traverse_module_state->__pyx_n_s_d);
+  Py_VISIT(traverse_module_state->__pyx_n_s_data);
   Py_VISIT(traverse_module_state->__pyx_n_s_f);
+  Py_VISIT(traverse_module_state->__pyx_n_s_frames);
   Py_VISIT(traverse_module_state->__pyx_n_s_is_coroutine);
+  Py_VISIT(traverse_module_state->__pyx_n_s_it);
   Py_VISIT(traverse_module_state->__pyx_n_s_main);
   Py_VISIT(traverse_module_state->__pyx_n_s_msgtype);
   Py_VISIT(traverse_module_state->__pyx_n_s_name);
   Py_VISIT(traverse_module_state->__pyx_n_s_out);
+  Py_VISIT(traverse_module_state->__pyx_n_s_result);
   Py_VISIT(traverse_module_state->__pyx_kp_s_selfdrive_pandad_pandad_api_impl);
   Py_VISIT(traverse_module_state->__pyx_n_s_selfdrive_pandad_pandad_api_impl_2);
   Py_VISIT(traverse_module_state->__pyx_n_u_sendcan);
+  Py_VISIT(traverse_module_state->__pyx_n_s_strings);
   Py_VISIT(traverse_module_state->__pyx_n_s_test);
   Py_VISIT(traverse_module_state->__pyx_n_s_valid);
   Py_VISIT(traverse_module_state->__pyx_tuple_);
   Py_VISIT(traverse_module_state->__pyx_tuple__3);
+  Py_VISIT(traverse_module_state->__pyx_tuple__4);
+  Py_VISIT(traverse_module_state->__pyx_tuple__6);
   Py_VISIT(traverse_module_state->__pyx_codeobj__2);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__5);
   return 0;
 }
 #endif
@@ -2299,28 +2393,40 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #endif
 #if CYTHON_USE_MODULE_STATE
 #endif
-#define __pyx_n_s__4 __pyx_mstate_global->__pyx_n_s__4
+#if CYTHON_USE_MODULE_STATE
+#endif
+#define __pyx_n_s__7 __pyx_mstate_global->__pyx_n_s__7
 #define __pyx_n_s_asyncio_coroutines __pyx_mstate_global->__pyx_n_s_asyncio_coroutines
 #define __pyx_n_u_can __pyx_mstate_global->__pyx_n_u_can
+#define __pyx_n_s_can_capnp_to_list __pyx_mstate_global->__pyx_n_s_can_capnp_to_list
 #define __pyx_n_s_can_list __pyx_mstate_global->__pyx_n_s_can_list
 #define __pyx_n_s_can_list_to_can_capnp __pyx_mstate_global->__pyx_n_s_can_list_to_can_capnp
 #define __pyx_n_s_can_msg __pyx_mstate_global->__pyx_n_s_can_msg
 #define __pyx_n_s_can_msgs __pyx_mstate_global->__pyx_n_s_can_msgs
 #define __pyx_n_s_cline_in_traceback __pyx_mstate_global->__pyx_n_s_cline_in_traceback
+#define __pyx_n_s_d __pyx_mstate_global->__pyx_n_s_d
+#define __pyx_n_s_data __pyx_mstate_global->__pyx_n_s_data
 #define __pyx_n_s_f __pyx_mstate_global->__pyx_n_s_f
+#define __pyx_n_s_frames __pyx_mstate_global->__pyx_n_s_frames
 #define __pyx_n_s_is_coroutine __pyx_mstate_global->__pyx_n_s_is_coroutine
+#define __pyx_n_s_it __pyx_mstate_global->__pyx_n_s_it
 #define __pyx_n_s_main __pyx_mstate_global->__pyx_n_s_main
 #define __pyx_n_s_msgtype __pyx_mstate_global->__pyx_n_s_msgtype
 #define __pyx_n_s_name __pyx_mstate_global->__pyx_n_s_name
 #define __pyx_n_s_out __pyx_mstate_global->__pyx_n_s_out
+#define __pyx_n_s_result __pyx_mstate_global->__pyx_n_s_result
 #define __pyx_kp_s_selfdrive_pandad_pandad_api_impl __pyx_mstate_global->__pyx_kp_s_selfdrive_pandad_pandad_api_impl
 #define __pyx_n_s_selfdrive_pandad_pandad_api_impl_2 __pyx_mstate_global->__pyx_n_s_selfdrive_pandad_pandad_api_impl_2
 #define __pyx_n_u_sendcan __pyx_mstate_global->__pyx_n_u_sendcan
+#define __pyx_n_s_strings __pyx_mstate_global->__pyx_n_s_strings
 #define __pyx_n_s_test __pyx_mstate_global->__pyx_n_s_test
 #define __pyx_n_s_valid __pyx_mstate_global->__pyx_n_s_valid
 #define __pyx_tuple_ __pyx_mstate_global->__pyx_tuple_
 #define __pyx_tuple__3 __pyx_mstate_global->__pyx_tuple__3
+#define __pyx_tuple__4 __pyx_mstate_global->__pyx_tuple__4
+#define __pyx_tuple__6 __pyx_mstate_global->__pyx_tuple__6
 #define __pyx_codeobj__2 __pyx_mstate_global->__pyx_codeobj__2
+#define __pyx_codeobj__5 __pyx_mstate_global->__pyx_codeobj__5
 /* #### Code section: module_code ### */
 
 /* "string.from_py":13
@@ -2641,8 +2747,148 @@ static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_st
   return __pyx_r;
 }
 
-/* "selfdrive/pandad/pandad_api_impl.pyx":17
- *   void can_list_to_can_capnp_cpp(const vector[can_frame] &can_list, string &out, bool sendCan, bool valid)
+/* "vector.from_py":45
+ * 
+ * @cname("__pyx_convert_vector_from_py_std_3a__3a_string")
+ * cdef vector[X] __pyx_convert_vector_from_py_std_3a__3a_string(object o) except *:             # <<<<<<<<<<<<<<
+ *     cdef vector[X] v
+ *     for item in o:
+ */
+
+static std::vector<std::string>  __pyx_convert_vector_from_py_std_3a__3a_string(PyObject *__pyx_v_o) {
+  std::vector<std::string>  __pyx_v_v;
+  PyObject *__pyx_v_item = NULL;
+  std::vector<std::string>  __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  Py_ssize_t __pyx_t_2;
+  PyObject *(*__pyx_t_3)(PyObject *);
+  PyObject *__pyx_t_4 = NULL;
+  std::string __pyx_t_5;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__pyx_convert_vector_from_py_std_3a__3a_string", 1);
+
+  /* "vector.from_py":47
+ * cdef vector[X] __pyx_convert_vector_from_py_std_3a__3a_string(object o) except *:
+ *     cdef vector[X] v
+ *     for item in o:             # <<<<<<<<<<<<<<
+ *         v.push_back(<X>item)
+ *     return v
+ */
+  if (likely(PyList_CheckExact(__pyx_v_o)) || PyTuple_CheckExact(__pyx_v_o)) {
+    __pyx_t_1 = __pyx_v_o; __Pyx_INCREF(__pyx_t_1);
+    __pyx_t_2 = 0;
+    __pyx_t_3 = NULL;
+  } else {
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_o); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 47, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_3 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 47, __pyx_L1_error)
+  }
+  for (;;) {
+    if (likely(!__pyx_t_3)) {
+      if (likely(PyList_CheckExact(__pyx_t_1))) {
+        {
+          Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
+          #if !CYTHON_ASSUME_SAFE_MACROS
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 47, __pyx_L1_error)
+          #endif
+          if (__pyx_t_2 >= __pyx_temp) break;
+        }
+        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely((0 < 0))) __PYX_ERR(0, 47, __pyx_L1_error)
+        #else
+        __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 47, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        #endif
+      } else {
+        {
+          Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_1);
+          #if !CYTHON_ASSUME_SAFE_MACROS
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 47, __pyx_L1_error)
+          #endif
+          if (__pyx_t_2 >= __pyx_temp) break;
+        }
+        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely((0 < 0))) __PYX_ERR(0, 47, __pyx_L1_error)
+        #else
+        __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 47, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        #endif
+      }
+    } else {
+      __pyx_t_4 = __pyx_t_3(__pyx_t_1);
+      if (unlikely(!__pyx_t_4)) {
+        PyObject* exc_type = PyErr_Occurred();
+        if (exc_type) {
+          if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+          else __PYX_ERR(0, 47, __pyx_L1_error)
+        }
+        break;
+      }
+      __Pyx_GOTREF(__pyx_t_4);
+    }
+    __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_4);
+    __pyx_t_4 = 0;
+
+    /* "vector.from_py":48
+ *     cdef vector[X] v
+ *     for item in o:
+ *         v.push_back(<X>item)             # <<<<<<<<<<<<<<
+ *     return v
+ * 
+ */
+    __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_v_item); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 48, __pyx_L1_error)
+    try {
+      __pyx_v_v.push_back(((std::string)__pyx_t_5));
+    } catch(...) {
+      __Pyx_CppExn2PyErr();
+      __PYX_ERR(0, 48, __pyx_L1_error)
+    }
+
+    /* "vector.from_py":47
+ * cdef vector[X] __pyx_convert_vector_from_py_std_3a__3a_string(object o) except *:
+ *     cdef vector[X] v
+ *     for item in o:             # <<<<<<<<<<<<<<
+ *         v.push_back(<X>item)
+ *     return v
+ */
+  }
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "vector.from_py":49
+ *     for item in o:
+ *         v.push_back(<X>item)
+ *     return v             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_r = __pyx_v_v;
+  goto __pyx_L0;
+
+  /* "vector.from_py":45
+ * 
+ * @cname("__pyx_convert_vector_from_py_std_3a__3a_string")
+ * cdef vector[X] __pyx_convert_vector_from_py_std_3a__3a_string(object o) except *:             # <<<<<<<<<<<<<<
+ *     cdef vector[X] v
+ *     for item in o:
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("vector.from_py.__pyx_convert_vector_from_py_std_3a__3a_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_pretend_to_initialize(&__pyx_r);
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_item);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "selfdrive/pandad/pandad_api_impl.pyx":29
+ *   void can_capnp_to_can_list_cpp(const vector[string] &strings, vector[CanData] &can_data, bool sendcan)
  * 
  * def can_list_to_can_capnp(can_msgs, msgtype='can', valid=True):             # <<<<<<<<<<<<<<
  *   cdef can_frame *f
@@ -2710,26 +2956,26 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 29, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_msgtype);
           if (value) { values[1] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 29, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_valid);
           if (value) { values[2] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 29, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "can_list_to_can_capnp") < 0)) __PYX_ERR(1, 17, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "can_list_to_can_capnp") < 0)) __PYX_ERR(1, 29, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -2748,7 +2994,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("can_list_to_can_capnp", 0, 1, 3, __pyx_nargs); __PYX_ERR(1, 17, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("can_list_to_can_capnp", 0, 1, 3, __pyx_nargs); __PYX_ERR(1, 29, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -2796,22 +3042,22 @@ static PyObject *__pyx_pf_9selfdrive_6pandad_15pandad_api_impl_can_list_to_can_c
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("can_list_to_can_capnp", 1);
 
-  /* "selfdrive/pandad/pandad_api_impl.pyx":21
+  /* "selfdrive/pandad/pandad_api_impl.pyx":33
  *   cdef vector[can_frame] can_list
  * 
  *   can_list.reserve(len(can_msgs))             # <<<<<<<<<<<<<<
  *   for can_msg in can_msgs:
  *     f = &(can_list.emplace_back())
  */
-  __pyx_t_1 = PyObject_Length(__pyx_v_can_msgs); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(1, 21, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Length(__pyx_v_can_msgs); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(1, 33, __pyx_L1_error)
   try {
     __pyx_v_can_list.reserve(__pyx_t_1);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 21, __pyx_L1_error)
+    __PYX_ERR(1, 33, __pyx_L1_error)
   }
 
-  /* "selfdrive/pandad/pandad_api_impl.pyx":22
+  /* "selfdrive/pandad/pandad_api_impl.pyx":34
  * 
  *   can_list.reserve(len(can_msgs))
  *   for can_msg in can_msgs:             # <<<<<<<<<<<<<<
@@ -2823,9 +3069,9 @@ static PyObject *__pyx_pf_9selfdrive_6pandad_15pandad_api_impl_can_list_to_can_c
     __pyx_t_1 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_1 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_can_msgs); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 22, __pyx_L1_error)
+    __pyx_t_1 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_can_msgs); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 34, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 22, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 34, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
@@ -2833,28 +3079,28 @@ static PyObject *__pyx_pf_9selfdrive_6pandad_15pandad_api_impl_can_list_to_can_c
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(1, 22, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(1, 34, __pyx_L1_error)
           #endif
           if (__pyx_t_1 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_1); __Pyx_INCREF(__pyx_t_4); __pyx_t_1++; if (unlikely((0 < 0))) __PYX_ERR(1, 22, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_1); __Pyx_INCREF(__pyx_t_4); __pyx_t_1++; if (unlikely((0 < 0))) __PYX_ERR(1, 34, __pyx_L1_error)
         #else
-        __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 22, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 34, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         {
           Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(1, 22, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(1, 34, __pyx_L1_error)
           #endif
           if (__pyx_t_1 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_1); __Pyx_INCREF(__pyx_t_4); __pyx_t_1++; if (unlikely((0 < 0))) __PYX_ERR(1, 22, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_1); __Pyx_INCREF(__pyx_t_4); __pyx_t_1++; if (unlikely((0 < 0))) __PYX_ERR(1, 34, __pyx_L1_error)
         #else
-        __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 22, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 34, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -2864,7 +3110,7 @@ static PyObject *__pyx_pf_9selfdrive_6pandad_15pandad_api_impl_can_list_to_can_c
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(1, 22, __pyx_L1_error)
+          else __PYX_ERR(1, 34, __pyx_L1_error)
         }
         break;
       }
@@ -2873,74 +3119,61 @@ static PyObject *__pyx_pf_9selfdrive_6pandad_15pandad_api_impl_can_list_to_can_c
     __Pyx_XDECREF_SET(__pyx_v_can_msg, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "selfdrive/pandad/pandad_api_impl.pyx":23
+    /* "selfdrive/pandad/pandad_api_impl.pyx":35
  *   can_list.reserve(len(can_msgs))
  *   for can_msg in can_msgs:
  *     f = &(can_list.emplace_back())             # <<<<<<<<<<<<<<
  *     f.address = can_msg[0]
- *     f.busTime = can_msg[1]
+ *     f.dat = can_msg[1]
  */
     try {
       __pyx_t_5 = __pyx_v_can_list.emplace_back();
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(1, 23, __pyx_L1_error)
+      __PYX_ERR(1, 35, __pyx_L1_error)
     }
     __pyx_v_f = (&__pyx_t_5);
 
-    /* "selfdrive/pandad/pandad_api_impl.pyx":24
+    /* "selfdrive/pandad/pandad_api_impl.pyx":36
  *   for can_msg in can_msgs:
  *     f = &(can_list.emplace_back())
  *     f.address = can_msg[0]             # <<<<<<<<<<<<<<
- *     f.busTime = can_msg[1]
- *     f.dat = can_msg[2]
+ *     f.dat = can_msg[1]
+ *     f.src = can_msg[2]
  */
-    __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_can_msg, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 24, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_can_msg, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 36, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_4); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_4); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) __PYX_ERR(1, 36, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_f->address = __pyx_t_6;
 
-    /* "selfdrive/pandad/pandad_api_impl.pyx":25
+    /* "selfdrive/pandad/pandad_api_impl.pyx":37
  *     f = &(can_list.emplace_back())
  *     f.address = can_msg[0]
- *     f.busTime = can_msg[1]             # <<<<<<<<<<<<<<
- *     f.dat = can_msg[2]
- *     f.src = can_msg[3]
- */
-    __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_can_msg, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 25, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_4); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) __PYX_ERR(1, 25, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_v_f->busTime = __pyx_t_6;
-
-    /* "selfdrive/pandad/pandad_api_impl.pyx":26
- *     f.address = can_msg[0]
- *     f.busTime = can_msg[1]
- *     f.dat = can_msg[2]             # <<<<<<<<<<<<<<
- *     f.src = can_msg[3]
+ *     f.dat = can_msg[1]             # <<<<<<<<<<<<<<
+ *     f.src = can_msg[2]
  * 
  */
-    __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_can_msg, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 26, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_can_msg, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_7 = __pyx_convert_string_from_py_std__in_string(__pyx_t_4); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 26, __pyx_L1_error)
+    __pyx_t_7 = __pyx_convert_string_from_py_std__in_string(__pyx_t_4); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 37, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_f->dat = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_7);
 
-    /* "selfdrive/pandad/pandad_api_impl.pyx":27
- *     f.busTime = can_msg[1]
- *     f.dat = can_msg[2]
- *     f.src = can_msg[3]             # <<<<<<<<<<<<<<
+    /* "selfdrive/pandad/pandad_api_impl.pyx":38
+ *     f.address = can_msg[0]
+ *     f.dat = can_msg[1]
+ *     f.src = can_msg[2]             # <<<<<<<<<<<<<<
  * 
  *   cdef string out
  */
-    __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_can_msg, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 27, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_can_msg, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 38, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_4); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_4); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) __PYX_ERR(1, 38, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_f->src = __pyx_t_6;
 
-    /* "selfdrive/pandad/pandad_api_impl.pyx":22
+    /* "selfdrive/pandad/pandad_api_impl.pyx":34
  * 
  *   can_list.reserve(len(can_msgs))
  *   for can_msg in can_msgs:             # <<<<<<<<<<<<<<
@@ -2950,32 +3183,35 @@ static PyObject *__pyx_pf_9selfdrive_6pandad_15pandad_api_impl_can_list_to_can_c
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "selfdrive/pandad/pandad_api_impl.pyx":30
+  /* "selfdrive/pandad/pandad_api_impl.pyx":41
  * 
  *   cdef string out
  *   can_list_to_can_capnp_cpp(can_list, out, msgtype == 'sendcan', valid)             # <<<<<<<<<<<<<<
  *   return out
+ * 
  */
-  __pyx_t_2 = PyObject_RichCompare(__pyx_v_msgtype, __pyx_n_u_sendcan, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 30, __pyx_L1_error)
-  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_8 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(1, 30, __pyx_L1_error)
+  __pyx_t_2 = PyObject_RichCompare(__pyx_v_msgtype, __pyx_n_u_sendcan, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 41, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_8 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(1, 41, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_valid); if (unlikely((__pyx_t_9 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(1, 30, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_v_valid); if (unlikely((__pyx_t_9 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(1, 41, __pyx_L1_error)
   can_list_to_can_capnp_cpp(__pyx_v_can_list, __pyx_v_out, __pyx_t_8, __pyx_t_9);
 
-  /* "selfdrive/pandad/pandad_api_impl.pyx":31
+  /* "selfdrive/pandad/pandad_api_impl.pyx":42
  *   cdef string out
  *   can_list_to_can_capnp_cpp(can_list, out, msgtype == 'sendcan', valid)
  *   return out             # <<<<<<<<<<<<<<
+ * 
+ * def can_capnp_to_list(strings, msgtype='can'):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __pyx_convert_PyBytes_string_to_py_std__in_string(__pyx_v_out); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 31, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert_PyBytes_string_to_py_std__in_string(__pyx_v_out); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "selfdrive/pandad/pandad_api_impl.pyx":17
- *   void can_list_to_can_capnp_cpp(const vector[can_frame] &can_list, string &out, bool sendCan, bool valid)
+  /* "selfdrive/pandad/pandad_api_impl.pyx":29
+ *   void can_capnp_to_can_list_cpp(const vector[string] &strings, vector[CanData] &can_data, bool sendcan)
  * 
  * def can_list_to_can_capnp(can_msgs, msgtype='can', valid=True):             # <<<<<<<<<<<<<<
  *   cdef can_frame *f
@@ -2990,6 +3226,309 @@ static PyObject *__pyx_pf_9selfdrive_6pandad_15pandad_api_impl_can_list_to_can_c
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_can_msg);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "selfdrive/pandad/pandad_api_impl.pyx":44
+ *   return out
+ * 
+ * def can_capnp_to_list(strings, msgtype='can'):             # <<<<<<<<<<<<<<
+ *   cdef vector[CanData] data
+ *   can_capnp_to_can_list_cpp(strings, data, msgtype == 'sendcan')
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_9selfdrive_6pandad_15pandad_api_impl_3can_capnp_to_list(PyObject *__pyx_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+); /*proto*/
+static PyMethodDef __pyx_mdef_9selfdrive_6pandad_15pandad_api_impl_3can_capnp_to_list = {"can_capnp_to_list", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_9selfdrive_6pandad_15pandad_api_impl_3can_capnp_to_list, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_9selfdrive_6pandad_15pandad_api_impl_3can_capnp_to_list(PyObject *__pyx_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+) {
+  PyObject *__pyx_v_strings = 0;
+  PyObject *__pyx_v_msgtype = 0;
+  #if !CYTHON_METH_FASTCALL
+  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
+  #endif
+  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
+  PyObject* values[2] = {0,0};
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("can_capnp_to_list (wrapper)", 0);
+  #if !CYTHON_METH_FASTCALL
+  #if CYTHON_ASSUME_SAFE_MACROS
+  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
+  #else
+  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
+  #endif
+  #endif
+  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
+  {
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_strings,&__pyx_n_s_msgtype,0};
+    values[1] = __Pyx_Arg_NewRef_FASTCALL(((PyObject *)((PyObject*)__pyx_n_u_can)));
+    if (__pyx_kwds) {
+      Py_ssize_t kw_args;
+      switch (__pyx_nargs) {
+        case  2: values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = __Pyx_NumKwargs_FASTCALL(__pyx_kwds);
+      switch (__pyx_nargs) {
+        case  0:
+        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_strings)) != 0)) {
+          (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 44, __pyx_L3_error)
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_msgtype);
+          if (value) { values[1] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 44, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        const Py_ssize_t kwd_pos_args = __pyx_nargs;
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "can_capnp_to_list") < 0)) __PYX_ERR(1, 44, __pyx_L3_error)
+      }
+    } else {
+      switch (__pyx_nargs) {
+        case  2: values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_strings = values[0];
+    __pyx_v_msgtype = values[1];
+  }
+  goto __pyx_L6_skip;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("can_capnp_to_list", 0, 1, 2, __pyx_nargs); __PYX_ERR(1, 44, __pyx_L3_error)
+  __pyx_L6_skip:;
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  {
+    Py_ssize_t __pyx_temp;
+    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
+      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
+    }
+  }
+  __Pyx_AddTraceback("selfdrive.pandad.pandad_api_impl.can_capnp_to_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_9selfdrive_6pandad_15pandad_api_impl_2can_capnp_to_list(__pyx_self, __pyx_v_strings, __pyx_v_msgtype);
+
+  /* function exit code */
+  {
+    Py_ssize_t __pyx_temp;
+    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
+      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
+    }
+  }
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_9selfdrive_6pandad_15pandad_api_impl_2can_capnp_to_list(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_strings, PyObject *__pyx_v_msgtype) {
+  std::vector<struct CanData>  __pyx_v_data;
+  PyObject *__pyx_v_result = NULL;
+  struct CanData *__pyx_v_d;
+  std::vector<struct CanData> ::iterator __pyx_v_it;
+  PyObject *__pyx_v_frames = NULL;
+  struct CanFrame __pyx_7genexpr__pyx_v_f;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  std::vector<std::string>  __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  bool __pyx_t_3;
+  int __pyx_t_4;
+  std::vector<struct CanFrame> ::iterator __pyx_t_5;
+  struct CanFrame __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
+  PyObject *__pyx_t_9 = NULL;
+  PyObject *__pyx_t_10 = NULL;
+  int __pyx_t_11;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("can_capnp_to_list", 1);
+
+  /* "selfdrive/pandad/pandad_api_impl.pyx":46
+ * def can_capnp_to_list(strings, msgtype='can'):
+ *   cdef vector[CanData] data
+ *   can_capnp_to_can_list_cpp(strings, data, msgtype == 'sendcan')             # <<<<<<<<<<<<<<
+ * 
+ *   result = []
+ */
+  __pyx_t_1 = __pyx_convert_vector_from_py_std_3a__3a_string(__pyx_v_strings); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L1_error)
+  __pyx_t_2 = PyObject_RichCompare(__pyx_v_msgtype, __pyx_n_u_sendcan, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 46, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_3 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  can_capnp_to_can_list_cpp(__pyx_t_1, __pyx_v_data, __pyx_t_3);
+
+  /* "selfdrive/pandad/pandad_api_impl.pyx":48
+ *   can_capnp_to_can_list_cpp(strings, data, msgtype == 'sendcan')
+ * 
+ *   result = []             # <<<<<<<<<<<<<<
+ *   cdef CanData *d
+ *   cdef vector[CanData].iterator it = data.begin()
+ */
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 48, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_v_result = ((PyObject*)__pyx_t_2);
+  __pyx_t_2 = 0;
+
+  /* "selfdrive/pandad/pandad_api_impl.pyx":50
+ *   result = []
+ *   cdef CanData *d
+ *   cdef vector[CanData].iterator it = data.begin()             # <<<<<<<<<<<<<<
+ *   while it != data.end():
+ *     d = &deref(it)
+ */
+  __pyx_v_it = __pyx_v_data.begin();
+
+  /* "selfdrive/pandad/pandad_api_impl.pyx":51
+ *   cdef CanData *d
+ *   cdef vector[CanData].iterator it = data.begin()
+ *   while it != data.end():             # <<<<<<<<<<<<<<
+ *     d = &deref(it)
+ *     frames = [[f.address, (<char *>&f.dat[0])[:f.dat.size()], f.src] for f in d.frames]
+ */
+  while (1) {
+    __pyx_t_4 = (__pyx_v_it != __pyx_v_data.end());
+    if (!__pyx_t_4) break;
+
+    /* "selfdrive/pandad/pandad_api_impl.pyx":52
+ *   cdef vector[CanData].iterator it = data.begin()
+ *   while it != data.end():
+ *     d = &deref(it)             # <<<<<<<<<<<<<<
+ *     frames = [[f.address, (<char *>&f.dat[0])[:f.dat.size()], f.src] for f in d.frames]
+ *     result.append([d.nanos, frames])
+ */
+    __pyx_v_d = (&(*__pyx_v_it));
+
+    /* "selfdrive/pandad/pandad_api_impl.pyx":53
+ *   while it != data.end():
+ *     d = &deref(it)
+ *     frames = [[f.address, (<char *>&f.dat[0])[:f.dat.size()], f.src] for f in d.frames]             # <<<<<<<<<<<<<<
+ *     result.append([d.nanos, frames])
+ *     preinc(it)
+ */
+    { /* enter inner scope */
+      __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 53, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_5 = __pyx_v_d->frames.begin();
+      for (;;) {
+        if (!(__pyx_t_5 != __pyx_v_d->frames.end())) break;
+        __pyx_t_6 = *__pyx_t_5;
+        ++__pyx_t_5;
+        __pyx_7genexpr__pyx_v_f = __pyx_t_6;
+        __pyx_t_7 = __Pyx_PyInt_From_uint32_t(__pyx_7genexpr__pyx_v_f.address); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 53, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __pyx_t_8 = __Pyx_PyBytes_FromStringAndSize(((char *)(&(__pyx_7genexpr__pyx_v_f.dat[0]))) + 0, __pyx_7genexpr__pyx_v_f.dat.size() - 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 53, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __pyx_t_9 = __Pyx_PyInt_From_long(__pyx_7genexpr__pyx_v_f.src); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 53, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __pyx_t_10 = PyList_New(3); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 53, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_GIVEREF(__pyx_t_7);
+        if (__Pyx_PyList_SET_ITEM(__pyx_t_10, 0, __pyx_t_7)) __PYX_ERR(1, 53, __pyx_L1_error);
+        __Pyx_GIVEREF(__pyx_t_8);
+        if (__Pyx_PyList_SET_ITEM(__pyx_t_10, 1, __pyx_t_8)) __PYX_ERR(1, 53, __pyx_L1_error);
+        __Pyx_GIVEREF(__pyx_t_9);
+        if (__Pyx_PyList_SET_ITEM(__pyx_t_10, 2, __pyx_t_9)) __PYX_ERR(1, 53, __pyx_L1_error);
+        __pyx_t_7 = 0;
+        __pyx_t_8 = 0;
+        __pyx_t_9 = 0;
+        if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_10))) __PYX_ERR(1, 53, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      }
+    } /* exit inner scope */
+    __Pyx_XDECREF_SET(__pyx_v_frames, ((PyObject*)__pyx_t_2));
+    __pyx_t_2 = 0;
+
+    /* "selfdrive/pandad/pandad_api_impl.pyx":54
+ *     d = &deref(it)
+ *     frames = [[f.address, (<char *>&f.dat[0])[:f.dat.size()], f.src] for f in d.frames]
+ *     result.append([d.nanos, frames])             # <<<<<<<<<<<<<<
+ *     preinc(it)
+ *   return result
+ */
+    __pyx_t_2 = __Pyx_PyInt_From_uint64_t(__pyx_v_d->nanos); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 54, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_10 = PyList_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 54, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __Pyx_GIVEREF(__pyx_t_2);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_10, 0, __pyx_t_2)) __PYX_ERR(1, 54, __pyx_L1_error);
+    __Pyx_INCREF(__pyx_v_frames);
+    __Pyx_GIVEREF(__pyx_v_frames);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_10, 1, __pyx_v_frames)) __PYX_ERR(1, 54, __pyx_L1_error);
+    __pyx_t_2 = 0;
+    __pyx_t_11 = __Pyx_PyList_Append(__pyx_v_result, __pyx_t_10); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(1, 54, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+
+    /* "selfdrive/pandad/pandad_api_impl.pyx":55
+ *     frames = [[f.address, (<char *>&f.dat[0])[:f.dat.size()], f.src] for f in d.frames]
+ *     result.append([d.nanos, frames])
+ *     preinc(it)             # <<<<<<<<<<<<<<
+ *   return result
+ */
+    (void)((++__pyx_v_it));
+  }
+
+  /* "selfdrive/pandad/pandad_api_impl.pyx":56
+ *     result.append([d.nanos, frames])
+ *     preinc(it)
+ *   return result             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_result);
+  __pyx_r = __pyx_v_result;
+  goto __pyx_L0;
+
+  /* "selfdrive/pandad/pandad_api_impl.pyx":44
+ *   return out
+ * 
+ * def can_capnp_to_list(strings, msgtype='can'):             # <<<<<<<<<<<<<<
+ *   cdef vector[CanData] data
+ *   can_capnp_to_can_list_cpp(strings, data, msgtype == 'sendcan')
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_XDECREF(__pyx_t_10);
+  __Pyx_AddTraceback("selfdrive.pandad.pandad_api_impl.can_capnp_to_list", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_result);
+  __Pyx_XDECREF(__pyx_v_frames);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -3011,23 +3550,30 @@ static PyMethodDef __pyx_methods[] = {
 
 static int __Pyx_CreateStringTabAndInitStrings(void) {
   __Pyx_StringTabEntry __pyx_string_tab[] = {
-    {&__pyx_n_s__4, __pyx_k__4, sizeof(__pyx_k__4), 0, 0, 1, 1},
+    {&__pyx_n_s__7, __pyx_k__7, sizeof(__pyx_k__7), 0, 0, 1, 1},
     {&__pyx_n_s_asyncio_coroutines, __pyx_k_asyncio_coroutines, sizeof(__pyx_k_asyncio_coroutines), 0, 0, 1, 1},
     {&__pyx_n_u_can, __pyx_k_can, sizeof(__pyx_k_can), 0, 1, 0, 1},
+    {&__pyx_n_s_can_capnp_to_list, __pyx_k_can_capnp_to_list, sizeof(__pyx_k_can_capnp_to_list), 0, 0, 1, 1},
     {&__pyx_n_s_can_list, __pyx_k_can_list, sizeof(__pyx_k_can_list), 0, 0, 1, 1},
     {&__pyx_n_s_can_list_to_can_capnp, __pyx_k_can_list_to_can_capnp, sizeof(__pyx_k_can_list_to_can_capnp), 0, 0, 1, 1},
     {&__pyx_n_s_can_msg, __pyx_k_can_msg, sizeof(__pyx_k_can_msg), 0, 0, 1, 1},
     {&__pyx_n_s_can_msgs, __pyx_k_can_msgs, sizeof(__pyx_k_can_msgs), 0, 0, 1, 1},
     {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
+    {&__pyx_n_s_d, __pyx_k_d, sizeof(__pyx_k_d), 0, 0, 1, 1},
+    {&__pyx_n_s_data, __pyx_k_data, sizeof(__pyx_k_data), 0, 0, 1, 1},
     {&__pyx_n_s_f, __pyx_k_f, sizeof(__pyx_k_f), 0, 0, 1, 1},
+    {&__pyx_n_s_frames, __pyx_k_frames, sizeof(__pyx_k_frames), 0, 0, 1, 1},
     {&__pyx_n_s_is_coroutine, __pyx_k_is_coroutine, sizeof(__pyx_k_is_coroutine), 0, 0, 1, 1},
+    {&__pyx_n_s_it, __pyx_k_it, sizeof(__pyx_k_it), 0, 0, 1, 1},
     {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
     {&__pyx_n_s_msgtype, __pyx_k_msgtype, sizeof(__pyx_k_msgtype), 0, 0, 1, 1},
     {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
     {&__pyx_n_s_out, __pyx_k_out, sizeof(__pyx_k_out), 0, 0, 1, 1},
+    {&__pyx_n_s_result, __pyx_k_result, sizeof(__pyx_k_result), 0, 0, 1, 1},
     {&__pyx_kp_s_selfdrive_pandad_pandad_api_impl, __pyx_k_selfdrive_pandad_pandad_api_impl, sizeof(__pyx_k_selfdrive_pandad_pandad_api_impl), 0, 0, 1, 0},
     {&__pyx_n_s_selfdrive_pandad_pandad_api_impl_2, __pyx_k_selfdrive_pandad_pandad_api_impl_2, sizeof(__pyx_k_selfdrive_pandad_pandad_api_impl_2), 0, 0, 1, 1},
     {&__pyx_n_u_sendcan, __pyx_k_sendcan, sizeof(__pyx_k_sendcan), 0, 1, 0, 1},
+    {&__pyx_n_s_strings, __pyx_k_strings, sizeof(__pyx_k_strings), 0, 0, 1, 1},
     {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
     {&__pyx_n_s_valid, __pyx_k_valid, sizeof(__pyx_k_valid), 0, 0, 1, 1},
     {0, 0, 0, 0, 0, 0, 0}
@@ -3044,20 +3590,35 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "selfdrive/pandad/pandad_api_impl.pyx":17
- *   void can_list_to_can_capnp_cpp(const vector[can_frame] &can_list, string &out, bool sendCan, bool valid)
+  /* "selfdrive/pandad/pandad_api_impl.pyx":29
+ *   void can_capnp_to_can_list_cpp(const vector[string] &strings, vector[CanData] &can_data, bool sendcan)
  * 
  * def can_list_to_can_capnp(can_msgs, msgtype='can', valid=True):             # <<<<<<<<<<<<<<
  *   cdef can_frame *f
  *   cdef vector[can_frame] can_list
  */
-  __pyx_tuple_ = PyTuple_Pack(7, __pyx_n_s_can_msgs, __pyx_n_s_msgtype, __pyx_n_s_valid, __pyx_n_s_f, __pyx_n_s_can_list, __pyx_n_s_can_msg, __pyx_n_s_out); if (unlikely(!__pyx_tuple_)) __PYX_ERR(1, 17, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(7, __pyx_n_s_can_msgs, __pyx_n_s_msgtype, __pyx_n_s_valid, __pyx_n_s_f, __pyx_n_s_can_list, __pyx_n_s_can_msg, __pyx_n_s_out); if (unlikely(!__pyx_tuple_)) __PYX_ERR(1, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_selfdrive_pandad_pandad_api_impl, __pyx_n_s_can_list_to_can_capnp, 17, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(1, 17, __pyx_L1_error)
-  __pyx_tuple__3 = PyTuple_Pack(2, ((PyObject*)__pyx_n_u_can), ((PyObject *)Py_True)); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 17, __pyx_L1_error)
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_selfdrive_pandad_pandad_api_impl, __pyx_n_s_can_list_to_can_capnp, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(1, 29, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(2, ((PyObject*)__pyx_n_u_can), ((PyObject *)Py_True)); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
+
+  /* "selfdrive/pandad/pandad_api_impl.pyx":44
+ *   return out
+ * 
+ * def can_capnp_to_list(strings, msgtype='can'):             # <<<<<<<<<<<<<<
+ *   cdef vector[CanData] data
+ *   can_capnp_to_can_list_cpp(strings, data, msgtype == 'sendcan')
+ */
+  __pyx_tuple__4 = PyTuple_Pack(8, __pyx_n_s_strings, __pyx_n_s_msgtype, __pyx_n_s_data, __pyx_n_s_result, __pyx_n_s_d, __pyx_n_s_it, __pyx_n_s_frames, __pyx_n_s_f); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 44, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
+  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_selfdrive_pandad_pandad_api_impl, __pyx_n_s_can_capnp_to_list, 44, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(1, 44, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(1, ((PyObject*)__pyx_n_u_can)); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(1, 44, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -3421,23 +3982,36 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
 
-  /* "selfdrive/pandad/pandad_api_impl.pyx":17
- *   void can_list_to_can_capnp_cpp(const vector[can_frame] &can_list, string &out, bool sendCan, bool valid)
+  /* "selfdrive/pandad/pandad_api_impl.pyx":29
+ *   void can_capnp_to_can_list_cpp(const vector[string] &strings, vector[CanData] &can_data, bool sendcan)
  * 
  * def can_list_to_can_capnp(can_msgs, msgtype='can', valid=True):             # <<<<<<<<<<<<<<
  *   cdef can_frame *f
  *   cdef vector[can_frame] can_list
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_9selfdrive_6pandad_15pandad_api_impl_1can_list_to_can_capnp, 0, __pyx_n_s_can_list_to_can_capnp, NULL, __pyx_n_s_selfdrive_pandad_pandad_api_impl_2, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 17, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_9selfdrive_6pandad_15pandad_api_impl_1can_list_to_can_capnp, 0, __pyx_n_s_can_list_to_can_capnp, NULL, __pyx_n_s_selfdrive_pandad_pandad_api_impl_2, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_2, __pyx_tuple__3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_can_list_to_can_capnp, __pyx_t_2) < 0) __PYX_ERR(1, 17, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_can_list_to_can_capnp, __pyx_t_2) < 0) __PYX_ERR(1, 29, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "selfdrive/pandad/pandad_api_impl.pyx":44
+ *   return out
+ * 
+ * def can_capnp_to_list(strings, msgtype='can'):             # <<<<<<<<<<<<<<
+ *   cdef vector[CanData] data
+ *   can_capnp_to_can_list_cpp(strings, data, msgtype == 'sendcan')
+ */
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_9selfdrive_6pandad_15pandad_api_impl_3can_capnp_to_list, 0, __pyx_n_s_can_capnp_to_list, NULL, __pyx_n_s_selfdrive_pandad_pandad_api_impl_2, __pyx_d, ((PyObject *)__pyx_codeobj__5)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 44, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_2, __pyx_tuple__6);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_can_capnp_to_list, __pyx_t_2) < 0) __PYX_ERR(1, 44, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "selfdrive/pandad/pandad_api_impl.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
  * # cython: language_level=3
- * from libcpp.vector cimport vector
+ * from cython.operator cimport dereference as deref, preincrement as preinc
  */
   __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -6125,6 +6699,134 @@ raise_neg_overflow:
     return (long) -1;
 }
 
+/* CIntToPy */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_uint64_t(uint64_t value) {
+#ifdef __Pyx_HAS_GCC_DIAGNOSTIC
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+#endif
+    const uint64_t neg_one = (uint64_t) -1, const_zero = (uint64_t) 0;
+#ifdef __Pyx_HAS_GCC_DIAGNOSTIC
+#pragma GCC diagnostic pop
+#endif
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(uint64_t) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(uint64_t) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(uint64_t) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+#endif
+        }
+    } else {
+        if (sizeof(uint64_t) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(uint64_t) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+#endif
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+#if !CYTHON_COMPILING_IN_LIMITED_API && PY_VERSION_HEX < 0x030d0000
+        return _PyLong_FromByteArray(bytes, sizeof(uint64_t),
+                                     little, !is_unsigned);
+#else
+        PyObject *from_bytes, *result = NULL;
+        PyObject *py_bytes = NULL, *arg_tuple = NULL, *kwds = NULL, *order_str = NULL;
+        from_bytes = PyObject_GetAttrString((PyObject*)&PyLong_Type, "from_bytes");
+        if (!from_bytes) return NULL;
+        py_bytes = PyBytes_FromStringAndSize((char*)bytes, sizeof(uint64_t));
+        if (!py_bytes) goto limited_bad;
+        order_str = PyUnicode_FromString(little ? "little" : "big");
+        if (!order_str) goto limited_bad;
+        arg_tuple = PyTuple_Pack(2, py_bytes, order_str);
+        if (!arg_tuple) goto limited_bad;
+        if (!is_unsigned) {
+            kwds = PyDict_New();
+            if (!kwds) goto limited_bad;
+            if (PyDict_SetItemString(kwds, "signed", __Pyx_NewRef(Py_True))) goto limited_bad;
+        }
+        result = PyObject_Call(from_bytes, arg_tuple, kwds);
+        limited_bad:
+        Py_XDECREF(kwds);
+        Py_XDECREF(arg_tuple);
+        Py_XDECREF(order_str);
+        Py_XDECREF(py_bytes);
+        Py_XDECREF(from_bytes);
+        return result;
+#endif
+    }
+}
+
+/* CIntToPy */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_uint32_t(uint32_t value) {
+#ifdef __Pyx_HAS_GCC_DIAGNOSTIC
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+#endif
+    const uint32_t neg_one = (uint32_t) -1, const_zero = (uint32_t) 0;
+#ifdef __Pyx_HAS_GCC_DIAGNOSTIC
+#pragma GCC diagnostic pop
+#endif
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(uint32_t) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(uint32_t) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(uint32_t) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+#endif
+        }
+    } else {
+        if (sizeof(uint32_t) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(uint32_t) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+#endif
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+#if !CYTHON_COMPILING_IN_LIMITED_API && PY_VERSION_HEX < 0x030d0000
+        return _PyLong_FromByteArray(bytes, sizeof(uint32_t),
+                                     little, !is_unsigned);
+#else
+        PyObject *from_bytes, *result = NULL;
+        PyObject *py_bytes = NULL, *arg_tuple = NULL, *kwds = NULL, *order_str = NULL;
+        from_bytes = PyObject_GetAttrString((PyObject*)&PyLong_Type, "from_bytes");
+        if (!from_bytes) return NULL;
+        py_bytes = PyBytes_FromStringAndSize((char*)bytes, sizeof(uint32_t));
+        if (!py_bytes) goto limited_bad;
+        order_str = PyUnicode_FromString(little ? "little" : "big");
+        if (!order_str) goto limited_bad;
+        arg_tuple = PyTuple_Pack(2, py_bytes, order_str);
+        if (!arg_tuple) goto limited_bad;
+        if (!is_unsigned) {
+            kwds = PyDict_New();
+            if (!kwds) goto limited_bad;
+            if (PyDict_SetItemString(kwds, "signed", __Pyx_NewRef(Py_True))) goto limited_bad;
+        }
+        result = PyObject_Call(from_bytes, arg_tuple, kwds);
+        limited_bad:
+        Py_XDECREF(kwds);
+        Py_XDECREF(arg_tuple);
+        Py_XDECREF(order_str);
+        Py_XDECREF(py_bytes);
+        Py_XDECREF(from_bytes);
+        return result;
+#endif
+    }
+}
+
 /* FormatTypeName */
 #if CYTHON_COMPILING_IN_LIMITED_API
 static __Pyx_TypeName
@@ -6135,7 +6837,7 @@ __Pyx_PyType_GetName(PyTypeObject* tp)
     if (unlikely(name == NULL) || unlikely(!PyUnicode_Check(name))) {
         PyErr_Clear();
         Py_XDECREF(name);
-        name = __Pyx_NewRef(__pyx_n_s__4);
+        name = __Pyx_NewRef(__pyx_n_s__7);
     }
     return name;
 }

@@ -4,6 +4,7 @@
 from openpilot.dp_ext.selfdrive.car.toyota.zss.common import ENABLED, ALKA
 from opendbc.can.parser import CANParser
 from cereal import messaging
+from openpilot.selfdrive.pandad import can_capnp_to_list
 
 THRESHOLD = 4.0
 THRESHOLD_COUNT = 10
@@ -52,7 +53,8 @@ class ZSSController:
 
     def _get_zss_steer(self):
         can_strings = messaging.drain_sock_raw(self.can_sock, wait_for_one=True)
-        self.can_parser.update_strings(can_strings)
+        can_list = can_capnp_to_list(can_strings)
+        self.can_parser.update_strings(can_list)
 
         # reading data from sensor
         return self.can_parser.vl["SECONDARY_STEER_ANGLE"]["ZORRO_STEER"]
