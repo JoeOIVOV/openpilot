@@ -22,7 +22,6 @@ static void update_state(UIState *s) {
   SubMaster &sm = *(s->sm);
   UIScene &scene = s->scene;
 
-  if (sm.updated("liveCalibration")) {
     auto list2rot = [](const capnp::List<float>::Reader &rpy_list) ->Eigen::Matrix3f {
       return euler2rot({rpy_list[0], rpy_list[1], rpy_list[2]}).cast<float>();
     };

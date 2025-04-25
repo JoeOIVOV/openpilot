@@ -128,6 +128,10 @@ class GuiApplication:
       rl.set_texture_filter(font.texture, rl.TextureFilter.TEXTURE_FILTER_BILINEAR)
       self._fonts[index] = font
 
+    mono_font = rl.load_font_ex(os.path.join(FONT_DIR, "JetBrainsMono-Medium.ttf"), 120, None, 0)
+    rl.set_texture_filter(mono_font.texture, rl.TextureFilter.TEXTURE_FILTER_BILINEAR)
+    self._fonts[100] = mono_font
+
     rl.gui_set_font(self._fonts[FontWeight.NORMAL])
 
   def _set_styles(self):
