@@ -11,8 +11,8 @@ from openpilot.system.ui.lib.application import gui_app
 
 MARGIN = 8
 SPACING = 12
-FONT_SIZE = 50
-LINE_HEIGHT = 58
+FONT_SIZE = 64
+LINE_HEIGHT = 72
 BUTTON_SIZE = rl.Vector2(290, 160)
 
 DEMO_TEXT = """selfdrive/ui/ui.cc:23:12: error: unused variable 'scene' [-Werror,-Wunused-variable]
