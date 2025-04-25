@@ -40,7 +40,7 @@ class SpinnerRenderer:
         self._wrapped_lines = []
       else:
         self._progress = None
-        self._wrapped_lines = wrap_text(text, FONT_SIZE, gui_app.width - MARGIN_H)
+        self._wrapped_lines = wrap_text(text, gui_app.font(), FONT_SIZE, gui_app.width - MARGIN_H)
 
   def render(self):
     with self._lock:

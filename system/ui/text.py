@@ -42,9 +42,8 @@ selfdrive/ui/ui.cc:62:1: error: extraneous closing brace ('}')
 8 errors generated.
 scons: *** [selfdrive/ui/ui.o] Error 1"""
 
-def wrap_text(text, font_size, max_width):
+def wrap_text(text, font, font_size, max_width):
   lines = []
-  font = gui_app.font()
 
   for paragraph in text.split("\n"):
     if not paragraph.strip():
@@ -72,8 +71,9 @@ def wrap_text(text, font_size, max_width):
 
 class TextWindowRenderer:
   def __init__(self, text: str):
+    self._font = gui_app.font(100)
     self._textarea_rect = rl.Rectangle(MARGIN, 0, gui_app.width - MARGIN, gui_app.height)
-    self._wrapped_lines = wrap_text(text, FONT_SIZE, self._textarea_rect.width - 20)
+    self._wrapped_lines = wrap_text(text, self._font, FONT_SIZE, self._textarea_rect.width - 20)
     self._content_rect = rl.Rectangle(0, 0, self._textarea_rect.width - 20, len(self._wrapped_lines) * LINE_HEIGHT)
     self._scroll_panel = GuiScrollPanel(show_vertical_scroll_bar=True)
     self._scroll_panel._offset.y = -max(self._content_rect.height - self._textarea_rect.height, 0)
@@ -85,7 +85,7 @@ class TextWindowRenderer:
       position = rl.Vector2(self._textarea_rect.x + scroll.x, self._textarea_rect.y + scroll.y + i * LINE_HEIGHT)
       if position.y + LINE_HEIGHT < self._textarea_rect.y or position.y > self._textarea_rect.y + self._textarea_rect.height:
         continue
-      rl.draw_text_ex(gui_app.font(100), line, position, FONT_SIZE, 0, rl.WHITE)
+      rl.draw_text_ex(self._font, line, position, FONT_SIZE, 0, rl.WHITE)
     rl.end_scissor_mode()
 
     button_bounds = rl.Rectangle(gui_app.width - MARGIN - BUTTON_SIZE.x - SPACING, gui_app.height - MARGIN - BUTTON_SIZE.y, BUTTON_SIZE.x, BUTTON_SIZE.y)
