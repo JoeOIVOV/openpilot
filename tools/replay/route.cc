@@ -50,9 +50,11 @@ bool Route::load() {
     return false;
   }
 
+  // Parse the timestamp from the route identifier (only applicable for old route formats).
   struct tm tm_time = {0};
-  strptime(route_.timestamp.c_str(), "%Y-%m-%d--%H-%M-%S", &tm_time);
-  date_time_ = mktime(&tm_time);
+  if (strptime(route_.timestamp.c_str(), "%Y-%m-%d--%H-%M-%S", &tm_time)) {
+    date_time_ = mktime(&tm_time);
+  }
 
   bool ret = data_dir_.empty() ? loadFromServer() : loadFromLocal();
   if (ret) {
@@ -121,7 +123,7 @@ bool Route::loadFromJson(const std::string &json) {
 bool Route::loadFromLocal() {
   std::string pattern = route_.timestamp + "--";
   for (const auto &entry : std::filesystem::directory_iterator(data_dir_)) {
-    if (entry.is_directory() && entry.path().filename().string().find(pattern) == 0) {
+    if (entry.is_directory() && entry.path().filename().string().find(pattern) != std::string::npos) {
       std::string segment = entry.path().string();
       int seg_num = std::atoi(segment.substr(segment.rfind("--") + 2).c_str());
 
